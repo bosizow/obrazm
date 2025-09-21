@@ -1,1 +1,134 @@
-<header>Header</header>
+<header class="site-header uk-position-relative"
+  uk-sticky="top: 0; animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky">
+  <div class="uk-navbar-container uk-navbar-transparent uk-light@dark uk-background-default uk-box-shadow-small"
+    style="z-index: 980;">
+    <div class="uk-container">
+
+      <nav class="uk-navbar" uk-navbar>
+        <!-- ЛЕВАЯ ЧАСТЬ: ЛОГО -->
+        <div class="uk-navbar-left">
+          <a class="uk-navbar-item uk-logo" href="/">
+            <!-- Замените на свой svg/png логотип -->
+            <span class="logo-text">ОБРАЗ<span class="logo-mark">◎</span>МЫСЛИ</span>
+          </a>
+        </div>
+
+        <!-- ЦЕНТР: НАВИГАЦИЯ (ДЕСКТОП) -->
+        <div class="uk-navbar-center uk-visible@m">
+          <ul class="uk-navbar-nav">
+            <!-- Дроп "С чем помогаем" (hover на десктопе) -->
+            <li>
+              <a href="#">С чем помогаем <span uk-icon="icon: chevron-down; ratio: 0.9"></span></a>
+              <div class="uk-navbar-dropdown"
+                uk-dropdown="mode: hover; boundary: .uk-navbar; boundary-align: true; delay-hide: 120">
+                <ul class="uk-nav uk-navbar-dropdown-nav">
+                  <!-- Заполните реальными ссылками -->
+                  <li><a href="/help/stress.html">Стресс и тревожность</a></li>
+                  <li><a href="/help/self-esteem.html">Самооценка</a></li>
+                  <li><a href="/help/relationships.html">Отношения</a></li>
+                </ul>
+              </div>
+            </li>
+
+            <li><a href="#stories" class="js-anchor">Истории учеников</a></li>
+            <li><a href="#result" class="js-anchor">Результат</a></li>
+            <li><a href="#experts" class="js-anchor">Наши специалисты</a></li>
+          </ul>
+        </div>
+
+        <!-- ПРАВАЯ ЧАСТЬ: CTA + БУРГЕР (мобайл), только CTA (десктоп) -->
+        <div class="uk-navbar-right">
+          <!-- CTA на всех брейкпоинтах -->
+          <div class="uk-navbar-item uk-visible@s">
+            <a class="cta-btn uk-button uk-button-primary uk-border-pill" href="https://t.me/your_telegram"
+              target="_blank" rel="noopener">
+              <!-- Иконка Telegram (inline) -->
+              <svg class="cta-ic" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d="M21.7 3.3L2.6 10.4c-.9.3-.9 1.6 0 1.9l4.8 1.6 1.8 5.7c.2.7 1 .9 1.6.4l2.6-2.1 4.9 3.6c.6.5 1.5.1 1.7-.7l3-16.1c.2-.9-.7-1.6-1.3-1.3zM18 7.1l-8.1 7.2-.3 3.1-1.2-3.7 9.6-6.6z"
+                  fill="currentColor" />
+              </svg>
+              <span class="cta-text">Связаться в&nbsp;Telegram</span>
+            </a>
+          </div>
+
+          <!-- Кнопка бургер только на мобайле -->
+          <div class="uk-navbar-item uk-hidden@m">
+            <button class="menu-btn uk-navbar-toggle" type="button" uk-toggle="target: #mobile-offcanvas"
+              aria-label="Открыть меню">
+              <span uk-navbar-toggle-icon></span><span class="uk-margin-small-left">Меню</span>
+            </button>
+          </div>
+        </div>
+      </nav>
+
+    </div>
+  </div>
+
+  <!-- МОБИЛЬНОЕ МЕНЮ (OFFCANVAS) -->
+  <div id="mobile-offcanvas" uk-offcanvas="overlay: true; mode: slide; flip: true">
+    <div class="uk-offcanvas-bar offcanvas-full">
+
+      <!-- Кнопка закрытия (крупная, как в референсе) -->
+      <button class="uk-offcanvas-close uk-icon-button uk-position-top-right uk-position-small" type="button" uk-close
+        aria-label="Закрыть меню"></button>
+
+      <!-- ЛОГО -->
+      <a class="uk-logo uk-display-block uk-margin-medium-top uk-margin-bottom" href="/">
+        <span class="logo-text">ОБРАЗ<span class="logo-mark">◎</span>МЫСЛИ</span>
+      </a>
+
+      <!-- НАВ (дублируем элементы десктопа). "С чем помогаем" по КЛИКУ -->
+      <ul class="uk-nav uk-nav-default uk-margin-medium-bottom" uk-nav>
+        <li class="uk-parent">
+          <a href="#">С чем помогаем</a>
+          <ul class="uk-nav-sub">
+            <li><a href="/help/stress.html">Стресс и тревожность</a></li>
+            <li><a href="/help/self-esteem.html">Самооценка</a></li>
+            <li><a href="/help/relationships.html">Отношения</a></li>
+          </ul>
+        </li>
+        <li><a href="#stories" class="js-anchor" uk-toggle="target: #mobile-offcanvas">Истории учеников</a></li>
+        <li><a href="#result" class="js-anchor" uk-toggle="target: #mobile-offcanvas">Результат</a></li>
+        <li><a href="#experts" class="js-anchor" uk-toggle="target: #mobile-offcanvas">Наши специалисты</a></li>
+      </ul>
+
+      <!-- CTA внутри меню (дублирование, как просили) -->
+      <a class="cta-btn cta-btn--mobile uk-button uk-button-primary uk-border-pill uk-width-1-1 uk-margin-bottom"
+        href="https://t.me/your_telegram" target="_blank" rel="noopener">
+        <svg class="cta-ic" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path
+            d="M21.7 3.3L2.6 10.4c-.9.3-.9 1.6 0 1.9l4.8 1.6 1.8 5.7c.2.7 1 .9 1.6.4l2.6-2.1 4.9 3.6c.6.5 1.5.1 1.7-.7l3-16.1c.2-.9-.7-1.6-1.3-1.3zM18 7.1l-8.1 7.2-.3 3.1-1.2-3.7 9.6-6.6z"
+            fill="currentColor" />
+        </svg>
+        Связаться с нами в Telegram
+      </a>
+
+      <!-- Соцсети -->
+      <div class="uk-flex uk-flex-left uk-flex-middle uk-grid-small uk-margin-small-bottom" uk-grid>
+        <div>
+          <a class="social-ic uk-icon-button" href="https://vk.com" target="_blank" aria-label="VK" rel="noopener"
+            uk-icon="icon: vk"></a>
+        </div>
+        <div>
+          <a class="social-ic uk-icon-button" href="https://t.me/your_telegram" target="_blank" aria-label="Telegram"
+            rel="noopener">
+            <!-- Telegram иконка -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M21.7 3.3L2.6 10.4c-.9.3-.9 1.6 0 1.9l4.8 1.6 1.8 5.7c.2.7 1 .9 1.6.4l2.6-2.1 4.9 3.6c.6.5 1.5.1 1.7-.7l3-16.1c.2-.9-.7-1.6-1.3-1.3zM18 7.1l-8.1 7.2-.3 3.1-1.2-3.7 9.6-6.6z"
+                fill="currentColor" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Адрес внизу меню -->
+      <div class="mobile-address uk-text-muted uk-text-small uk-margin-top">
+        <div>Адрес: г. Рязань,</div>
+        <div>Первомайский проспект, 64/1, к.1</div>
+        <div>График работы: круглосуточно</div>
+      </div>
+    </div>
+  </div>
+</header>
