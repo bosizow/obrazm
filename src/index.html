@@ -1,5 +1,23 @@
-<!doctype html><html lang="ru"><head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Test</title>
-<link rel="stylesheet" href="css/main.css"/>
-</head><body><h1>It works</h1><script src="js/main.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <title><!-- TITLE --></title>
+  @@include('./partials/head.html')
+  <meta name="description" content="Описание страницы. Замените это на актуальное.">
+  <meta name="keywords" content="ключевые слова, заменить, под SEO">
+</head>
+
+<body>
+  @@include('./partials/header.html')
+
+  <main class="uk-section">
+    <div class="uk-container">
+      <h1 class="uk-heading-medium">Главная</h1>
+    </div>
+  </main>
+
+  @@include('./partials/footer.html')
+</body>
+
+</html>
