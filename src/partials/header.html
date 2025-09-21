@@ -1,1 +1,47 @@
-<header>Header</header>
+<header class="uk-navbar-container" uk-navbar>
+  <div class="uk-container uk-container-expand">
+    <div class="uk-navbar">
+
+      <!-- Лого -->
+      <div class="uk-navbar-left">
+        <a href="#" class="uk-navbar-item uk-logo">
+          <img src="assets/images/logo.svg" alt="Образ Мысли" style="height:32px;">
+        </a>
+
+        <!-- Раскрывающееся меню -->
+        <div class="uk-navbar-item">
+          <div class="uk-inline">
+            <button class="uk-button uk-button-text" type="button">
+              С чем помогаем <span uk-icon="icon: chevron-down"></span>
+            </button>
+            <div uk-dropdown="mode: click">
+              <ul class="uk-nav uk-dropdown-nav">
+                <li><a href="#block1">Вариант 1</a></li>
+                <li><a href="#block2">Вариант 2</a></li>
+                <li><a href="#block3">Вариант 3</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Навигация -->
+      <div class="uk-navbar-center">
+        <ul class="uk-navbar-nav">
+          <li><a href="#stories">Истории учеников</a></li>
+          <li><a href="#result">Результат</a></li>
+          <li><a href="#team">Наши специалисты</a></li>
+        </ul>
+      </div>
+
+      <!-- Кнопка -->
+      <div class="uk-navbar-right">
+        <a href="https://t.me/yourchannel"
+          class="uk-button uk-button-default uk-border-pill uk-button-large uk-background-primary uk-light">
+          Связаться с нами в Телеграм
+        </a>
+      </div>
+
+    </div>
+  </div>
+</header>
