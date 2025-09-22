@@ -1,0 +1,59 @@
+/* ====== EXPERTS ====== */
+:root{
+  --brand-orange:#F07A2A;
+  --expert-card-bg:#F3EFEA;   /* тёплый беж для «листка» */
+  --expert-pin:#B8B8B8;       /* серый цвет скрепки */
+}
+
+.experts { padding-top: 56px; padding-bottom: 56px; }
+.experts h2 { color:#1f1f1f; }
+.experts p  { color:#666; }
+
+/* карточка-«листок» */
+.expert-card{
+  position: relative;
+  background: var(--expert-card-bg);
+  border-radius: 12px;
+  border: 0;
+  padding: 18px 18px 22px;
+  box-shadow: 0 12px 26px rgba(16,24,40,.10);
+  transition: transform .2s ease, box-shadow .2s ease, background-color .2s;
+  opacity: 0; transform: translateY(10px);
+}
+.expert-card.is-in{ opacity:1; transform:none; }
+.expert-card:hover{
+  box-shadow: 0 16px 34px rgba(16,24,40,.14);
+  background: #F6F2EC;
+}
+
+/* скрепка */
+.expert-pin{
+  position:absolute; left: 50%; top: -14px; transform: translateX(-50%);
+  width: 28px; height: 56px; color: var(--expert-pin);
+  filter: drop-shadow(0 3px 4px rgba(0,0,0,.2));
+}
+
+/* нижняя тень-линейка */
+.expert-shadow{
+  position:absolute; left: 10px; right: 10px; bottom: -8px; height: 10px;
+  background: rgba(0,0,0,.10);
+  filter: blur(6px); border-radius: 8px;
+}
+
+/* фото */
+.expert-photo{
+  width: 92px; height: 92px; border-radius: 10px; overflow: hidden;
+  background:#fff; box-shadow: inset 0 0 0 2px rgba(0,0,0,.04);
+}
+.expert-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+/* текст */
+.expert-name{ font-size: 18px; line-height: 1.25; color:#D85812; /* ближе к оранжевому */ }
+.expert-role{ color:#D86A33; font-weight: 600; margin-top: 2px; }
+.expert-desc{ color:#666; }
+
+/* респонсивности мелкие штрихи */
+@media (max-width: 639.98px){
+  .expert-photo{ width: 80px; height: 80px; }
+  .expert-name{ font-size: 17px; }
+}
