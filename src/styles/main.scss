@@ -1,12 +1,13 @@
-// импорт переменных
-
 @import 'variables';
+@import 'header';
+@import 'footer';
+@import 'hero';
+@import 'problems';
+@import 'statement';
+@import 'story';
+@import 'result';
+@import 'experts';
 
-header {
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  background-color: var(--primary-color);
-}
-
-footer {
-  background-color: var(--accent-color);
+html {
+  font-size: var(--rem) !important;
 }

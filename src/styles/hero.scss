@@ -1,0 +1,78 @@
+/* ===== Hero base ===== */
+.hero { position: relative; overflow: hidden; min-height: clamp(520px, 80vh, 820px); }
+.hero__container { position: relative; z-index: 2; padding-top: clamp(32px, 6vh, 64px); padding-bottom: clamp(24px, 6vh, 48px); }
+
+/* фон: левая половина — фото + затемнение, правая — фирменный цвет */
+:root { --hero-orange: var(--brand-orange, #F07A2A); }
+
+.hero__bg { position: absolute; inset: 0; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; }
+.hero__bg-left,
+.hero__bg-right { position: relative; min-height: 100%; }
+
+.hero__bg-left {
+  background: url("assets/images/hero/left-bg.jpg") center/cover no-repeat;
+}
+.hero__bg-left::after { /* затемнение */
+  content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.40);
+}
+
+.hero__bg-right { background: var(--hero-orange); }
+
+/* заголовки */
+.hero__kicker { 
+  color:#fff; letter-spacing:.06em; font-size: clamp(13px, 1.4vw, 22px);
+  text-shadow: 0 2px 6px rgba(0,0,0,.18);
+}
+.hero__title {
+  margin: .4em 0 0;
+  font-weight: 800; line-height: .95; letter-spacing:.02em;
+  font-size: clamp(36px, 7vw, 112px);
+  color: #FFEAD2; /* тёплый кремовый */
+  text-shadow: 0 2px 6px rgba(0,0,0,.18);
+}
+
+/* бумажный блок */
+.hero__paper {
+  position: absolute;
+  left: 50%; top: clamp(48%, 48%, 48%); transform: translate(-30%, -10%);
+  background: #fff; border: none;
+  box-shadow: 0 12px 40px rgba(16,24,40,.18);
+}
+.hero__paper-body {
+  padding: clamp(16px, 3.2vw, 28px) clamp(18px, 3.6vw, 36px);
+  max-width: min(46vw, 520px);
+  font-size: clamp(16px, 1.6vw, 22px);
+  color: #E0681E; /* текст внутри оранжевый */
+}
+.hero__cta { margin-top: clamp(12px, 2.2vw, 20px); }
+
+/* люди */
+.hero__people {
+  position: absolute; right: max(12px, 6vw); bottom: 0;
+  width: clamp(260px, 30vw, 560px);
+  filter: drop-shadow(0 16px 30px rgba(16,24,40,.22));
+}
+
+/* адаптация */
+@media (max-width: 1199.98px) {
+  .hero__paper { transform: translate(-34%, 0); }
+}
+
+@media (max-width: 959.98px) {
+  .hero { min-height: 640px; }
+  .hero__bg { grid-template-columns: 1fr; }            /* фон становится единым слоем */
+  .hero__bg-right { display: none; }                   /* оставляем фото + затемнение */
+  .hero__title { font-size: clamp(34px, 9.2vw, 64px); }
+  .hero__paper { position: relative; left: auto; top: auto; transform:none; margin: 24px auto 0; }
+  .hero__paper-body { max-width: 100%; }
+  .hero__people { position: relative; right: auto; width: clamp(260px, 58vw, 460px); margin: 16px auto 0; }
+}
+
+/* --- (необязательно) неровные «рваные» края листа через маску --- */
+/* Если добавишь маску assets/images/hero/paper-mask.png (ч/б), раскомментируй: */
+/*
+.hero__paper {
+  -webkit-mask: url("assets/images/hero/paper-mask.png") center/100% 100% no-repeat;
+          mask: url("assets/images/hero/paper-mask.png") center/100% 100% no-repeat;
+}
+*/

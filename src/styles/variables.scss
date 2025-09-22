@@ -1,4 +1,39 @@
 :root {
-  --primary-color: #f90;
-  --accent-color: #50a;
+  --orange500: #E56F32;
+  --orange300: #ED9A70;
+  --orange100: #FFF6CA;
+  --yellow500: #F5AD32;
+  --blue500: #5C42CF;
+  --blue300: #B7C6FF;
+  --dark500: #222222;
+  --dark300: #7D7D7D;
+  --light500: #FFF;
+  --light300: #F4F1E9;
+  --green100: #D9F1DB;
+
+  --text-color-primary: var(--dark500);
+  --text-color-secondary: var(--dark300);
+  --text-color-muted: var(--dark300);
+  --text-color-accent: var(--orange500);
+  --text-color-accent-muted: var(--orange100);
+  --text-color-inverse: var(--light500);
+
+  --bg-color-base: var(--light500);
+  --bg-color-accent: var(--orange500);
+  --bg-color-accent-muted: var(--orange300);
+  --bg-color-accent-second: var(--blue500);
+  --bg-color-input: var(--blue300);
+  --bg-color-result1: var(--orange100);
+  --bg-color-result2: var(--green100);
+  --bg-color-result3: var(--light300);
+  --bg-color-result4: var(--orange500);
+  --bg-color-experts: var(--light300);
+
+  --rem: 12px;
+  --font-family: 'Inter', sans-serif;
+  --font-family-accent: 'Unbounded', sans-serif;
+  --bold-font-weight: 500;
+  --normal-font-weight: 400;
+
+  --bttn-transition: background-color 0.3s ease-in, opacity 0.3s ease !important;
 }

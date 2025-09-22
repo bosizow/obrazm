@@ -12,7 +12,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "devDependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "ansi-colors": "^4.1.3",
@@ -26,6 +25,7 @@
     "fluent-ffmpeg": "^2.1.3",
     "glob": "^11.0.3",
     "gulp": "^4.0.2",
+    "gulp-cli": "^3.1.0",
     "gulp-esbuild": "^0.14.1",
     "gulp-file-include": "^2.3.0",
     "gulp-group-css-media-queries": "^1.2.2",
@@ -55,5 +55,6 @@
   "dependencies": {
     "normalize.css": "^8.0.1",
     "uikit": "^3.23.13"
-  }
+  },
+  "description": ""
 }
