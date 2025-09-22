@@ -8,6 +8,6 @@
 @import 'result';
 @import 'experts';
 
-main.uk-section {
-  min-height: 450dvh !important;
+html {
+  font-size: var(--rem) !important;
 }
