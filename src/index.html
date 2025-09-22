@@ -16,10 +16,99 @@
 <body>
   @@include('./partials/header.html')
 
-  <main class="uk-section">
-    <div class="uk-container">
-      <h1 class="uk-heading-medium">Главная</h1>
-    </div>
+  <main id="main" class="uk-section uk-section-default uk-padding-remove-vertical">
+    <section id="hero" class="hero uk-section uk-padding-remove-top uk-padding-remove-bottom">
+      <!-- Две половины фона -->
+      <div class="hero__bg" aria-hidden="true">
+        <div class="hero__bg-left"></div>
+        <div class="hero__bg-right"></div>
+      </div>
+
+      <div class="uk-container hero__container">
+        <!-- верхний малый заголовок -->
+        <div class="uk-text-center hero__kicker uk-text-uppercase uk-text-bold">
+          Центр-пансионат для подростков
+        </div>
+
+        <!-- главный заголовок -->
+        <h1 class="uk-text-center hero__title">
+          «ОБРАЗ&nbsp;МЫСЛИ»
+        </h1>
+
+        <!-- «листок бумаги» с оффером -->
+        <div class="hero__paper uk-card uk-card-default">
+          <div class="hero__paper-body">
+            <p class="uk-margin-remove">
+              Перевоспитание детей и подростков без&nbsp;отрыва от&nbsp;обучения
+            </p>
+            <a href="#signup" class="uk-button btn-orange uk-border-pill hero__cta">
+              Оставить заявку
+            </a>
+          </div>
+        </div>
+
+        <!-- вырезанное PNG с людьми -->
+        <img class="hero__people" src="assets/images/hero/teens.png" alt="Подростки «Образ мысли»">
+      </div>
+    </section>
+
+    <section id="problems" class="problems uk-section">
+      <div class="uk-container">
+        <h2 class="uk-heading-medium uk-margin-remove-top uk-margin-large-bottom">
+          С какими проблемами детей<br class="uk-visible@m"> и подростков к нам обращаются?
+        </h2>
+
+        <div class="problems__stage">
+          <!-- SVG-тропа: видна только на ≥ m -->
+          <svg class="problems__path uk-visible@m" viewBox="0 0 1440 560" preserveAspectRatio="xMidYMid slice"
+            aria-hidden="true">
+            <!-- Замените на экспорт из макета; ниже — заглушка -->
+            <path d="M40,420 C200,200 520,520 660,260 S1080,220 1400,480" fill="none" stroke="#F07A2A" stroke-width="44"
+              stroke-linecap="round" stroke-linejoin="round" opacity=".9" />
+            <path d="M80,440 C240,240 520,520 680,280 S1100,240 1420,500" fill="none" stroke="#FDBF6E" stroke-width="22"
+              stroke-linecap="round" stroke-linejoin="round" opacity=".9" />
+          </svg>
+
+          <!-- Карточки: на десктопе позиционируем по % координатам через CSS-переменные -->
+          <ul class="problems__items">
+            <li class="problems__item" style="--x:10%; --y:65%;">
+              <!-- @@include('./partials/problem-card.html', {
+              "img": "assets/images/problems/school.jpg",
+              "title": "Отказывается\nучиться в школе"
+              }) -->
+            </li>
+
+            <li class="problems__item" style="--x:38%; --y:75%;">
+              <!-- @@include('./partials/problem-card.html', {
+              "img": "assets/images/problems/company.jpg",
+              "title": "Связался с плохой\nкомпанией"
+              }) -->
+            </li>
+
+            <li class="problems__item" style="--x:55%; --y:38%;">
+              <!-- @@include('./partials/problem-card.html', {
+              "img": "assets/images/problems/runaway.jpg",
+              "title": "Бродяжничает,\nуходит из дома"
+              }) -->
+            </li>
+
+            <li class="problems__item" style="--x:72%; --y:68%;">
+              <!-- @@include('./partials/problem-card.html', {
+              "img": "assets/images/problems/gadgets.jpg",
+              "title": "Зависим\nот гаджетов"
+              }) -->
+            </li>
+
+            <li class="problems__item" style="--x:90%; --y:58%;">
+              <!-- @@include('./partials/problem-card.html', {
+              "img": "assets/images/problems/aggression.jpg",
+              "title": "Стал агрессивным,\nгрубым, применяет\nфизическую силу"
+              }) -->
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
   </main>
 
   @@include('./partials/footer.html')
