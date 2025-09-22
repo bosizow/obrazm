@@ -72,38 +72,38 @@
           <!-- Карточки: на десктопе позиционируем по % координатам через CSS-переменные -->
           <ul class="problems__items">
             <li class="problems__item" style="--x:10%; --y:65%;">
-              <!-- @@include('./partials/problem-card.html', {
+              @@include('./partials/problem-card.html', {
               "img": "assets/images/problems/school.jpg",
               "title": "Отказывается\nучиться в школе"
-              }) -->
+              })
             </li>
 
             <li class="problems__item" style="--x:38%; --y:75%;">
-              <!-- @@include('./partials/problem-card.html', {
+              @@include('./partials/problem-card.html', {
               "img": "assets/images/problems/company.jpg",
               "title": "Связался с плохой\nкомпанией"
-              }) -->
+              })
             </li>
 
             <li class="problems__item" style="--x:55%; --y:38%;">
-              <!-- @@include('./partials/problem-card.html', {
+              @@include('./partials/problem-card.html', {
               "img": "assets/images/problems/runaway.jpg",
               "title": "Бродяжничает,\nуходит из дома"
-              }) -->
+              })
             </li>
 
             <li class="problems__item" style="--x:72%; --y:68%;">
-              <!-- @@include('./partials/problem-card.html', {
+              @@include('./partials/problem-card.html', {
               "img": "assets/images/problems/gadgets.jpg",
               "title": "Зависим\nот гаджетов"
-              }) -->
+              })
             </li>
 
             <li class="problems__item" style="--x:90%; --y:58%;">
-              <!-- @@include('./partials/problem-card.html', {
+              @@include('./partials/problem-card.html', {
               "img": "assets/images/problems/aggression.jpg",
               "title": "Стал агрессивным,\nгрубым, применяет\nфизическую силу"
-              }) -->
+              })
             </li>
           </ul>
         </div>
@@ -223,64 +223,18 @@
       <div class="story__bg" aria-hidden="true"></div>
 
       <div class="uk-container">
-        <!-- ROW 1: фото слева, цитата справа -->
-        <div class="story__row uk-grid-large uk-child-width-1-1 uk-child-width-1-2@m" uk-grid
-          uk-height-match="target: .story-card">
-          <div class="story__col">
-            <div class="story-card story-card--image">
-              <div class="story-photo">
-                <img src="assets/images/story/p1.png" alt="Никита" loading="lazy">
-              </div>
-            </div>
-          </div>
-          <div class="story__col">
-            <div class="story-card story-card--quote bubble-right">
-              <p class="story-quote">
-                Привет! Я Никита, мне 13 лет.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- ROW 2: РЕВЕРС (цитата слева, фото справа) -->
-        <div class="story__row story__row--reverse uk-grid-large uk-child-width-1-1 uk-child-width-1-2@m" uk-grid
-          uk-height-match="target: .story-card">
-          <div class="story__col">
-            <div class="story-card story-card--quote bubble-left">
-              <p class="story-quote">
-                Летом родители привезли меня в пансионат, потому что я не хотел
-                учиться в школе и стал гулять до поздней ночи в плохой компании.
-              </p>
-            </div>
-          </div>
-          <div class="story__col">
-            <div class="story-card story-card--image">
-              <div class="story-photo">
-                <img src="assets/images/story/p2.png" alt="Никита в пансионате" loading="lazy">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ROW 3: фото слева, цитата справа -->
-        <div class="story__row uk-grid-large uk-child-width-1-1 uk-child-width-1-2@m" uk-grid
-          uk-height-match="target: .story-card">
-          <div class="story__col">
-            <div class="story-card story-card--image">
-              <div class="story-photo">
-                <img src="assets/images/story/p3.png" alt="Занятия и спорт" loading="lazy">
-              </div>
-            </div>
-          </div>
-          <div class="story__col">
-            <div class="story-card story-card--quote bubble-right">
-              <p class="story-quote">
-                После пансионата вернулся домой, учусь в прежней школе и снова хожу
-                в секцию борьбы — ездим с командой на турниры.
-              </p>
-            </div>
-          </div>
-        </div>
+        @@include('./partials/story-container.html', {
+        "img1": "assets/images/story/katya-1.png",
+        "alt1": "Катя — портрет",
+        "intro": "Привет! Я Катя, мне 15 лет.",
+        "history": "Не хотела учиться, пропускала школу и поздно возвращалась домой.",
+        "img2": "assets/images/story/katya-2.png",
+        "alt2": "Катя — занятия",
+        "process": "В пансионате работала с клиническим психологом, ходила на групповые занятия, восстановила режим и учебные навыки.",
+        "img3": "assets/images/story/katya-3.png",
+        "alt3": "Катя — результат",
+        "result": "Сейчас стабильно учусь, вернулась в секцию рисования и готовлюсь к поступлению."
+        })
       </div>
     </section>
 
