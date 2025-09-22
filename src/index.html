@@ -218,6 +218,73 @@
 
       </div>
     </section>
+
+    <section id="story-nikita" class="story uk-section uk-padding-remove-vertical">
+      <!-- фон «мятая бумага» -->
+      <div class="story__bg" aria-hidden="true"></div>
+
+      <div class="uk-container story__stage uk-visible@m"
+        uk-scrollspy="cls: uk-animation-fade; target: .js-reveal; delay: 120">
+        <!-- дудл -->
+        <svg class="story__doodle js-reveal" viewBox="0 0 240 90" aria-hidden="true">
+          <path d="M15 70 C70 10,160 110,225 25" fill="none" stroke="#4D3FF0" stroke-width="18"
+            stroke-linecap="round" />
+        </svg>
+
+        <!-- персонажи (PNG с прозрачным фоном) -->
+        <img class="story__kid story__kid--left js-reveal" src="assets/images/story/kid-left.png" alt="Подросток">
+        <div class="story__kid story__kid--main js-reveal">
+          <img src="assets/images/story/kid-main.png" alt="Никита">
+          <span class="story__focus"></span>
+        </div>
+        <img class="story__kid story__kid--bottom js-reveal" src="assets/images/story/kid-bottom.png" alt="Подросток">
+
+        <!-- реплики -->
+        <div class="bubble bubble--hello js-reveal">Привет!<br>Я Никита, мне 13 лет</div>
+
+        <div class="bubble bubble--left js-reveal">
+          Летом родители привезли меня в пансионат,
+          потому что я не хотел учиться в школе и стал
+          гулять до поздней ночи в плохой компании.
+          <span class="bubble__tail bubble__tail--left" aria-hidden="true"></span>
+        </div>
+
+        <div class="bubble bubble--right js-reveal">
+          После того, как пожил в пансионате, вернулся домой.
+          Сейчас учусь в своей прежней школе, вернулся в секцию
+          борьбы, которую бросил, ездим с командой на турниры.
+          <span class="bubble__tail bubble__tail--right" aria-hidden="true"></span>
+        </div>
+
+        <!-- CTA -->
+        <a class="uk-button uk-border-pill story__cta js-reveal" href="#cta">Узнать условия пребывания в пансионате</a>
+      </div>
+
+      <!-- Мобильная версия: последовательная лента -->
+      <div class="uk-container story__chat uk-hidden@m">
+        <div class="story__chat-item">
+          <img class="story__chat-photo" src="assets/images/story/kid-main.png" alt="Никита">
+          <div class="bubble bubble--chat">Привет! Я Никита, мне 13 лет</div>
+        </div>
+        <div class="story__chat-item">
+          <img class="story__chat-photo" src="assets/images/story/kid-left.png" alt="">
+          <div class="bubble bubble--chat">
+            Летом родители привезли меня в пансионат, потому что я не хотел учиться в школе и стал
+            гулять до поздней ночи в плохой компании.
+          </div>
+        </div>
+        <div class="story__chat-item">
+          <img class="story__chat-photo" src="assets/images/story/kid-bottom.png" alt="">
+          <div class="bubble bubble--chat">
+            После того, как пожил в пансионате, вернулся домой. Сейчас учусь в своей прежней школе,
+            вернулся в секцию борьбы, ездим с командой на турниры.
+          </div>
+        </div>
+        <a class="uk-button uk-border-pill story__cta story__cta--full" href="#cta">
+          Узнать условия пребывания в пансионате
+        </a>
+      </div>
+    </section>
   </main>
 
   @@include('./partials/footer.html')
