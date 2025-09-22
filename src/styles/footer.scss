@@ -29,8 +29,6 @@
 .site-footer .footer-title {
   color: var(--text-color-accent);
   font-weight: var(--bold-font-weight);
-  font-size: 1rem !important;
-
 }
 
 .site-footer .uk-text-muted {
@@ -52,7 +50,7 @@
   border: 2px solid var(--bg-color-accent) !important;
   opacity: 1;
   transition: var(--bttn-transition);
-  line-height: 2rem !important;
+  line-height: 1.5rem !important;
 }
 
 .om-btn--primary {
