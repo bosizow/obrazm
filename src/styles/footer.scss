@@ -1,43 +1,77 @@
-
 .site-footer .footer-social {
   display: flex;
   align-items: center;
-  gap: 12px;
-  /* равный зазор между кружками */
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
-/* Ограничиваем стили соц-иконок только футером, чтобы не конфликтовали с хедером */
 .site-footer .social-ic {
   display: grid;
   place-items: center;
   width: 44px;
   height: 44px;
-  border-radius: 999px;
-  background: var(--brand-orange);
-  color: #fff;
+  border-radius: 50%;
+  background: var(--bg-color-accent);
+  color: var(--text-color-inverse);
   line-height: 1;
+  transition: var(--bttn-transition);
+  opacity: 1;
 }
 
-/* --- CTA-колонка: всегда сверху; на десктопе «к правому краю», но не уезжает вниз --- */
+.site-footer .social-ic:hover {
+  opacity: .6;
+}
+
 .site-footer .footer-cta {
-  gap: 12px;
-  /* промежуток между кнопками */
+  gap: 1rem;
 }
 
-@media (min-width: 960px) {
+.site-footer .footer-title {
+  color: var(--text-color-accent);
+  font-weight: var(--bold-font-weight);
+  font-size: 1.25rem !important;
 
-  /* ≥ m в UIKit */
-  .site-footer .footer-cta {
-    justify-content: flex-start;
-    /* ВЕРХ колонки (main-axis при column) */
-    align-items: flex-end;
-    /* по горизонтали — к правому краю */
-  }
 }
 
-/* (Опционально) выровнять высоту кнопок и убрать «прыжок» текста */
-.btn-orange,
-.btn-orange--outline {
-  white-space: nowrap;
+.site-footer .uk-text-muted {
+  color: var(--text-color-muted) !important;
+}
+
+.site-footer .footer-phone a {
+  color: var(--text-color-primary) !important;
+}
+
+.om-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1.5rem !important;
+  border-radius: 40px !important;
+  font-weight: var(--bold-font-weight) !important;
+  color: var(--text-color-inverse);
+  border: 2px solid var(--bg-color-accent) !important;
+  opacity: 1;
+  transition: var(--bttn-transition);
+  line-height: 2rem !important;
+  font-size: 1.1rem !important;
+}
+
+.om-btn--primary {
+  background: var(--bg-color-accent);
+  color: var(--text-color-inverse) !important;
+}
+
+.om-btn--primary:hover {
+  opacity: .6;
+}
+
+.om-btn--outline {
+  background: transparent;
+  color: var(--text-color-accent);
+  border: 2px solid var(--bg-color-accent) !important;
+}
+
+.om-btn--outline:hover {
+  background: var(--bg-color-accent);
+  color: var(--text-color-inverse);
 }
