@@ -109,6 +109,92 @@
         </div>
       </div>
     </section>
+
+    <section id="cta" class="cta uk-section">
+      <div class="uk-container">
+
+        <div class="cta-card uk-card uk-card-body">
+          <div class="uk-grid-large uk-child-width-1-1 uk-child-width-1-2@m" uk-grid>
+            <!-- LEFT: collage -->
+            <div>
+              <div class="cta-left uk-position-relative">
+                <!-- doodles -->
+                <svg class="cta-doodle cta-doodle--spray" viewBox="0 0 180 80" aria-hidden="true">
+                  <path d="M10 60 C60 10,120 100,170 30" fill="none" stroke="#4D3FF0" stroke-width="18"
+                    stroke-linecap="round" />
+                </svg>
+                <svg class="cta-doodle cta-doodle--star" viewBox="0 0 64 64" aria-hidden="true">
+                  <path d="M32 6L36 26L58 30L36 34L32 58L28 34L6 30L28 26Z" fill="none" stroke="#4D3FF0"
+                    stroke-width="3" stroke-linejoin="round" />
+                </svg>
+
+                <div class="polaroid polaroid--a">
+                  <img src="assets/images/cta/a.jpg" alt="Семейная консультация" loading="lazy">
+                </div>
+                <div class="polaroid polaroid--b">
+                  <img src="assets/images/cta/b.jpg" alt="Групповое занятие" loading="lazy">
+                </div>
+
+                <div class="cta-sticker uk-text-bold">COOL</div>
+              </div>
+            </div>
+
+            <!-- RIGHT: heading + form -->
+            <div>
+              <div class="cta-right">
+                <h2 class="cta-title uk-margin-remove-top">Помогите своему<br>ребенку сейчас</h2>
+                <p class="cta-sub uk-margin-small-bottom">
+                  Просто запишитесь на бесплатную консультацию опытного специалиста
+                </p>
+
+                <form class="uk-form-stacked" action="/api/lead" method="post">
+                  <div class="uk-margin-small">
+                    <label class="uk-form-label" for="cta-name">Ваше имя</label>
+                    <div class="uk-form-controls">
+                      <input class="uk-input cta-input" id="cta-name" name="name" type="text" placeholder="Иван"
+                        required>
+                    </div>
+                  </div>
+
+                  <div class="uk-margin-small">
+                    <label class="uk-form-label" for="cta-phone">Телефон</label>
+                    <div class="uk-inline uk-width-1-1">
+                      <span class="uk-form-icon uk-form-icon-flip" aria-hidden="true">+7</span>
+                      <span class="uk-form-icon" aria-hidden="true">🇷🇺</span>
+                      <input class="uk-input cta-input cta-input--phone" id="cta-phone" name="phone" type="tel"
+                        placeholder="+7 (000) 000-00-00" inputmode="tel" required>
+                    </div>
+                  </div>
+
+                  <div class="uk-margin-small">
+                    <label>
+                      <input class="uk-checkbox cta-check" type="checkbox" name="consent" required>
+                      <span class="cta-consent">
+                        Нажимая на кнопку, вы соглашаетесь с
+                        <a href="/privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a>
+                      </span>
+                    </label>
+                  </div>
+
+                  <div class="uk-margin-medium-top">
+                    <button class="uk-button uk-border-pill cta-submit" type="submit">
+                      Оставить заявку
+                    </button>
+                  </div>
+
+                  <!-- если нужен UTM/страница -->
+                  <input type="hidden" name="page" value="cta-hero">
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- vertical divider (desktop) -->
+          <div class="cta-divider uk-visible@m" aria-hidden="true"></div>
+        </div>
+
+      </div>
+    </section>
   </main>
 
   @@include('./partials/footer.html')
