@@ -8,6 +8,10 @@
   text-transform: none !important;
 }
 
+.site-header .uk-navbar-right{
+  gap: .6rem !important;
+}
+
 .site-header .cta-btn {
   display: inline-flex;
   align-items: center;
@@ -25,6 +29,7 @@
   text-transform: none !important;
 
   font-size: 1rem !important;
+  height: 36px;
 }
 
 .site-header .cta-btn:hover {
@@ -33,10 +38,10 @@
 }
 
 .site-header .menu-btn {
-  min-height: 40px !important;
-  height: 40px;
-  width: 40px;
-  border-radius: 50px;
+  min-height: 36px !important;
+  height: 36px;
+  width: 36px;
+  border-radius: 18px;
   background: var(--bg-color-accent) !important;
   border: none;
 }
