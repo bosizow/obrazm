@@ -29,7 +29,7 @@
 .site-footer .footer-title {
   color: var(--text-color-accent);
   font-weight: var(--bold-font-weight);
-  font-size: 1.25rem !important;
+  font-size: 1rem !important;
 
 }
 
@@ -45,7 +45,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem 1.5rem !important;
+  padding: .5rem 2rem !important;
   border-radius: 40px !important;
   font-weight: var(--bold-font-weight) !important;
   color: var(--text-color-inverse);
@@ -53,7 +53,6 @@
   opacity: 1;
   transition: var(--bttn-transition);
   line-height: 2rem !important;
-  font-size: 1.1rem !important;
 }
 
 .om-btn--primary {
@@ -67,11 +66,11 @@
 
 .om-btn--outline {
   background: transparent;
-  color: var(--text-color-accent);
+  color: var(--text-color-accent) !important;
   border: 2px solid var(--bg-color-accent) !important;
 }
 
 .om-btn--outline:hover {
   background: var(--bg-color-accent);
-  color: var(--text-color-inverse);
+  color: var(--text-color-inverse) !important;
 }
