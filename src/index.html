@@ -283,7 +283,71 @@
         </div>
       </div>
     </section>
-    
+
+    <section id="result" class="result uk-section">
+      <div class="uk-container">
+        <p class="result__kicker uk-text-center uk-text-uppercase">После прохождения курса</p>
+        <h2 class="result__title uk-text-center">
+          Вы увидите значительные<br class="uk-visible@m"> перемены в ребёнке
+        </h2>
+
+        <!-- Гирлянда карточек -->
+        <div class="result__items" uk-scrollspy="cls: is-in; target: .result__item; delay: 120">
+          <!-- ITEM A -->
+          <div class="result__item result__item--a">
+            <figure class="result-card result-card--zigzag">
+              <img src="assets/images/result/a.jpg" alt="Подростки на занятии" loading="lazy">
+            </figure>
+            <div class="result-note result-note--light">
+              Полное избавление от вредных привычек.<br>
+              Восстановление социального поведения.
+            </div>
+          </div>
+
+          <!-- ITEM B -->
+          <div class="result__item result__item--b">
+            <figure class="result-card result-card--tilt">
+              <img src="assets/images/result/b.jpg" alt="Группа ребят" loading="lazy">
+            </figure>
+            <div class="result-note result-note--light">
+              Получит устойчивые изменения в характере:<br>
+              — уверенность в себе<br>
+              — ответственность за поступки<br>
+              — лидерские качества
+            </div>
+          </div>
+
+          <!-- ITEM C -->
+          <div class="result__item result__item--c">
+            <figure class="result-card result-card--hex">
+              <img src="assets/images/result/c.jpg" alt="Учёба и книги" loading="lazy">
+            </figure>
+            <div class="result-note result-note--light">
+              Продолжит/закончит обучение в школе.<br>
+              Появится цель в выборе дальнейшей профессии.
+            </div>
+          </div>
+
+          <!-- ITEM D -->
+          <div class="result__item result__item--d">
+            <figure class="result-card result-card--pent">
+              <img src="assets/images/result/d.jpg" alt="Семья" loading="lazy">
+            </figure>
+            <div class="result-note result-note--orange">
+              Родители смогут спокойно жить и работать.
+            </div>
+          </div>
+
+          <!-- (опционально) центральная крупная карточка -->
+          <div class="result__item result__item--center uk-visible@m">
+            <figure class="result-card result-card--rect">
+              <img src="assets/images/result/center.jpg" alt="Команда" loading="lazy">
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   @@include('./partials/footer.html')
