@@ -1,5 +1,5 @@
 .problems--title {
-  // width: 100%;
+  font-weight: 600 !important;
   font-size: 2rem !important;
   text-align: center;
   text-transform: uppercase !important;
@@ -63,7 +63,7 @@
 
 .problems--item:nth-child(1) {
   top: 170px;
-  left: 60%;
+  left: 63%;
 }
 
 .problems--item:nth-child(2) {
@@ -124,8 +124,10 @@
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  background-color: rgb(222, 184, 135,.5);
   min-height: 160px;
+
+  // TEST
+  background-color: rgb(222, 184, 135,.5);
 }
 
 .problems--item:nth-child(3) .problem-card,
@@ -148,6 +150,9 @@
 .problem-card--frame {
   min-height: 160px;
   min-width: 160px;
+
+  // TEST
+  background-color: rgba(0, 255, 255,.5);
 }
 
 .problem-card--caption {
