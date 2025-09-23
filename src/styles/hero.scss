@@ -23,6 +23,12 @@
   gap: 2rem;
 }
 
+@media screen and (min-width: 960px) {
+  .hero--container {
+    padding: 4rem 1rem !important;
+  }
+}
+
 
 .hero--bg {
   position: absolute;
@@ -58,6 +64,7 @@
   font-size: 1rem;
   z-index: 20;
   // text-shadow: 0 2px 6px rgba(0, 0, 0, .18);
+  font-family: var(--font-family-accent);
 }
 
 @media screen and (min-width: 640px) {
@@ -73,8 +80,8 @@
 }
 
 .hero--title {
-  z-index: 20;
-  margin: .4em 0 0;
+  display: block;
+  margin-top: .5em;
   font-weight: 800;
   line-height: .95;
   letter-spacing: .02em;
