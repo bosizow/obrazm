@@ -2,12 +2,12 @@
 @use 'header';
 @use 'footer';
 @use 'hero';
-@use 'cta';
-// @import 'problems';
-// @import 'statement';
-// @import 'story';
-// @import 'result';
-// @import 'experts';
+@use 'problems';
+// @use 'cta';
+// @use 'statement';
+// @use 'story';
+// @use 'result';
+// @use 'experts';
 
 html {
   font-size: var(--rem) !important;

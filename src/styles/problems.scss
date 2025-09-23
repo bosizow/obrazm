@@ -1,56 +1,168 @@
-/* Блок */
-.problems { overflow: hidden; }
-.problems__stage { position: relative; min-height: 560px; }
-.problems__path { position: absolute; inset: 0; width:100%; height:100%; }
+.problems--title {
+  // width: 100%;
+  font-size: 2rem !important;
+  text-align: center;
+  text-transform: uppercase !important;
+  color: var(--text-color-accent) !important;
+  font-family: var(--font-family-accent) !important;
+}
 
-/* Раскладка карточек на десктопе по % координатам */
-.problems__items { list-style:none; margin:0; padding:0; }
-.problems__item {
-  position:absolute;
-  left: var(--x); top: var(--y);
+#problems .problems--title {
+  margin-bottom: 0 !important;
+}
+
+@media screen and (min-width: 960px) {
+  .problems--title {
+    font-size: 3rem !important;
+    text-align: left;
+    max-width: 980px;
+  }
+}
+
+.problems--stage {
+  position: relative;
+  min-height: 1200px;
+}
+
+@media screen and (min-width: 960px) {
+  .problems--stage {
+    min-height: 500px;
+  }
+}
+
+.problems--line {
+  position: absolute;
+  inset: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+  width: 1150px !important;
+  max-width: 1150px;
+  height: auto !important;
+}
+
+@media screen and (min-width: 960px) {
+  .problems--line {
+    width: 100% !important;
+    height: auto !important;
+    transform: translate(-50%, -50%) rotate(0);
+  }
+}
+
+.problems--items {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.problems--item {
+  position: absolute;
+  min-height: 160px;
+  min-width: 220px;
   transform: translate(-50%, -50%);
 }
 
-/* Карточка */
-.problem-card__frame{
-  width: 164px; height: 164px;
-  background: #FFF5E9;                 /* светлая окантовка */
-  border-radius: 52% 48% 50% 50% / 56% 44% 56% 44%;   /* «неровное» овальное пятно */
-  padding: 10px;                        /* толщина «рамки» */
-  box-shadow: 0 10px 24px rgba(16,24,40,.12);
-  position: relative;
-}
-.problem-card__frame img{
-  width:100%; height:100%; object-fit:cover;
-  border-radius: inherit;
-  display:block;
-}
-.problem-card__caption{
-  margin-top: 10px;
-  white-space: pre-line;                /* переносы из @@title */
-  font-size: 18px; line-height: 1.25; color:#222;
+.problems--item:nth-child(1) {
+  top: 170px;
+  left: 60%;
 }
 
-/* Tablet: чутка уменьшим */
-@media (max-width: 1199.98px){
-  .problem-card__frame{ width: 150px; height: 150px; }
+.problems--item:nth-child(2) {
+  top: 420px;
+  left: 45%;
 }
 
-/* Mobile: скрываем SVG и строим сеткой */
-@media (max-width: 959.98px){
-  .problems__stage { min-height: auto; }
-  .problems__path { display:none; }
-  .problems__items {
-    position: static;
-    display: grid;
-    grid-template-columns: 1fr 1fr;      /* 2 в ряд на планшет/широкий мобайл */
-    gap: 20px;
+.problems--item:nth-child(3) {
+  top: 640px;
+  left: 55%;
+}
+
+.problems--item:nth-child(4) {
+  top: 840px;
+  left: 39%;
+}
+
+.problems--item:nth-child(5) {
+  top: 1050px;
+  left: 60%;
+}
+
+@media screen and (min-width: 960px) {
+  .problems--item {
+    min-height: 200px;
+    width: 160px;
   }
-  .problems__item { position: static; transform:none; }
-  .problem-card__frame{ width: 100%; height: auto; aspect-ratio: 1/1; }
+
+  .problems--item:nth-child(1) {
+    top: 280px;
+    left: 16%;
+  }
+
+  .problems--item:nth-child(2) {
+    top: 370px;
+    left: 38%;
+  }
+
+  .problems--item:nth-child(3) {
+    top: 150px;
+    left: 56%;
+  }
+
+  .problems--item:nth-child(4) {
+    top: 260px;
+    left: 75%;
+  }
+
+  .problems--item:nth-child(5) {
+    top: 250px;
+    left: 93%;
+  }
 }
 
-/* Узкий мобильный — по одному в ряд */
-@media (max-width: 479.98px){
-  .problems__items { grid-template-columns: 1fr; }
+.problem-card {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  background-color: rgb(222, 184, 135,.5);
+  min-height: 160px;
+}
+
+.problems--item:nth-child(3) .problem-card,
+.problems--item:nth-child(4) .problem-card {
+  flex-flow: row-reverse nowrap;
+}
+
+@media screen and (min-width: 960px) {
+  .problem-card {
+    flex-flow: column nowrap !important;
+    width: 160px;
+  }
+
+  .problems--item:nth-child(2) .problem-card,
+  .problems--item:nth-child(5) .problem-card {
+    flex-flow: column-reverse nowrap !important;
+  }
+}
+
+.problem-card--frame {
+  min-height: 160px;
+  min-width: 160px;
+}
+
+.problem-card--caption {
+  color: var(--text-color-primary);
+  text-align: center !important;
+  line-height: 1.25;
+  font-size: 1.2rem !important;
+  min-width: 160px;
+  max-width: 180px;
+}
+
+@media screen and (min-width: 960px) {
+  .problem-card--caption {
+    min-width: 140px;
+    width: 90%;
+    font-size: 1rem !important;
+  }
 }
