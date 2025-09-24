@@ -176,36 +176,95 @@
   color: var(--text-color-inverse) !important;
 }
 
-.cta--checkbox {
-  display: none;
-  // width: 18px;
-  // height: 18px;
-  // accent-color: var(--text-color-inverse) !important;
-  // border: 2px solid var(--text-color-inverse) !important;
-  // background-color: none !important;
-}
-
-.cta--checkbox-label {
-  padding-left: 20px !important;
-}
-
-.cta--checkbox-label::after{
-  content: "";
-  border: 2px solid var(--text-color-inverse);
-  width: 18px;
-  height: 18px;
-}
-
-.cta--checkbox:checked {
-  background-color: none !important;
-}
-
-.cta-checkbox-link {
+.cta-checkbox--link {
   color: var(--text-color-inverse) !important;
   text-decoration: underline !important;
   transition: var(--bttn-transition);
 }
 
-.cta-checkbox-link:hover {
+.cta-checkbox--link:hover {
   color: var(--text-color-accent-second) !important;
+}
+
+/* Палитра блока CTA (можно переиспользовать существующие переменные) */
+// :root{
+//   --cta-brand: #F07A2A;           /* оранжевый бренда */
+//   --cta-brand-dark: #D85F1D;      /* потемнее для бордера/hover */
+//   --cta-text: #2A2A2A;            /* основной текст */
+// }
+
+/* Контейнер чекбокса */
+.cta-checkbox {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Скрываем нативный чекбокс, оставляя его доступным для фокуса/клавиатуры */
+.cta-checkbox--input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+/* Визуальная коробочка чекбокса */
+.cta-checkbox--box {
+  margin-top: 2px !important;
+  position: relative;
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: transparent;
+  border: 2px solid var(--text-color-inverse);
+  transition: background-color .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+
+/* Галочка — рисуем псевдоэлементом */
+.cta-checkbox--box::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 2px;
+  width: 6px;
+  height: 11px;
+  border-right: 2.5px solid var(--text-color-inverse);
+  border-bottom: 2.5px solid var(--text-color-inverse);
+  transform: rotate(40deg) scale(.5);
+  opacity: 0;
+  transition: transform .15s ease, opacity .15s ease;
+}
+
+/* Состояния */
+.cta-checkbox--input:checked+.cta-checkbox--box {
+  background: var(--cta-brand);
+  border-color: var(--cta-brand);
+}
+
+.cta-checkbox--input:checked+.cta-checkbox--box::after {
+  opacity: 1;
+  transform: rotate(40deg) scale(1);
+}
+
+/* Фокус с клавиатуры */
+.cta-checkbox--input:focus-visible+.cta-checkbox--box {
+  box-shadow: 0 0 0 3px rgba(240, 122, 42, .35);
+}
+
+/* Disabled (на будущее) */
+.cta-checkbox--input:disabled+.cta-checkbox--box {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.cta-checkbox--input:disabled~.cta-checkbox--text {
+  opacity: .6;
+  cursor: not-allowed;
 }
