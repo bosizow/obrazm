@@ -1,93 +1,131 @@
 .story {
-  display: none !important
+  padding: 70px 0 !important;
 }
 
-// :root{
-//   --brand-orange:#F07A2A;
-//   --paper-texture:url("assets/images/story/paper-texture.jpg"); /* опционально */
-//   --paper-edge-top:url("assets/images/story/paper-edge-top.svg");
-//   --paper-edge-bottom:url("assets/images/story/paper-edge-bottom.svg");
-// }
+.story--row {
+  display: flex;
+  flex-flow: column nowrap;
+}
 
-// /* фон секции «мятая бумага» */
-// .story{ position:relative; overflow:hidden; }
-// .story__bg{
-//   position:absolute; inset:0;
-//   background:
-//     var(--paper-texture) center/cover no-repeat,
-//     var(--brand-orange);
-//   z-index:0;
-// }
-// .story__bg::before,
-// .story__bg::after{
-//   content:""; position:absolute; left:0; right:0; height:64px; pointer-events:none;
-//   background-size:100% 100%; background-repeat:no-repeat;
-// }
-// .story__bg::before{ top:-1px;  background-image: var(--paper-edge-top); }
-// .story__bg::after { bottom:-1px; background-image: var(--paper-edge-bottom); }
+.story--row-greating {
+  flex-flow: row nowrap !important;
+}
 
-// .story .uk-container{ position:relative; z-index:1; padding-top:56px; padding-bottom:56px; }
+@media screen and (min-width: 960px) {
+  .story--row {
+    flex-flow: row-reverse nowrap;
+  }
 
-// /* сетка и реверс рядов */
-// .story__row + .story__row{ margin-top: 28px; }
-// @media (min-width: 960px){
-//   .story__row--reverse .story__col:nth-child(1){ order:2; }
-//   .story__row--reverse .story__col:nth-child(2){ order:1; }
-// }
+  .story--row-process {
+    flex-flow: row nowrap !important;
+  }
+}
 
-// /* карточки одинаковой высоты */
-// .story-card{
-//   height: 100%;
-//   background: rgba(255,255,255,.06);
-//   border-radius: 16px;
-//   border: 2px solid #fff;
-//   box-shadow: 0 10px 22px rgba(0,0,0,.12);
-//   padding: 18px;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   min-height: clamp(240px, 32vw, 340px);
-//   color:#fff;
-// }
+.story--row-greating .story-quote {
+  text-align: left;
+}
 
-// /* фото */
-// .story-card--image{ background: rgba(255,255,255,.08); }
-// .story-photo{
-//   width: 100%;
-//   height: 100%;
-//   display: grid;
-//   place-items: center;
-// }
-// .story-photo img{
-//   max-width: 86%;
-//   max-height: 86%;
-//   object-fit: contain;
-//   filter: drop-shadow(0 16px 30px rgba(16,24,40,.24));
-// }
+.story--col {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  position: relative !important;
+}
 
-// /* цитата (пузырь) */
-// .story-card--quote{
-//   position: relative;
-//   background: rgba(255,255,255,.04);
-// }
-// .story-quote{
-//   font-size: clamp(16px, 1.6vw, 20px);
-//   line-height: 1.45;
-//   text-align: left;
-//   margin: 0;
-// }
+@media screen and (min-width: 960px) {
+  .story--col-quote {
+    align-items: flex-start !important;
+  }
 
-// /* хвостики (зависят от стороны ряда) */
-// .story-card--quote::after{
-//   content:""; position:absolute; width:16px; height:16px; transform: rotate(45deg);
-//   background: transparent; border: 2px solid #fff;
-// }
-// .bubble-right.story-card--quote::after{ right: -10px; top: 22px; border-left:none; border-top:none; }
-// .bubble-left.story-card--quote::after { left:  -10px; top: 22px; border-right:none; border-bottom:none; }
+  .story--row-process .story--col-quote {
+    align-items: flex-end !important;
+  }
+}
 
-// /* мобильная подгонка */
-// @media (max-width: 959.98px){
-//   .story .uk-container{ padding-top: 36px; padding-bottom: 36px; }
-//   .story-card{ min-height: 220px; }
-//   .story-card--quote::after{ display:none; } /* хвостики можно убрать на мобиле */
-// }
+.story-quote {
+  color: var(--text-color-inverse);
+  font-size: 1rem !important;
+  max-width: 320px;
+  text-align: center;
+  z-index: 10;
+}
+
+.story-quote--intro {
+  font-size: 1.6rem !important;
+  font-weight: 400 !important;
+  z-index: 10;
+}
+
+@media screen and (min-width: 960px) {
+  .story-quote {
+    text-align: left;
+  }
+
+  .story--row-process .story-quote {
+    text-align: right;
+  }
+}
+
+.story--bttn {
+  text-transform: none !important;
+  max-width: 290px;
+  background-color: var(--bg-color-accent-second) !important;
+  line-height: 1.2 !important;
+  font-weight: 400 !important;
+  height: auto !important;
+  padding: 16px 40px !important;
+  transition: var(--bttn-transition);
+  font-size: 1rem !important;
+}
+
+.story--bttn:hover {
+  opacity: .8;
+}
+
+.story--brush {
+  position: absolute;
+  top: 0;
+  left: 30%;
+  min-width: 130%;
+  height: auto;
+  min-height: 200px;
+  z-index: 5;
+}
+
+.story--photo {
+  z-index: 10;
+  min-height: 280px;
+  min-width: 215px;
+}
+
+.bubble--image  {
+  display: none;
+}
+
+@media screen and (min-width: 960px) {
+  .bubble {
+    padding: 25px 50px;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  .bubble--image {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 125% !important;
+    height: 100% !important;
+  }
+
+  .bubble--image-left {
+    left: -25% !important;
+  }
+
+  .bubble--image-right {
+    left: auto;
+    right: -25%;
+  }
+}

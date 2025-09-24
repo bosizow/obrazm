@@ -155,7 +155,7 @@
   font-weight: var(--bold-font-weight) !important;
   color: var(--text-color-inverse);
   opacity: 1;
-  transition: all .3s ease-in-out;
+  transition: var(--bttn-transition);
   line-height: 1.5rem !important;
   background: var(--bg-color-accent);
   color: var(--text-color-inverse) !important;
