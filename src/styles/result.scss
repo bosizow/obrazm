@@ -1,3 +1,19 @@
+.result-container {
+  position: relative;
+}
+
+.result-zigzag {
+  position: absolute;
+  top: -5%;
+  right: 7%;
+}
+
+.result-planet {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+}
+
 .result--title {
   color: var(--text-color-accent) !important;
   max-width: 740px;
