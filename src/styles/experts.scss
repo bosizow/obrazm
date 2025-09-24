@@ -1,59 +1,128 @@
-/* ====== EXPERTS ====== */
-:root{
-  --brand-orange:#F07A2A;
-  --expert-card-bg:#F3EFEA;   /* тёплый беж для «листка» */
-  --expert-pin:#B8B8B8;       /* серый цвет скрепки */
+.experts--title {
+  max-width: 480px !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+  color: var(--text-color-accent) !important;
 }
 
-.experts { padding-top: 56px; padding-bottom: 56px; }
-.experts h2 { color:#1f1f1f; }
-.experts p  { color:#666; }
+@media screen and (min-width: 980px) {
+  .experts--title {
+    text-align: left !important;
+    margin: 0 30px !important;
+  }
+}
 
-/* карточка-«листок» */
-.expert-card{
+.experts--text {
+  max-width: 480px;
+  margin: 0 auto !important;
+  text-align: center !important;
+  font-size: 1rem !important;
+  color: var(--text-color-accent) !important;
+}
+
+@media screen and (min-width: 980px) {
+  .experts--text {
+    text-align: left !important;
+  }
+}
+
+.experts--container {
+  padding: 0 !important;
+}
+
+.experts--grid {
+  display: grid !important;
+  grid-template: 230px / repeat(4, 400px);
+  grid-auto-columns: 400px;
+  grid-auto-rows: 230px;
+  grid-auto-flow: column;
+  overflow: scroll !important;
+  padding: 30px 50px !important;
+  margin: 0 !important;
+  gap: 40px;
+  box-sizing: border-box;
+  width: 100% !important;
+}
+
+.experts--grid>li {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  margin-top: 0 !important;
+  padding-left: 0 !important;
+}
+
+@media screen and (min-width: 980px) {
+  .experts--grid {
+    grid-template: repeat(2, 230px) / repeat(2, 1fr);
+    grid-auto-columns: 1fr;
+    grid-auto-rows: 230px;
+    grid-auto-flow: dense;
+    overflow: visible !important;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .experts--grid {
+    grid-template: repeat(2, 230px) / repeat(3, 1fr);
+    grid-auto-columns: 1fr;
+    grid-auto-rows: 230px;
+    padding: 30px 10px !important;
+  }
+}
+
+.expert-card {
+  width: 100% !important;
+  height: 100% !important;
+  background-color: var(--bg-color-experts);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
   position: relative;
-  background: var(--expert-card-bg);
-  border-radius: 12px;
-  border: 0;
-  padding: 18px 18px 22px;
-  box-shadow: 0 12px 26px rgba(16,24,40,.10);
-  transition: transform .2s ease, box-shadow .2s ease, background-color .2s;
-  opacity: 0; transform: translateY(10px);
-}
-.expert-card.is-in{ opacity:1; transform:none; }
-.expert-card:hover{
-  box-shadow: 0 16px 34px rgba(16,24,40,.14);
-  background: #F6F2EC;
 }
 
-/* скрепка */
-.expert-pin{
-  position:absolute; left: 50%; top: -14px; transform: translateX(-50%);
-  width: 28px; height: 56px; color: var(--expert-pin);
-  filter: drop-shadow(0 3px 4px rgba(0,0,0,.2));
+.expert-card--info {
+  padding: 1rem !important;
 }
 
-/* нижняя тень-линейка */
-.expert-shadow{
-  position:absolute; left: 10px; right: 10px; bottom: -8px; height: 10px;
-  background: rgba(0,0,0,.10);
-  filter: blur(6px); border-radius: 8px;
+.expert-card--pin {
+  width: 21px;
+  height: 60px;
+  position: absolute;
+  left: 20px;
+  top: -20px;
+  z-index: 10;
+  background-color: rgba(255, 165, 0, .4);
 }
 
-/* фото */
-.expert-photo{
-  width: 92px; height: 92px; border-radius: 10px; overflow: hidden;
-  background:#fff; box-shadow: inset 0 0 0 2px rgba(0,0,0,.04);
+.expert-card--photo {
+  z-index: 5;
+  min-width: 165px;
+  height: 200px;
+  margin-left: -7px;
+  margin-top: 12px;
+  transform: rotate(-1.5deg);
+  background-color: rgba(0, 255, 255, .5);
+  align-self: flex-start;
 }
-.expert-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
 
-/* текст */
-.expert-name{ font-size: 18px; line-height: 1.25; color:#D85812; /* ближе к оранжевому */ }
-.expert-role{ color:#D86A33; font-weight: 600; margin-top: 2px; }
-.expert-desc{ color:#666; }
+.expert-card--name {
+  font-size: 1.2rem !important;
+  line-height: 1.2 !important;
+  color: var(--text-color-accent) !important;
+}
 
-/* респонсивности мелкие штрихи */
-@media (max-width: 639.98px){
-  .expert-photo{ width: 80px; height: 80px; }
-  .expert-name{ font-size: 17px; }
+.expert-card--role {
+  color: var(--text-color-accent) !important;
+  opacity: .75;
+  font-size: .8rem !important;
+}
+
+.expert-card--descr {
+  color: var(--text-color-secondary) !important;
+  font-size: .8rem !important;
+  margin-top: 1.5rem !important;
 }
