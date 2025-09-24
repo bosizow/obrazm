@@ -2,14 +2,17 @@
   color: var(--text-color-accent) !important;
   letter-spacing: .04em;
   font-weight: 400;
-  font-size: .6rem !important;
-  margin-bottom: 1.5rem;
+  font-size: .9rem !important;
   text-transform: uppercase !important;
+  opacity: .75;
+  max-width: 50% !important;
+  margin: auto;
+  margin-bottom: 1.5rem;
 }
 
 @media screen and (min-width: 960px) {
   .statement--kicker {
-    font-size: .9rem !important;
+    font-size: 1rem !important;
   }
 }
 
