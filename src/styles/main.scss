@@ -5,12 +5,31 @@
 @use 'problems';
 @use 'cta';
 @use 'statement';
-// @use 'story';
-// @use 'result';
+@use 'story';
+@use 'result';
 // @use 'experts';
 
-html, body {
+html,
+body {
   font-family: var(--font-base);
-  font-size: var(--rem); 
+  font-size: var(--rem);
   line-height: 1.2;
 }
+
+.uc-h2 {
+  font-family: var(--font-family-accent) !important;
+  font-weight: 500 !important;
+  font-size: 1.875rem !important;
+  line-height: 1.25;
+  text-transform: uppercase !important;
+}
+
+@media screen and (min-width: 960px) {
+  .uc-h2 {
+    font-size: 2.25rem !important;
+  }
+}
+
+// .problems--title,
+// .cta--title,
+// .result--title,
