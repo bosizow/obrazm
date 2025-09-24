@@ -14,6 +14,7 @@
   --text-color-primary: var(--dark500);
   --text-color-secondary: var(--dark300);
   --text-color-accent: var(--orange500);
+  --text-color-accent-second: var(--blue500);
   --text-color-accent-muted: var(--orange100);
   --text-color-inverse: var(--light500);
 
@@ -28,9 +29,13 @@
   --bg-color-result4: var(--orange500);
   --bg-color-experts: var(--light300);
 
-  --rem: 14px;
-  --font-family: 'Inter', sans-serif;
-  --font-family-accent: 'Unbounded', sans-serif;
+  --rem: 16px;
+  --font-base: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-family-accent: "Unbounded", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+
   --bold-font-weight: 500;
   --normal-font-weight: 400;
 

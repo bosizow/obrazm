@@ -9,6 +9,8 @@
 // @use 'result';
 // @use 'experts';
 
-html {
-  font-size: var(--rem) !important;
+html, body {
+  font-family: var(--font-base);
+  font-size: var(--rem); 
+  line-height: 1.2;
 }

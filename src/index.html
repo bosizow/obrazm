@@ -80,40 +80,34 @@
       <div class="uk-container">
         <div class="cta--card uk-card uk-card-default uk-card-body uk-border-rounded">
           <div class="uk-grid-large uk-child-width-1-1 uk-child-width-1-2@m uk-flex-middle" uk-grid>
-            <div>
+            <div class="cta--column cta--column-first">
               <h2 class="cta--title uk-h2 uk-text-center uk-text-left@m uk-margin-remove-top">Помогите своему ребёнку сейчас</h2>
               <p class="cta--text uk-text-center uk-text-left@m uk-margin-small">Просто запишитесь на&nbsp;бесплатную консультацию опытного специалиста</p>
               <form class="uk-form-stacked uk-margin" action="/api/lead" method="post">
                 <div class="uk-margin-small">
-                  <label class="uk-form-label" for="cta-name">Ваше имя</label>
                   <div class="uk-form-controls">
-                    <input class="uk-input" id="cta-name" name="name" type="text" placeholder="Иван" autocomplete="name" required>
+                    <input class="cta-input uk-input" id="cta-name" name="name" type="text" placeholder="Иван" autocomplete="name" required>
                   </div>
                 </div>
                 <div class="uk-margin-small">
-                  <label class="uk-form-label" for="cta-phone">Телефон</label>
                   <div class="uk-form-controls">
-                    <input class="uk-input" id="cta-phone" name="phone" type="tel" placeholder="+7 (000) 000-00-00" inputmode="tel" autocomplete="tel" required>
+                    <input class="cta-input uk-input" id="cta-phone" name="phone" type="tel" placeholder="+7 (000) 000-00-00" inputmode="tel" autocomplete="tel" required>
                   </div>
                 </div>
                 <label class="uk-margin-small">
-                  <input class="uk-checkbox" type="checkbox" name="consent" required>
-                  <span>Нажимая на&nbsp;кнопку, вы&nbsp;соглашаетесь с
-                    <a href="/privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a>
-                  </span>
+                  <input class="cta--checkbox uk-checkbox" type="checkbox" name="consent" required checked>
+                  <span>Нажимая на&nbsp;кнопку, вы&nbsp;соглашаетесь с&nbsp;<a class="cta-checkbox-link" href="/privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a></span>
                 </label>
                 <div class="uk-margin">
-                  <button class="uk-button uk-button-primary uk-border-pill uk-width-1-1 uk-width-auto@m" type="submit">Оставить заявку</button>
+                  <button class="cta--bttn uk-button uk-button-primary uk-border-pill uk-width-1-1 uk-width-auto@m" type="submit">Оставить заявку</button>
                 </div>
                 <input type="hidden" name="page" value="cta">
               </form>
             </div>
-            <div class="uk-flex-first@m">
-              <div class="cta--photos uk-position-relative uk-text-center">
-                <svg class="cta--illustation"></svg>
-                <img class="cta--photo cta--photo-a uk-border-rounded uk-box-shadow-medium uk-margin-small-bottom" src="assets/images/cta/a.jpg" alt="Семейная консультация" loading="lazy">
-                <img class="cta--photo cta--photo-b uk-border-rounded uk-box-shadow-medium uk-visible@s" src="assets/images/cta/b.jpg" alt="Групповое занятие" loading="lazy">
-              </div>
+            <div class="cta--column cta--column-second cta--photos uk-flex-first@m">
+              <svg class="cta--illustation"></svg>
+              <img class="cta--photo cta--photo-a uk-border-rounded uk-box-shadow-medium uk-margin-small-bottom" src="assets/images/cta/a.jpg" alt="Семейная консультация" loading="lazy">
+              <img class="cta--photo cta--photo-b uk-border-rounded uk-box-shadow-medium uk-visible@s" src="assets/images/cta/b.jpg" alt="Групповое занятие" loading="lazy">
             </div>
           </div>
           <div class="cta--divider uk-visible@m" aria-hidden="true"></div>
