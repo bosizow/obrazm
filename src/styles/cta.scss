@@ -177,11 +177,23 @@
 }
 
 .cta--checkbox {
+  display: none;
+  // width: 18px;
+  // height: 18px;
+  // accent-color: var(--text-color-inverse) !important;
+  // border: 2px solid var(--text-color-inverse) !important;
+  // background-color: none !important;
+}
+
+.cta--checkbox-label {
+  padding-left: 20px !important;
+}
+
+.cta--checkbox-label::after{
+  content: "";
+  border: 2px solid var(--text-color-inverse);
   width: 18px;
   height: 18px;
-  accent-color: var(--text-color-inverse) !important;
-  border: 2px solid var(--text-color-inverse) !important;
-  background-color: none !important;
 }
 
 .cta--checkbox:checked {
