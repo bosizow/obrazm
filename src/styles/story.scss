@@ -1,8 +1,23 @@
 .story {
   padding: 70px 0 !important;
+  position: relative;
+}
+
+.story-bg {
+  position: absolute;
+  inset: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 110%;
+  z-index: 2;
+}
+
+.story-card {
+  z-index: 10;
 }
 
 .story--row {
+  z-index: 10;
   display: flex;
   flex-flow: column nowrap;
 }
@@ -88,7 +103,7 @@
   position: absolute;
   top: 0;
   left: 30%;
-  min-width: 130%;
+  min-width: 110%;
   height: auto;
   min-height: 200px;
   z-index: 5;
@@ -100,7 +115,7 @@
   min-width: 215px;
 }
 
-.bubble--image  {
+.bubble--image {
   display: none;
 }
 

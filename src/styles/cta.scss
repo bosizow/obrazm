@@ -82,7 +82,6 @@
   min-height: 400px;
   width: 100% !important;
   min-width: 400px;
-  background-color: bisque;
   z-index: 5;
   box-sizing: border-box;
 }
@@ -101,32 +100,29 @@
   height: 340px;
   border-radius: 15px !important;
   position: absolute;
-
-  // TEST
-  background-color: aqua;
 }
 
 .cta--photo-a {
   transform: rotate(-5deg);
-  top: 40px;
+  top: 15px;
   left: 20%;
   z-index: 6;
 }
 
 .cta--photo-b {
-  transform: rotate(2deg);
-  bottom: 40px;
+  transform: rotate(4deg);
+  bottom: 5px;
   right: 20%;
   z-index: 7;
 }
 
 @media screen and (min-width: 960px) {
   .cta--photo-a {
-    left: 20px;
+    left: 30px;
   }
 
   .cta--photo-b {
-    right: 20px;
+    right: -20px;
   }
 }
 
@@ -186,14 +182,6 @@
   color: var(--text-color-accent-second) !important;
 }
 
-/* Палитра блока CTA (можно переиспользовать существующие переменные) */
-// :root{
-//   --cta-brand: #F07A2A;           /* оранжевый бренда */
-//   --cta-brand-dark: #D85F1D;      /* потемнее для бордера/hover */
-//   --cta-text: #2A2A2A;            /* основной текст */
-// }
-
-/* Контейнер чекбокса */
 .cta-checkbox {
   display: inline-flex;
   align-items: flex-start;
@@ -202,7 +190,6 @@
   user-select: none;
 }
 
-/* Скрываем нативный чекбокс, оставляя его доступным для фокуса/клавиатуры */
 .cta-checkbox--input {
   position: absolute;
   opacity: 0;
@@ -214,7 +201,6 @@
   clip-path: inset(50%);
 }
 
-/* Визуальная коробочка чекбокса */
 .cta-checkbox--box {
   margin-top: 2px !important;
   position: relative;
@@ -227,7 +213,6 @@
   transition: background-color .15s ease, border-color .15s ease, box-shadow .15s ease;
 }
 
-/* Галочка — рисуем псевдоэлементом */
 .cta-checkbox--box::after {
   content: "";
   position: absolute;
@@ -242,7 +227,6 @@
   transition: transform .15s ease, opacity .15s ease;
 }
 
-/* Состояния */
 .cta-checkbox--input:checked+.cta-checkbox--box {
   background: var(--cta-brand);
   border-color: var(--cta-brand);
@@ -253,12 +237,10 @@
   transform: rotate(40deg) scale(1);
 }
 
-/* Фокус с клавиатуры */
 .cta-checkbox--input:focus-visible+.cta-checkbox--box {
   box-shadow: 0 0 0 3px rgba(240, 122, 42, .35);
 }
 
-/* Disabled (на будущее) */
 .cta-checkbox--input:disabled+.cta-checkbox--box {
   opacity: .5;
   cursor: not-allowed;

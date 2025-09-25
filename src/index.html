@@ -25,11 +25,12 @@
         <h1 class="uk-text-center hero--kicker uk-text-uppercase uk-text-bold">Центр-пансионат для&nbsp;подростков<span class="hero--title">«ОБРАЗ&nbsp;МЫСЛИ»</span></h1>
         <div class="hero--paper uk-card uk-card-default">
           <div class="hero--paper-body">
-            <p class="uk-margin-remove">Перевоспитание детей и подростков без&nbsp;отрыва от&nbsp;обучения</p>
+            <img class="hero--paper-img" src="./assets/images/index/hero/hero-bg.png" alt="бумага">
+            <p class="hero--text uk-margin-remove">Перевоспитание детей и подростков без&nbsp;отрыва от&nbsp;обучения</p>
             <a href="#signup" class="hero--btn uk-button uk-border-pill">Оставить заявку</a>
           </div>
         </div>
-        <img class="hero--people" src="assets/images/hero/teens.png" alt="Подростки «Образ мысли»">
+        <img class="hero--people" src="./assets/images/index/hero/teens.png" alt="Подростки «Образ мысли»">
       </div>
     </section>
 
@@ -43,31 +44,31 @@
           <ul class="problems--items">
             <li class="problems--item" style="--x:10%; --y:65%;">
               @@include('./partials/problem-card.html', {
-              "img": "assets/images/problems/school.jpg",
+              "img": "./assets/images/index/problems/school.png",
               "title": "Отказывается учиться в&nbsp;школе"
               })
             </li>
             <li class="problems--item" style="--x:38%; --y:75%;">
               @@include('./partials/problem-card.html', {
-              "img": "assets/images/problems/company.jpg",
+              "img": "./assets/images/index/problems/company.png",
               "title": "Связался с&nbsp;плохой компанией"
               })
             </li>
             <li class="problems--item" style="--x:55%; --y:38%;">
               @@include('./partials/problem-card.html', {
-              "img": "assets/images/problems/runaway.jpg",
+              "img": "./assets/images/index/problems/runaway.png",
               "title": "Бродяжничает, уходит из&nbsp;дома"
               })
             </li>
             <li class="problems--item" style="--x:72%; --y:68%;">
               @@include('./partials/problem-card.html', {
-              "img": "assets/images/problems/gadgets.jpg",
+              "img": "./assets/images/index/problems/gadgets.png",
               "title": "Зависим от&nbsp;гаджетов"
               })
             </li>
             <li class="problems--item" style="--x:90%; --y:58%;">
               @@include('./partials/problem-card.html', {
-              "img": "assets/images/problems/aggression.jpg",
+              "img": "./assets/images/index/problems/aggression.png",
               "title": "Стал агрессивным, грубым, применяет физическую силу"
               })
             </li>
@@ -103,19 +104,12 @@
                     <input class="cta-input uk-input" id="cta-phone" name="phone" type="tel" placeholder="+7 (000) 000-00-00" inputmode="tel" autocomplete="tel" required>
                   </div>
                 </div>
-
-                <!-- <label class="uk-margin-small">
-                  <input class="uk-checkbox" type="checkbox" name="consent" required checked>
-                  <span>Нажимая на&nbsp;кнопку, вы&nbsp;соглашаетесь с&nbsp;<a class="cta-checkbox-link" href="/privacy.html" target="_blank" rel="noopener">политикой конфиденциальности</a></span>
-                </label> -->
-
                 <label class="cta-checkbox uk-margin-small">
                   <input class="cta-checkbox--input" type="checkbox" name="consent" required checked>
                   <span class="cta-checkbox--box" aria-hidden="true"></span>
                   <span class="cta-checkbox--text">Нажимая на&nbsp;кнопку, вы&nbsp;соглашаетесь с <a class="cta-checkbox--link" href="/privacy.html" target="_blank" rel="noopener"> политикой конфиденциальности</a>
                   </span>
                 </label>
-
                 <div class="uk-margin">
                   <button class="cta--bttn uk-button uk-button-primary uk-border-pill uk-width-1-1 uk-width-auto@m" type="submit">Оставить заявку</button>
                 </div>
@@ -123,9 +117,9 @@
               </form>
             </div>
             <div class="cta--column cta--column-second cta--photos uk-flex-first@m">
-              <div class="cta--illustation"></div>
-              <img class="cta--photo cta--photo-a uk-border-rounded uk-box-shadow-medium uk-margin-small-bottom" src="assets/images/cta/a.jpg" alt="Семейная консультация" loading="lazy">
-              <img class="cta--photo cta--photo-b uk-border-rounded uk-box-shadow-medium" src="assets/images/cta/b.jpg" alt="Групповое занятие" loading="lazy">
+              <img class="cta--illustation" src="./assets/images/index/cta/cta-bg.svg" alt="" loading="lazy">
+              <img class="cta--photo cta--photo-a uk-border-rounded uk-box-shadow-medium uk-margin-small-bottom" src="./assets/images/index/cta/a.png" alt="Семейная консультация" loading="lazy">
+              <img class="cta--photo cta--photo-b uk-border-rounded uk-box-shadow-medium" src="./assets/images/index/cta/b.png" alt="Групповое занятие" loading="lazy">
             </div>
           </div>
           <div class="cta--divider uk-visible@m" aria-hidden="true"></div>
@@ -158,6 +152,7 @@
         "result": "Сейчас стабильно учусь, вернулась в секцию рисования и готовлюсь к поступлению."
         })
       </div>
+      <img class="story-bg" src="./assets/images/index/story/bg.png" alt="бумага">
     </section>
 
     <section id="result" class="result uk-section">
@@ -172,13 +167,13 @@
         <div class="result--items" uk-scrollspy="cls: is-in; target: .result--item; delay: 120">
           <div class="result--item result--item-a">
             <figure class="result-card result-card--zigzag">
-              <img src="assets/images/result/a.jpg" alt="Подростки на занятии" loading="lazy">
+              <img src="./assets/images/index/result/a.png" alt="Подростки на занятии" loading="lazy">
             </figure>
             <div class="result-note result-note--light">Полное избавление от&nbsp;вредных привычек. Восстановление социального поведения.</div>
           </div>
           <div class="result--item result--item-b">
             <figure class="result-card result-card--tilt">
-              <img src="assets/images/result/b.jpg" alt="Группа ребят" loading="lazy">
+              <img src="./assets/images/index/result/b.png" alt="Группа ребят" loading="lazy">
             </figure>
             <div class="result-note result-note--light">
               Получит устойчивые изменения в&nbsp;характере:<br>
@@ -189,14 +184,14 @@
           </div>
           <div class="result--item result--item-c">
             <figure class="result-card result-card--hex">
-              <img src="assets/images/result/c.jpg" alt="Учёба и книги" loading="lazy">
+              <img src="./assets/images/index/result/c.png" alt="Учёба и книги" loading="lazy">
             </figure>
             <div class="result-note result-note--light">Продолжит/закончит обучение в&nbsp;школе.<br>Появится цель в&nbsp;выборе дальнейшей профессии.
             </div>
           </div>
           <div class="result--item result--item-d">
             <figure class="result-card result-card--pent">
-              <img src="assets/images/result/d.jpg" alt="Семья" loading="lazy">
+              <img src="./assets/images/index/result/d.png" alt="Семья" loading="lazy">
             </figure>
             <div class="result-note result-note--orange">Родители смогут спокойно жить и&nbsp;работать.</div>
           </div>
@@ -216,87 +211,87 @@
         </div>
         <ul class="experts--grid uk-grid-large uk-child-width-1-1 uk-child-width-1-2@m uk-child-width-1-3@l" uk-grid uk-scrollspy="cls: is-in; target: .expert-card; delay: 90">
           <li>@@include('./partials/expert-card.html', {
-            "img": "assets/images/team/morozova.jpg",
-            "name": "Морозова Екатерина Николаевна",
-            "role": "Клинический психолог",
-            "desc": "Практикующий психолог. Эксперт по девиантному поведению и зависимостям подростков."
+            "img": "./assets/images/index/experts/test.png",
+            "name": "Фамилия Имя Отчество",
+            "role": "Должность",
+            "desc": "Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата."
             })</li>
 
           <li>@@include('./partials/expert-card.html', {
-            "img": "assets/images/team/volodin.jpg",
-            "name": "Володин Владислав Владимирович",
-            "role": "Клинический психолог",
-            "desc": "Специалист по социальной работе. Проводит консультации по зависимому поведению."
+            "img": "./assets/images/index/experts/test.png",
+            "name": "Фамилия Имя Отчество",
+            "role": "Должность",
+            "desc": "Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата."
             })</li>
 
           <li>@@include('./partials/expert-card.html', {
-            "img": "assets/images/team/volodina.jpg",
-            "name": "Володина Надежда Викторовна",
-            "role": "Клинический психолог",
-            "desc": "Эксперт по созависимости. Семейный консультант. Сопровождение семей и подростков."
+            "img": "./assets/images/index/experts/test.png",
+            "name": "Фамилия Имя Отчество",
+            "role": "Должность",
+            "desc": "Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата."
             })</li>
 
           <li>@@include('./partials/expert-card.html', {
-            "img": "assets/images/team/paseckiy.jpg",
-            "name": "Пасецкий Юрий Григорьевич",
-            "role": "Клинический психолог",
-            "desc": "Практикующий психолог. Индивидуальные консультации по поведению и развитию подростков."
+            "img": "./assets/images/index/experts/test.png",
+            "name": "Фамилия Имя Отчество",
+            "role": "Должность",
+            "desc": "Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата."
             })</li>
 
           <li>@@include('./partials/expert-card.html', {
-            "img": "assets/images/team/cyblinov.jpg",
-            "name": "Цыблинов Андрей Васильевич",
-            "role": "Клинический психолог",
-            "desc": "Сертифицированный консультант по девиантному поведению подростков."
+            "img": "./assets/images/index/experts/test.png",
+            "name": "Фамилия Имя Отчество",
+            "role": "Должность",
+            "desc": "Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата."
             })</li>
 
           <li>@@include('./partials/expert-card.html', {
-            "img": "assets/images/team/filipkina.jpg",
-            "name": "Филипкина Ирина Михайловна",
-            "role": "Психолог",
-            "desc": "Практикующий психолог. Педагог-психолог."
+            "img": "./assets/images/index/experts/test.png",
+            "name": "Фамилия Имя Отчество",
+            "role": "Должность",
+            "desc": "Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата."
             })</li>
 
           <li>@@include('./partials/expert-card.html', {
-            "img": "assets/images/team/tveritnikov.jpg",
-            "name": "Тверитников Алексей Николаевич",
-            "role": "Кейс-менеджер",
-            "desc": "Работа с документами и маршрутом поддержки подростков."
+            "img": "./assets/images/index/experts/test.png",
+            "name": "Фамилия Имя Отчество",
+            "role": "Должность",
+            "desc": "Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата."
             })</li>
 
           <li>@@include('./partials/expert-card.html', {
-            "img": "assets/images/team/esina.jpg",
-            "name": "Есина Светлана Станиславовна",
-            "role": "Клинический психолог",
-            "desc": "Практикующий психолог. Семейное консультирование."
+            "img": "./assets/images/index/experts/test.png",
+            "name": "Фамилия Имя Отчество",
+            "role": "Должность",
+            "desc": "Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата."
             })</li>
 
           <li>@@include('./partials/expert-card.html', {
-            "img": "assets/images/team/baryshnikova.jpg",
-            "name": "Барышникова Лада Павловна",
-            "role": "Клинический психолог",
-            "desc": "Эксперт по созависимости. Семейное консультирование и работа с кризисами."
+            "img": "./assets/images/index/experts/test.png",
+            "name": "Фамилия Имя Отчество",
+            "role": "Должность",
+            "desc": "Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата."
             })</li>
 
           <li>@@include('./partials/expert-card.html', {
-            "img": "assets/images/team/nikishes.jpg",
-            "name": "Никишес Иван Владимирович",
-            "role": "Клинический психолог",
-            "desc": "Практикующий психолог."
+            "img": "./assets/images/index/experts/test.png",
+            "name": "Фамилия Имя Отчество",
+            "role": "Должность",
+            "desc": "Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата."
             })</li>
 
           <li>@@include('./partials/expert-card.html', {
-            "img": "assets/images/team/siyanovich.jpg",
-            "name": "Сиянович Серафим Игоревич",
-            "role": "Консультант",
-            "desc": "Сопровождение подростков на занятиях и в быту."
+            "img": "./assets/images/index/experts/test.png",
+            "name": "Фамилия Имя Отчество",
+            "role": "Должность",
+            "desc": "Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата."
             })</li>
 
           <li>@@include('./partials/expert-card.html', {
-            "img": "assets/images/team/okulov.jpg",
-            "name": "Окулов Данил Александрович",
-            "role": "Воспитатель, кейс-менеджер",
-            "desc": "Сопровождение образовательного маршрута подростков."
+            "img": "./assets/images/index/experts/test.png",
+            "name": "Фамилия Имя Отчество",
+            "role": "Должность",
+            "desc": "Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата."
             })</li>
         </ul>
       </div>

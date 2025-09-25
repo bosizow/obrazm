@@ -57,7 +57,6 @@
 
 .result--item {
   width: 320px;
-  min-height: 450px;
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-start;
@@ -101,27 +100,26 @@
 
   .result--item-b,
   .result--item-d {
-    margin-left: -5px;
+    margin-left: -30px;
   }
 }
 
 @media screen and (min-width: 1280px) {
   .result--item-c {
-    margin-left: -5px;
+    margin-left: -30px;
   }
 }
 
 .result-card {
-  background-color: rgba(0, 255, 255, .5);
   width: 320px;
-  height: 320px;
+  height: auto;
   margin-bottom: -100px !important;
   z-index: 10;
 }
 
 .result-note {
   padding: 120px 25px 25px 25px;
-  width: 90%;
+  width: 85%;
   box-sizing: border-box;
   z-index: 5;
   border: 1px solid var(--text-color-accent);
