@@ -24,7 +24,12 @@
 .cta--form-zigzag {
   position: absolute;
   top: -10px;
-  right: -40px;
+  right: -10px;
+}
+
+@media screen and (min-width: 960px) {
+  .cta--form-zigzag {
+  right: -40px;}
 }
 
 .cta--column-first {
