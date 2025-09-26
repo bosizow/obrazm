@@ -27,10 +27,18 @@ const newer = require('gulp-newer');
 const sharp = require('sharp');
 const toIco = require('to-ico');
 
+/* ───── видео: ffmpeg ───── */
+const ffmpeg = require('fluent-ffmpeg');
+const ffmpegStatic = require('ffmpeg-static'); // путь к встроенному бинарнику ffmpeg (если доступен)
+if (ffmpegStatic) {
+  ffmpeg.setFfmpegPath(ffmpegStatic);
+}
+
 /* ───────────────────────────────────────────────────────────
    Конфиг
    ─────────────────────────────────────────────────────────── */
 const USE_MIN_SUFFIX = false; // ← true → *.min.css / *.min.js в build
+const MAKE_75_PERCENT_VARIANTS = true; // ← можно выключить, если не нужно
 
 const paths = {
   src: 'src',
@@ -77,6 +85,14 @@ const paths = {
       faviconSvg: 'src/assets/icons/favicon.svg',
       faviconIcoDist: 'dist/assets/icons/favicon.ico',
     },
+    video: {
+      // входные видео (по ТЗ — mp4)
+      src: 'src/assets/video/**/*.mp4',
+      dist: 'dist/assets/video',
+      build: 'build/assets/video',
+      // расширения выходных файлов
+      posterExt: '.jpg', // постер из первого кадра
+    },
   },
 };
 
@@ -90,6 +106,9 @@ function warnMissing(what, where) {
 function rmDirSafe(dir) {
   try { fs.rmSync(dir, { recursive: true, force: true }); log(c.gray(`clean: ${dir} removed`)); }
   catch (e) { log(c.red(`clean error for ${dir}: ${e.message}`)); }
+}
+function ensureDirSync(dir) {
+  fs.mkdirSync(dir, { recursive: true });
 }
 /** stream с allowEmpty и логом при отсутствии файлов */
 function srcChecked(globPattern, opts = {}) {
@@ -119,7 +138,6 @@ function pruneEmptyUnder(root) {
 }
 
 /* ─────────────── assets-resolver ─────────────── */
-/** извлекаем базовую папку из глаба для корректного {base: ...} */
 function baseDirFromGlob(glob) {
   if (!glob) return '';
   const i = glob.indexOf('**');
@@ -131,9 +149,8 @@ const ASSETS = (() => {
   const nested = paths && paths.vendor && paths.vendor.assets ? paths.vendor.assets : null;
   const top = paths && paths.assets ? paths.assets : null;
   const a = top || nested;
-  if (a && a.images && a.icons) return a;
-  // дефолты — чтобы сборка не падала даже при пустом конфиге
-  return {
+  // добавим дефолты — чтобы сборка не падала
+  const defaults = {
     images: {
       src: 'src/assets/images/**/*.{jpg,jpeg,png,gif,svg,webp,avif}',
       dist: 'dist/assets/images',
@@ -146,7 +163,14 @@ const ASSETS = (() => {
       faviconSvg: 'src/assets/icons/favicon.svg',
       faviconIcoDist: 'dist/assets/icons/favicon.ico',
     },
+    video: {
+      src: 'src/assets/video/**/*.mp4',
+      dist: 'dist/assets/video',
+      build: 'build/assets/video',
+      posterExt: '.jpg',
+    },
   };
+  return Object.assign({}, defaults, a || {});
 })();
 
 /* ─────────────── Images / Icons ─────────────── */
@@ -210,6 +234,7 @@ function iconsDist() {
   });
 }
 
+/* ─────────────── Favicon (в пайплайн по желанию) ─────────────── */
 async function faviconSvgToIcoDist(done) {
   try {
     if (!ASSETS || !ASSETS.icons || !ASSETS.icons.faviconSvg || !exists(ASSETS.icons.faviconSvg)) {
@@ -222,7 +247,7 @@ async function faviconSvgToIcoDist(done) {
       sizes.map((s) => sharp(svgBuf, { density: 256 }).resize(s, s).png().toBuffer())
     );
     const icoBuf = await toIco(pngBuffers);
-    fs.mkdirSync(path.dirname(ASSETS.icons.faviconIcoDist), { recursive: true });
+    ensureDirSync(path.dirname(ASSETS.icons.faviconIcoDist));
     fs.writeFileSync(ASSETS.icons.faviconIcoDist, icoBuf);
     log(c.gray('favicon: создан dist/assets/icons/favicon.ico'));
     if (done) done();
@@ -232,6 +257,142 @@ async function faviconSvgToIcoDist(done) {
   }
 }
 
+/* ─────────────── Video ─────────────── */
+function hasFfmpeg() {
+  // если ffmpeg-static не дал путь — надеемся на системный ffmpeg в PATH
+  return Boolean(ffmpegStatic) || process.env.PATH.split(path.delimiter).some(() => true);
+}
+
+// Promise-обёртка для fluent-ffmpeg
+function runFfmpeg(cmd) {
+  return new Promise((resolve, reject) => {
+    cmd.on('end', resolve).on('error', reject).run();
+  });
+}
+
+async function processOneVideo(absIn, distRoot, makeScaled = MAKE_75_PERCENT_VARIANTS) {
+  const rel = path.relative(baseDirFromGlob(ASSETS.video.src) || 'src/assets/video', absIn);
+  const baseNoExt = rel.replace(/\.[^.]+$/, '');
+  const outDir = path.join(distRoot, path.dirname(rel));
+  ensureDirSync(outDir);
+
+  const outMp4 = path.join(outDir, `${path.basename(baseNoExt)}.mp4`);
+  const outWebm = path.join(outDir, `${path.basename(baseNoExt)}.webm`);
+  const outPoster = path.join(outDir, `${path.basename(baseNoExt)}${ASSETS.video.posterExt || '.jpg'}`);
+
+  // основные: mp4/webm mute
+  try {
+    await runFfmpeg(
+      ffmpeg(absIn)
+        .noAudio()
+        .videoCodec('libx264')
+        .outputOptions(['-crf 26', '-preset medium', '-movflags +faststart'])
+        .output(outMp4)
+        .outputOptions(['-y'])
+    );
+    log(c.gray(`video: mp4 ${rel} → ${path.relative(process.cwd(), outMp4)}`));
+  } catch (e) {
+    log(c.yellow(`video: mp4 пропущен (${rel}) — ${e.message}`));
+  }
+
+  try {
+    await runFfmpeg(
+      ffmpeg(absIn)
+        .noAudio()
+        .videoCodec('libvpx-vp9')
+        .outputOptions(['-b:v 0', '-crf 32'])
+        .output(outWebm)
+        .outputOptions(['-y'])
+    );
+    log(c.gray(`video: webm ${rel} → ${path.relative(process.cwd(), outWebm)}`));
+  } catch (e) {
+    log(c.yellow(`video: webm пропущен (${rel}) — ${e.message}`));
+  }
+
+  // постер — 1-й кадр
+  try {
+    await runFfmpeg(
+      ffmpeg(absIn)
+        .frames(1)
+        .outputOptions(['-qscale:v 2'])
+        .output(outPoster)
+        .outputOptions(['-y'])
+    );
+    log(c.gray(`video: poster ${rel} → ${path.relative(process.cwd(), outPoster)}`));
+  } catch (e) {
+    log(c.yellow(`video: poster пропущен (${rel}) — ${e.message}`));
+  }
+
+  if (!makeScaled) return;
+
+  // 75%-масштаб (обе версии)
+  const scaleFilter = 'scale=trunc(iw*0.75/2)*2:trunc(ih*0.75/2)*2';
+  const outMp4s = path.join(outDir, `${path.basename(baseNoExt)}-75.mp4`);
+  const outWebms = path.join(outDir, `${path.basename(baseNoExt)}-75.webm`);
+
+  try {
+    await runFfmpeg(
+      ffmpeg(absIn)
+        .noAudio()
+        .videoCodec('libx264')
+        .videoFilters(scaleFilter)
+        .outputOptions(['-crf 27', '-preset medium', '-movflags +faststart'])
+        .output(outMp4s)
+        .outputOptions(['-y'])
+    );
+    log(c.gray(`video: mp4-75% ${rel} → ${path.relative(process.cwd(), outMp4s)}`));
+  } catch (e) {
+    log(c.yellow(`video: mp4-75% пропущен (${rel}) — ${e.message}`));
+  }
+
+  try {
+    await runFfmpeg(
+      ffmpeg(absIn)
+        .noAudio()
+        .videoCodec('libvpx-vp9')
+        .videoFilters(scaleFilter)
+        .outputOptions(['-b:v 0', '-crf 33'])
+        .output(outWebms)
+        .outputOptions(['-y'])
+    );
+    log(c.gray(`video: webm-75% ${rel} → ${path.relative(process.cwd(), outWebms)}`));
+  } catch (e) {
+    log(c.yellow(`video: webm-75% пропущен (${rel}) — ${e.message}`));
+  }
+}
+
+async function videoDist() {
+  if (!ASSETS || !ASSETS.video) {
+    warnMissing('paths.assets.video (config gulpfile)', 'paths');
+    return;
+  }
+  const base = baseDirFromGlob(ASSETS.video.src) || 'src/assets/video';
+  if (!exists(base)) {
+    warnMissing(`Папка ${base}`, process.cwd());
+    return;
+  }
+
+  if (!hasFfmpeg()) {
+    warnMissing('ffmpeg (не найден бинарник). Установи: npm i -D ffmpeg-static', 'env');
+    return;
+  }
+
+  // находим все mp4; newer тут не применим: генерим несколько выходов, проверяем сами
+  const files = fg.sync(ASSETS.video.src, { dot: false });
+  if (!files.length) {
+    warnMissing(`Видеофайлы по шаблону "${ASSETS.video.src}"`, process.cwd());
+    return;
+  }
+  for (const file of files) {
+    try {
+      await processOneVideo(path.resolve(file), ASSETS.video.dist, MAKE_75_PERCENT_VARIANTS);
+    } catch (e) {
+      log(c.yellow(`video: пропуск файла ${file} — ${e.message}`));
+    }
+  }
+}
+
+/* ─────────────── Copy media dist → build ─────────────── */
 function mediaBuildCopy() {
   // Копируем всё из dist/assets/** в build/assets/** с сохранением структуры
   return gulp.src(['dist/assets/**/*'], { base: 'dist' })
@@ -261,7 +422,6 @@ function htmlBuild() {
     .pipe(fileinclude({ prefix: '@@', basepath: '@file' }));
 
   if (USE_MIN_SUFFIX) {
-    // правим ссылки на CSS/JS только из наших каталогов (vendor/normalize отдельно)
     stream = stream
       .pipe(replace(/(href=["'][^"']*?vendor\/normalize)\.css(["'])/g, '$1.min.css$2'))
       .pipe(replace(/(href=["'][^"']*?\/css\/[^"']+?)\.css(["'])/g, '$1.min.css$2'))
@@ -315,7 +475,7 @@ function stylesBuild() {
 /* ─────────────── Scripts (JS) ─────────────── */
 function scriptsDist() {
   if (!exists('src/js')) warnMissing('Папка src/js', process.cwd());
-  return srcChecked(paths.scripts.src, { base: 'src/js' }) // ← без js/js
+  return srcChecked(paths.scripts.src, { base: 'src/js' })
     .pipe(plumber({ errorHandler: (err) => log(c.red(err.message)) }))
     .pipe(sourcemaps.init())
     .pipe(sourcemaps.write('.'))
@@ -374,30 +534,29 @@ function watchFiles() {
   gulp.watch(paths.scripts.src, gulp.series(scriptsDist, scriptsBuild, pruneDistEmpty, pruneBuildEmpty));
   gulp.watch(ASSETS.images.src, gulp.series(imagesDist, mediaBuildCopy, pruneDistEmpty, pruneBuildEmpty));
   gulp.watch(ASSETS.icons.src, gulp.series(iconsDist, /*faviconSvgToIcoDist,*/ mediaBuildCopy, pruneDistEmpty, pruneBuildEmpty));
+  gulp.watch(ASSETS.video.src, gulp.series(videoDist, mediaBuildCopy, pruneDistEmpty, pruneBuildEmpty));
 }
 
 /* ─────────────── Public tasks ─────────────── */
 const codeDist = gulp.parallel(htmlDist, stylesDist, scriptsDist, vendorDist);
 const codeBuild = gulp.parallel(htmlBuild, stylesBuild, scriptsBuild, vendorBuild);
-const mediaDist = gulp.parallel(imagesDist, iconsDist); // favicon убран из пайплайна
+const mediaDist = gulp.parallel(imagesDist, iconsDist, videoDist); // favicon можно добавить сюда при желании
 
-// одноразовая сборка обеих целей (без watch) + чистка пустых папок
 const buildBoth = gulp.series(
   cleanDist,
   cleanBuild,
-  gulp.parallel(codeDist, mediaDist),     // сначала код + медиа в dist
-  gulp.parallel(codeBuild, mediaBuildCopy), // затем код в build и копия медиа dist→build
+  gulp.parallel(codeDist, mediaDist),        // dist: код + медиа (вкл. видео)
+  gulp.parallel(codeBuild, mediaBuildCopy),  // build: код + копия медиа из dist
   gulp.parallel(pruneDistEmpty, pruneBuildEmpty)
 );
 
-// сборка + watch
 const start = gulp.series(buildBoth, watchFiles);
 
 const buildDist = gulp.series(cleanDist, codeDist, pruneDistEmpty);
 const build = gulp.series(cleanBuild, codeBuild, pruneBuildEmpty);
 
-exports.dev = buildBoth;       // npm run dev → один прогон (без watch)
-exports.start = start;         // npm run watch → режим разработки (с watch)
+exports.dev = buildBoth;
+exports.start = start;
 exports['build:dist'] = buildDist;
 exports.build = build;
 
@@ -417,5 +576,6 @@ exports.vendorBuild = vendorBuild;
 
 exports.imagesDist = imagesDist;
 exports.iconsDist = iconsDist;
-exports.faviconSvgToIcoDist = faviconSvgToIcoDist;
+exports.videoDist = videoDist;
+exports.faviconSvgToIcoDist = faviconSvgToIcoDist; // не в пайплайне по умолчанию
 exports.mediaBuildCopy = mediaBuildCopy;

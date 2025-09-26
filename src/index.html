@@ -18,7 +18,15 @@
   <main id="main" class="uk-section uk-section-default uk-padding-remove-vertical">
     <section id="hero" class="hero uk-section uk-padding-remove-top uk-padding-remove-bottom">
       <div class="hero--bg" aria-hidden="true">
-        <div class="hero--bg-left"></div>
+        <div class="hero--bg-left">
+          <video class="hero--video" autoplay muted loop playsinline preload="metadata" poster="./assets/video/hero.jpg">
+            <source src="./assets/video/hero.webm" type="video/webm">
+            <source src="./assets/video/hero.mp4" type="video/mp4">
+            Ваш браузер не поддерживает видео.
+          </video>
+
+          <!-- <img class="hero--video-fallback uk-hidden@m" src="/assets/images/index/hero/left-bg-mobile.jpg" alt="" aria-hidden="true"> -->
+        </div>
         <div class="hero--bg-right"></div>
       </div>
       <div class="uk-container hero--container">

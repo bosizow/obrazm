@@ -153,7 +153,7 @@
   z-index: 2;
 }
 
-.hero--text{
+.hero--text {
   z-index: 10;
 }
 
@@ -170,4 +170,45 @@
     width: 40vw;
     right: 5vw;
   }
+}
+
+.hero--bg-left {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero--video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* как background-size: cover */
+  pointer-events: none;
+  /* клики проходят «сквозь» */
+}
+
+.hero--bg-left::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, .35);
+}
+
+// .hero--video-fallback {
+//   position: absolute;
+//   inset: 0;
+//   width: 100%;
+//   height: 100%;
+//   object-fit: cover;
+// }
+
+@media (prefers-reduced-motion: reduce) {
+  // .hero--video {
+  //   display: none;
+  // }
+
+  // .hero--video-fallback {
+  //   display: block;
+  // }
 }
