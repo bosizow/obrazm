@@ -163,20 +163,6 @@
   opacity: 0;
 }
 
-.cta--bttn {
-  background-color: var(--bg-color-base) !important;
-  color: var(--text-color-accent-second) !important;
-  padding: 5px 48px !important;
-  font-size: 1rem !important;
-  text-transform: none !important;
-  transition: var(--bttn-transition);
-}
-
-.cta--bttn:hover {
-  background-color: var(--bg-color-accent-second) !important;
-  color: var(--text-color-inverse) !important;
-}
-
 .cta-checkbox--link {
   color: var(--text-color-inverse) !important;
   text-decoration: underline !important;
