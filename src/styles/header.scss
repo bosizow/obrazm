@@ -1,82 +1,36 @@
-.site-header .uk-navbar-item {
+.header .uk-navbar-item {
   min-height: 50px !important;
 }
 
-.site-header .uk-navbar-nav>li>a {
+.header .uk-navbar-nav>li>a {
   color: var(--text-color-primary) !important;
   font-size: 1rem !important;
   text-transform: none !important;
 }
 
-.site-header .uk-navbar-right{
+.header .uk-navbar-right{
   gap: .6rem !important;
 }
 
-.site-header .cta-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: .15rem 2.25rem !important;
-  border-radius: 40px !important;
-  font-weight: var(--bold-font-weight) !important;
-  color: var(--text-color-inverse);
-  border: 2px solid var(--bg-color-accent) !important;
-  opacity: 1;
-  transition: var(--bttn-transition);
-  line-height: 2rem !important;
-  background: var(--bg-color-accent);
-  color: var(--text-color-inverse) !important;
-  text-transform: none !important;
-
-  font-size: 1rem !important;
-  height: 36px;
-}
-
-.site-header .cta-btn:hover {
-  opacity: .6;
-  background: var(--bg-color-accent);
-}
-
-.site-header .menu-btn {
-  min-height: 36px !important;
-  height: 36px;
-  width: 36px;
-  border-radius: 18px;
-  background: var(--bg-color-accent) !important;
-  border: none;
-}
-
-.site-header .menu-btn .uk-margin-small-left {
-  display: none;
-}
-
-.site-header .menu-btn .uk-navbar-toggle-icon {
-  transform: scale(.8);
-}
-
-.site-header .menu-btn svg {
-  fill: var(--text-color-inverse) !important;
-}
-
-.site-header .uk-navbar-dropdown-nav>li>a {
+.header .uk-navbar-dropdown-nav>li>a {
   color: var(--text-color-primary) !important;
   font-size: 1rem !important;
   text-transform: none !important;
 }
 
-.site-header .uk-navbar-dropdown-nav>li>a:hover {
+.header .uk-navbar-dropdown-nav>li>a:hover {
   color: var(--text-color-secondary) !important;
 }
 
 @media screen and (min-width: 960px) {
 
-  .site-header .uk-navbar {
+  .header .uk-navbar {
     display: grid;
     grid-template: 1fr / auto 1fr auto;
     gap: 3rem;
   }
 
-  .site-header .uk-navbar .uk-navbar-center {
+  .header .uk-navbar .uk-navbar-center {
     position: relative !important;
     top: 0;
     left: 0;
@@ -84,28 +38,28 @@
     width: 100%;
   }
 
-  .site-header .uk-navbar-nav {
+  .header .uk-navbar-nav {
     width: 100%;
   }
 
-  .site-header .uk-navbar-nav li {
+  .header .uk-navbar-nav li {
     flex: 0 auto;
   }
 
-  .site-header .uk-navbar-nav li a {
+  .header .uk-navbar-nav li a {
     min-height: 50px !important;
   }
 
-  .site-header .uk-navbar-nav li:first-child {
+  .header .uk-navbar-nav li:first-child {
     flex: 1;
   }
 
-  .site-header .uk-navbar-nav li:first-child a {
+  .header .uk-navbar-nav li:first-child a {
     justify-content: start;
     gap: 1rem;
   }
 
-  .site-header .uk-navbar-chevron {
+  .header .uk-navbar-chevron {
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -162,56 +116,4 @@
 
 .uk-offcanvas-bar .uk-text-muted a {
   color: var(--text-color-primary) !important;
-}
-
-.uk-offcanvas-bar .social-ic {
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--bg-color-accent) !important;
-  color: var(--text-color-inverse) !important;
-  line-height: 1;
-  transition: var(--bttn-transition);
-  opacity: 1;
-}
-
-.uk-offcanvas-bar .social-ic:hover {
-  opacity: .6;
-}
-
-.uk-offcanvas-bar .cta-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem 1.5rem !important;
-  border-radius: 40px !important;
-  font-weight: var(--bold-font-weight) !important;
-  color: var(--text-color-inverse);
-  border: 2px solid var(--bg-color-accent) !important;
-  opacity: 1;
-  transition: var(--bttn-transition);
-  line-height: 2rem !important;
-  font-size: 1.1rem !important;
-}
-
-.uk-offcanvas-bar .cta-btn--primary {
-  background: var(--bg-color-accent) !important;
-  color: var(--text-color-inverse) !important;
-}
-
-.uk-offcanvas-bar .cta-btn--primary:hover {
-  opacity: .6;
-}
-
-.uk-offcanvas-bar .cta-btn--outline {
-  background: transparent;
-  color: var(--text-color-accent) !important;
-  border: 2px solid var(--bg-color-accent) !important;
-}
-
-.uk-offcanvas-bar .cta-btn--outline:hover {
-  background: var(--bg-color-accent) !important;
-  color: var(--text-color-inverse) !important;
 }

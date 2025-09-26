@@ -106,23 +106,6 @@
   }
 }
 
-.story--bttn {
-  text-transform: none !important;
-  max-width: 290px;
-  background-color: var(--bg-color-accent-second) !important;
-  line-height: 1.2 !important;
-  font-weight: 400 !important;
-  height: auto !important;
-  padding: 16px 40px !important;
-  transition: var(--bttn-transition);
-  font-size: 1rem !important;
-  z-index: 10;
-}
-
-.story--bttn:hover {
-  opacity: .8;
-}
-
 .story--brush {
   position: absolute;
   top: -35;
