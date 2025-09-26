@@ -1,24 +1,24 @@
-.site-footer .footer-social {
+.footer--social {
   display: flex;
   align-items: center;
   gap: 1rem;
   flex-wrap: wrap;
 }
 
-.site-footer .footer-cta {
+.footer--cta {
   gap: .5rem;
 }
 
-.site-footer .footer-title {
+.footer--title {
   color: var(--text-color-accent);
   font-weight: var(--bold-font-weight);
 }
 
-.site-footer .uk-text-muted {
+.uk-text--muted {
   color: var(--text-color-muted) !important;
   font-size: .9rem !important;
 }
 
-.site-footer .footer-phone a {
+.footer--phone a {
   color: var(--text-color-primary) !important;
 }
