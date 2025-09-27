@@ -1,0 +1,19 @@
+.uc-h2 {
+  font-family: var(--font-family-accent) !important;
+  font-weight: 500 !important;
+  font-size: 1rem !important;
+  line-height: 1.25;
+  text-transform: uppercase !important;
+}
+
+@media screen and (min-width: 560px) {
+  .uc-h2 {
+    font-size: 1.875rem !important;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .uc-h2 {
+    font-size: 2.25rem !important;
+  }
+}

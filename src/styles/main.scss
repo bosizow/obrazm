@@ -1,11 +1,21 @@
 @use 'variables';
-@use 'global';
-@use 'header';
-@use 'footer';
-@use 'hero';
-@use 'problems';
-@use 'cta';
-@use 'statement';
-@use 'story';
-@use 'result';
-@use 'experts';
+
+@use 'global/headlines';
+@use 'global/buttons';
+@use 'global/header';
+@use 'global/footer';
+
+@use 'global/story';
+@use 'global/cta';
+@use 'global/result';
+@use 'global/experts';
+
+@use 'index/hero';
+@use 'index/problems';
+@use 'index/statement';
+
+html,
+body {
+  font-family: var(--font-base);
+  font-size: var(--rem);
+}
