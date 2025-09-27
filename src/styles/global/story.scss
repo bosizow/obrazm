@@ -47,7 +47,7 @@
 
 @media screen and (min-width: 640px) {
   .story--row-greating {
-    flex-flow: row nowrap !important;
+    flex-flow: row-reverse nowrap !important;
   }
 }
 
@@ -61,12 +61,6 @@
   }
 }
 
-@media screen and (min-width: 640px) {
-  .story--row-greating .story-quote {
-    text-align: left;
-  }
-}
-
 .story--col {
   display: flex;
   flex-flow: column nowrap;
@@ -74,6 +68,20 @@
   justify-content: center;
   align-items: center;
   position: relative !important;
+}
+
+.story-quote {
+  color: var(--text-color-inverse);
+  font-size: 1.25rem !important;
+  max-width: 320px;
+  text-align: center;
+  z-index: 10;
+}
+
+@media screen and (min-width: 640px) {
+  .story--row-greating .story-quote {
+    text-align: left;
+  }
 }
 
 @media screen and (min-width: 960px) {
@@ -84,14 +92,6 @@
   .story--row-process .story--col-quote {
     align-items: flex-end !important;
   }
-}
-
-.story-quote {
-  color: var(--text-color-inverse);
-  font-size: 1.25rem !important;
-  max-width: 320px;
-  text-align: center;
-  z-index: 10;
 }
 
 .story-quote--intro {
@@ -113,7 +113,7 @@
 .story--brush {
   position: absolute;
   top: -130px;
-  left: 5%;
+  left: 10%;
   max-width: 90%;
   z-index: 5;
   opacity: .7;
@@ -121,8 +121,8 @@
 
 @media screen and (min-width: 640px) {
   .story--brush {
-    left: 20%;
-    max-width: 120%;
+    top: 10px;
+    max-width: 110%;
   }
 
 }
