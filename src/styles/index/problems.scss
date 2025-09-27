@@ -29,10 +29,17 @@
   position: absolute;
   inset: 50%;
   transform: translate(-50%, -50%) rotate(90deg);
-  width: 1150px !important;
-  max-width: 1150px;
+  width: 800px !important;
+  max-width: 800px;
   height: auto !important;
   z-index: 5;
+}
+
+@media screen and (min-width: 640px) {
+  .problems--line {
+    width: 1150px !important;
+    max-width: 1150px;
+  }
 }
 
 @media screen and (min-width: 960px) {
@@ -54,7 +61,7 @@
 .problems--item {
   position: absolute;
   min-height: 160px;
-  min-width: 220px;
+  min-width: 180px;
   transform: translate(-50%, -50%);
 }
 
@@ -81,6 +88,42 @@
 .problems--item:nth-child(5) {
   top: 1050px;
   left: 60%;
+}
+
+@media screen and (min-width: 640px) {
+  .problems--item {
+    min-width: 220px;
+  }
+
+  .problems--item {
+    min-height: 160px;
+    min-width: 220px;
+  }
+
+  .problems--item:nth-child(1) {
+    top: 170px;
+    left: 63%;
+  }
+
+  .problems--item:nth-child(2) {
+    top: 420px;
+    left: 45%;
+  }
+
+  .problems--item:nth-child(3) {
+    top: 640px;
+    left: 55%;
+  }
+
+  .problems--item:nth-child(4) {
+    top: 840px;
+    left: 39%;
+  }
+
+  .problems--item:nth-child(5) {
+    top: 1050px;
+    left: 60%;
+  }
 }
 
 @media screen and (min-width: 960px) {
@@ -142,17 +185,33 @@
 }
 
 .problem-card--frame {
-  min-height: 160px;
-  min-width: 160px;
+  min-height: 130px;
+  min-width: 130px;
+}
+
+@media screen and (min-width: 640px) {
+  .problem-card--frame {
+    min-height: 160px;
+    min-width: 160px;
+  }
 }
 
 .problem-card--caption {
   color: var(--text-color-primary);
   text-align: center !important;
   line-height: 1.25;
-  font-size: 1.2rem !important;
-  min-width: 160px;
-  max-width: 180px;
+  font-size: 1rem !important;
+  min-width: 100px;
+  max-width: 140px;
+}
+
+
+@media screen and (min-width: 640px) {
+  .problem-card--caption {
+    font-size: 1.2rem !important;
+    min-width: 160px;
+    max-width: 180px;
+  }
 }
 
 @media screen and (min-width: 960px) {
