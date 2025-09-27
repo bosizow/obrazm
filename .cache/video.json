@@ -1,0 +1,12 @@
+{
+  "hero.mp4": {
+    "sig": "bdc75c5988a8c7ca5cbbdf215493c81942304a22",
+    "outs": [
+      "dist/assets/video/hero.mp4",
+      "dist/assets/video/hero.webm",
+      "dist/assets/video/hero.jpg",
+      "dist/assets/video/hero-75.mp4",
+      "dist/assets/video/hero-75.webm"
+    ]
+  }
+}
