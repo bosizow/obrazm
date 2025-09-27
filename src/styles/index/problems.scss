@@ -16,7 +16,14 @@
 
 .problems--stage {
   position: relative;
-  min-height: 1200px;
+  min-height: 900px;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 640px) {
+  .problems--stage {
+    min-height: 1200px;
+  }
 }
 
 @media screen and (min-width: 960px) {
@@ -28,7 +35,7 @@
 .problems--line {
   position: absolute;
   inset: 50%;
-  transform: translate(-50%, -50%) rotate(90deg);
+  transform: translate(-53%, -50%) rotate(90deg);
   width: 800px !important;
   max-width: 800px;
   height: auto !important;
@@ -37,6 +44,7 @@
 
 @media screen and (min-width: 640px) {
   .problems--line {
+    transform: translate(-50%, -50%) rotate(90deg);
     width: 1150px !important;
     max-width: 1150px;
   }
@@ -66,28 +74,28 @@
 }
 
 .problems--item:nth-child(1) {
-  top: 170px;
-  left: 63%;
+  top: 140px;
+  left: 56%;
 }
 
 .problems--item:nth-child(2) {
-  top: 420px;
-  left: 45%;
+  top: 320px;
+  left: 35%;
 }
 
 .problems--item:nth-child(3) {
-  top: 640px;
-  left: 55%;
+  top: 470px;
+  left: 60%;
 }
 
 .problems--item:nth-child(4) {
-  top: 840px;
-  left: 39%;
+  top: 620px;
+  left: 59%;
 }
 
 .problems--item:nth-child(5) {
-  top: 1050px;
-  left: 60%;
+  top: 770px;
+  left: 54%;
 }
 
 @media screen and (min-width: 640px) {
@@ -163,13 +171,17 @@
   flex-flow: row nowrap;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
-  min-height: 160px;
+  gap: .4rem;
 }
 
-.problems--item:nth-child(3) .problem-card,
-.problems--item:nth-child(4) .problem-card {
+.problems--item:nth-child(3) .problem-card {
   flex-flow: row-reverse nowrap;
+}
+
+@media screen and (min-width: 640px) {
+  .problems--item:nth-child(4) .problem-card {
+    flex-flow: row-reverse nowrap;
+  }
 }
 
 @media screen and (min-width: 960px) {
@@ -185,26 +197,22 @@
 }
 
 .problem-card--frame {
-  min-height: 130px;
-  min-width: 130px;
-}
-
-@media screen and (min-width: 640px) {
-  .problem-card--frame {
-    min-height: 160px;
-    min-width: 160px;
-  }
+  height: 160px;
+  width: 160px;
 }
 
 .problem-card--caption {
+  text-align: left !important;
   color: var(--text-color-primary);
-  text-align: center !important;
   line-height: 1.25;
-  font-size: 1rem !important;
+  font-size: .8rem !important;
   min-width: 100px;
   max-width: 140px;
 }
 
+.problems--item:nth-child(3) .problem-card--caption {
+  text-align: right !important;
+}
 
 @media screen and (min-width: 640px) {
   .problem-card--caption {
@@ -212,12 +220,22 @@
     min-width: 160px;
     max-width: 180px;
   }
+
+  .problems--item:nth-child(4) .problem-card--caption {
+    text-align: right !important;
+  }
 }
 
 @media screen and (min-width: 960px) {
   .problem-card--caption {
+    text-align: center !important;
     min-width: 140px;
     width: 90%;
     font-size: 1rem !important;
+  }
+
+
+  .problems--item:nth-child(3) .problem-card--caption {
+    text-align: center !important;
   }
 }
