@@ -21,6 +21,12 @@
   position: relative !important;
 }
 
+@media screen and (max-width: 960px) {
+  .cta--column {
+    padding-left: 0 !important;
+  }
+}
+
 .cta--form-zigzag {
   position: absolute;
   top: -10px;
@@ -29,7 +35,8 @@
 
 @media screen and (min-width: 960px) {
   .cta--form-zigzag {
-  right: -40px;}
+    right: -40px;
+  }
 }
 
 .cta--column-first {
@@ -74,8 +81,14 @@
 }
 
 .cta--photos {
-  min-height: 540px;
+  min-height: 360px;
   z-index: 2;
+}
+
+@media screen and (min-width: 960px) {
+  .cta--photos {
+    min-height: 540px;
+  }
 }
 
 .cta--illustation {
@@ -84,9 +97,7 @@
   transform: translate(-50%, -50%);
   display: block;
   height: 100% !important;
-  min-height: 400px;
   width: 100% !important;
-  min-width: 400px;
   z-index: 5;
   box-sizing: border-box;
 }
@@ -96,29 +107,47 @@
     margin-left: 25px !important;
     height: 130% !important;
     width: 120% !important;
+    min-width: 400px;
+    min-height: 400px;
   }
 }
 
 .cta--photo {
   display: block;
-  width: 280px;
-  height: 340px;
-  border-radius: 15px !important;
+  width: 190px;
+  height: 230px;
+  border-radius: 10px !important;
   position: absolute;
 }
 
 .cta--photo-a {
   transform: rotate(-5deg);
   top: 15px;
-  left: 20%;
+  left: 0;
   z-index: 6;
 }
 
 .cta--photo-b {
   transform: rotate(4deg);
   bottom: 5px;
-  right: 20%;
+  right: 0;
   z-index: 7;
+}
+
+@media screen and (min-width: 640px) {
+  .cta--photo {
+    width: 280px;
+    height: 340px;
+    border-radius: 15px !important;
+  }
+
+  .cta--photo-a {
+    left: 7%;
+  }
+
+  .cta--photo-b {
+    right: 7%;
+  }
 }
 
 @media screen and (min-width: 960px) {
@@ -140,6 +169,12 @@
   border: none !important;
   border-radius: 10px !important;
   max-width: 460px !important;
+}
+
+@media screen and (min-width: 960px) {
+  .cta-input {
+    max-width: 460px !important;
+  }
 }
 
 .cta-input:focus {
