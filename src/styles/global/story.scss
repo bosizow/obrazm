@@ -61,8 +61,10 @@
   }
 }
 
-.story--row-greating .story-quote {
-  text-align: left;
+@media screen and (min-width: 640px) {
+  .story--row-greating .story-quote {
+    text-align: left;
+  }
 }
 
 .story--col {
@@ -110,13 +112,19 @@
 
 .story--brush {
   position: absolute;
-  top: -35;
-  left: 20%;
-  max-width: 120%;
-  height: 100%;
-  min-height: 200px;
+  top: -130px;
+  left: 5%;
+  max-width: 90%;
   z-index: 5;
   opacity: .7;
+}
+
+@media screen and (min-width: 640px) {
+  .story--brush {
+    left: 20%;
+    max-width: 120%;
+  }
+
 }
 
 @media screen and (min-width: 960px) {
