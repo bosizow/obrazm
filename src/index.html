@@ -19,13 +19,13 @@
     <section id="hero" class="hero uk-section uk-padding-remove-top uk-padding-remove-bottom">
       <div class="hero--bg" aria-hidden="true">
         <div class="hero--bg-left">
-          <video class="hero--video" autoplay muted loop playsinline preload="metadata" poster="assets/video/hero.jpg">
-            <source src="assets/video/hero-75.webm" type="video/webm">
-            <source src="assets/video/hero-75.mp4" type="video/mp4">
+          <video class="hero--video" autoplay muted loop playsinline preload="metadata" poster="/assets/video/hero.jpg">
+            <source src="/assets/video/hero-75.webm" type="video/webm">
+            <source src="/assets/video/hero-75.mp4" type="video/mp4">
             Ваш браузер не поддерживает видео.
           </video>
 
-          <!-- <img class="hero--video-fallback uk-hidden@m" src="assets/images/index/hero/left-bg-mobile.jpg" alt="" aria-hidden="true"> -->
+          <!-- <img class="hero--video-fallback uk-hidden@m" src="/assets/images/index/hero/left-bg-mobile.jpg" alt="" aria-hidden="true"> -->
         </div>
         <div class="hero--bg-right"></div>
       </div>
@@ -33,12 +33,12 @@
         <h1 class="uk-text-center hero--kicker uk-text-uppercase uk-text-bold">Центр-пансионат для&nbsp;подростков<span class="hero--title">«ОБРАЗ&nbsp;МЫСЛИ»</span></h1>
         <div class="hero--paper uk-card uk-card-default">
           <div class="hero--paper-body">
-            <img class="hero--paper-img" src="assets/images/index/hero/hero-bg.png" alt="бумага">
+            <img class="hero--paper-img" src="/assets/images/index/hero/hero-bg.png" alt="бумага">
             <p class="hero--text uk-margin-remove">Перевоспитание детей и подростков без&nbsp;отрыва от&nbsp;обучения</p>
             <a href="#signup" class="hero--btn uc--bttn uk-button uk-border-pill">Оставить заявку</a>
           </div>
         </div>
-        <img class="hero--people" src="assets/images/index/hero/teens.png" alt="Подростки «Образ мысли»">
+        <img class="hero--people" src="/assets/images/index/hero/teens.png" alt="Подростки «Образ мысли»">
       </div>
     </section>
 
@@ -52,31 +52,31 @@
           <ul class="problems--items">
             <li class="problems--item" style="--x:10%; --y:65%;">
               @@include('./partials/problem-card.html', {
-              "img": "assets/images/index/problems/school.png",
+              "img": "/assets/images/index/problems/school.png",
               "title": "Отказывается учиться в&nbsp;школе"
               })
             </li>
             <li class="problems--item" style="--x:38%; --y:75%;">
               @@include('./partials/problem-card.html', {
-              "img": "assets/images/index/problems/company.png",
+              "img": "/assets/images/index/problems/company.png",
               "title": "Связался с&nbsp;плохой компанией"
               })
             </li>
             <li class="problems--item" style="--x:55%; --y:38%;">
               @@include('./partials/problem-card.html', {
-              "img": "assets/images/index/problems/runaway.png",
+              "img": "/assets/images/index/problems/runaway.png",
               "title": "Бродяжничает, уходит из&nbsp;дома"
               })
             </li>
             <li class="problems--item" style="--x:72%; --y:68%;">
               @@include('./partials/problem-card.html', {
-              "img": "assets/images/index/problems/gadgets.png",
+              "img": "/assets/images/index/problems/gadgets.png",
               "title": "Зависим от&nbsp;гаджетов"
               })
             </li>
             <li class="problems--item" style="--x:90%; --y:58%;">
               @@include('./partials/problem-card.html', {
-              "img": "assets/images/index/problems/aggression.png",
+              "img": "/assets/images/index/problems/aggression.png",
               "title": "Стал агрессивным, грубым, применяет физическую силу"
               })
             </li>
@@ -125,9 +125,9 @@
               </form>
             </div>
             <div class="cta--column cta--column-second cta--photos uk-flex-first@m">
-              <img class="cta--illustation" src="assets/images/index/cta/cta-bg.svg" alt="" loading="lazy">
-              <img class="cta--photo cta--photo-a uk-border-rounded uk-box-shadow-medium uk-margin-small-bottom" src="assets/images/index/cta/a.png" alt="Семейная консультация" loading="lazy">
-              <img class="cta--photo cta--photo-b uk-border-rounded uk-box-shadow-medium" src="assets/images/index/cta/b.png" alt="Групповое занятие" loading="lazy">
+              <img class="cta--illustation" src="/assets/images/index/cta/cta-bg.svg" alt="" loading="lazy">
+              <img class="cta--photo cta--photo-a uk-border-rounded uk-box-shadow-medium uk-margin-small-bottom" src="/assets/images/index/cta/a.png" alt="Семейная консультация" loading="lazy">
+              <img class="cta--photo cta--photo-b uk-border-rounded uk-box-shadow-medium" src="/assets/images/index/cta/b.png" alt="Групповое занятие" loading="lazy">
             </div>
           </div>
           <div class="cta--divider uk-visible@m" aria-hidden="true"></div>
@@ -146,19 +146,19 @@
     </section>
 
     <section id="story" class="story uk-section">
-      <img class="story-bg story-bg-mobile uk-hidden@m" src="assets/images/index/story/bg-mobile.png" alt="бумага">
-      <img class="story-bg story-bg-desktop uk-visible@m" src="assets/images/index/story/bg.png" alt="бумага">
+      <img class="story-bg story-bg-mobile uk-hidden@m" src="/assets/images/index/story/bg-mobile.png" alt="бумага">
+      <img class="story-bg story-bg-desktop uk-visible@m" src="/assets/images/index/story/bg.png" alt="бумага">
       <div class="story--container uk-container">
         @@include('./partials/story-container.html', {
-        "img1": "assets/images/index/story/katya-1.png",
+        "img1": "/assets/images/index/story/katya-1.png",
         "alt1": "Катя — портрет",
         "hist-intro": "Привет! Я&nbsp;Катя, мне&nbsp;15&nbsp;лет.",
         "history": "Не хотела учиться, пропускала школу и поздно возвращалась домой.",
-        "img2": "assets/images/index/story/katya-2.png",
+        "img2": "/assets/images/index/story/katya-2.png",
         "alt2": "Катя — занятия",
         "proc-intro": "",
         "process": "В пансионате работала с клиническим психологом, ходила на групповые занятия, восстановила режим и учебные навыки.",
-        "img3": "assets/images/index/story/katya-3.png",
+        "img3": "/assets/images/index/story/katya-3.png",
         "alt3": "Катя — результат",
         "res-intro": "",
         "result": "Сейчас стабильно учусь, вернулась в секцию рисования и готовлюсь к поступлению."
@@ -178,13 +178,13 @@
         <div class="result--items" uk-scrollspy="cls: is-in; target: .result--item; delay: 120">
           <div class="result--item result--item-a">
             <figure class="result-card result-card--zigzag">
-              <img src="assets/images/index/result/a.png" alt="Подростки на занятии" loading="lazy">
+              <img src="/assets/images/index/result/a.png" alt="Подростки на занятии" loading="lazy">
             </figure>
             <div class="result-note result-note--light">Полное избавление от&nbsp;вредных привычек. Восстановление социального поведения.</div>
           </div>
           <div class="result--item result--item-b">
             <figure class="result-card result-card--tilt">
-              <img src="assets/images/index/result/b.png" alt="Группа ребят" loading="lazy">
+              <img src="/assets/images/index/result/b.png" alt="Группа ребят" loading="lazy">
             </figure>
             <div class="result-note result-note--light">
               Получит устойчивые изменения в&nbsp;характере:<br>
@@ -195,14 +195,14 @@
           </div>
           <div class="result--item result--item-c">
             <figure class="result-card result-card--hex">
-              <img src="assets/images/index/result/c.png" alt="Учёба и книги" loading="lazy">
+              <img src="/assets/images/index/result/c.png" alt="Учёба и книги" loading="lazy">
             </figure>
             <div class="result-note result-note--light">Продолжит/закончит обучение в&nbsp;школе.<br>Появится цель в&nbsp;выборе дальнейшей профессии.
             </div>
           </div>
           <div class="result--item result--item-d">
             <figure class="result-card result-card--pent">
-              <img src="assets/images/index/result/d.png" alt="Семья" loading="lazy">
+              <img src="/assets/images/index/result/d.png" alt="Семья" loading="lazy">
             </figure>
             <div class="result-note result-note--orange">Родители смогут спокойно жить и&nbsp;работать.</div>
           </div>
@@ -227,84 +227,84 @@
         </div>
         <ul class="experts--grid uk-grid-large uk-child-width-1-1 uk-child-width-1-2@m uk-child-width-1-3@l" uk-grid uk-scrollspy="cls: is-in; target: .expert-card; delay: 90">
           <li>@@include('./partials/expert-card.html', {
-            "img": "assets/images/index/experts/test.png",
+            "img": "/assets/images/index/experts/test.png",
             "name": "Фамилия Имя Отчество",
             "role": "Должность",
             "desc": "Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата."
             })</li>
 
           <li>@@include('./partials/expert-card.html', {
-            "img": "assets/images/index/experts/test.png",
+            "img": "/assets/images/index/experts/test.png",
             "name": "Фамилия Имя Отчество",
             "role": "Должность",
             "desc": "Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата."
             })</li>
 
           <li>@@include('./partials/expert-card.html', {
-            "img": "assets/images/index/experts/test.png",
+            "img": "/assets/images/index/experts/test.png",
             "name": "Фамилия Имя Отчество",
             "role": "Должность",
             "desc": "Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата."
             })</li>
 
           <li>@@include('./partials/expert-card.html', {
-            "img": "assets/images/index/experts/test.png",
+            "img": "/assets/images/index/experts/test.png",
             "name": "Фамилия Имя Отчество",
             "role": "Должность",
             "desc": "Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата."
             })</li>
 
           <li>@@include('./partials/expert-card.html', {
-            "img": "assets/images/index/experts/test.png",
+            "img": "/assets/images/index/experts/test.png",
             "name": "Фамилия Имя Отчество",
             "role": "Должность",
             "desc": "Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата."
             })</li>
 
           <li>@@include('./partials/expert-card.html', {
-            "img": "assets/images/index/experts/test.png",
+            "img": "/assets/images/index/experts/test.png",
             "name": "Фамилия Имя Отчество",
             "role": "Должность",
             "desc": "Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата."
             })</li>
 
           <li>@@include('./partials/expert-card.html', {
-            "img": "assets/images/index/experts/test.png",
+            "img": "/assets/images/index/experts/test.png",
             "name": "Фамилия Имя Отчество",
             "role": "Должность",
             "desc": "Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата."
             })</li>
 
           <li>@@include('./partials/expert-card.html', {
-            "img": "assets/images/index/experts/test.png",
+            "img": "/assets/images/index/experts/test.png",
             "name": "Фамилия Имя Отчество",
             "role": "Должность",
             "desc": "Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата."
             })</li>
 
           <li>@@include('./partials/expert-card.html', {
-            "img": "assets/images/index/experts/test.png",
+            "img": "/assets/images/index/experts/test.png",
             "name": "Фамилия Имя Отчество",
             "role": "Должность",
             "desc": "Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата."
             })</li>
 
           <li>@@include('./partials/expert-card.html', {
-            "img": "assets/images/index/experts/test.png",
+            "img": "/assets/images/index/experts/test.png",
             "name": "Фамилия Имя Отчество",
             "role": "Должность",
             "desc": "Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата."
             })</li>
 
           <li>@@include('./partials/expert-card.html', {
-            "img": "assets/images/index/experts/test.png",
+            "img": "/assets/images/index/experts/test.png",
             "name": "Фамилия Имя Отчество",
             "role": "Должность",
             "desc": "Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата."
             })</li>
 
           <li>@@include('./partials/expert-card.html', {
-            "img": "assets/images/index/experts/test.png",
+            "img": "/assets/images/index/experts/test.png",
             "name": "Фамилия Имя Отчество",
             "role": "Должность",
             "desc": "Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата Цитата."

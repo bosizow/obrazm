@@ -110,7 +110,7 @@
   width: 100%;
   max-width: 300px;
   height: 400px;
-  transform: rotate(-5deg) translate(-50%, -50%);
+  transform: rotate(-5deg) translate(-50%, -40%);
   border: none;
   background-color: transparent !important;
   box-shadow: none !important;
@@ -118,6 +118,7 @@
 
 @media screen and (min-width: 960px) {
   .hero--paper {
+    transform: rotate(-5deg) translate(-50%, -50%);
     left: 47vw;
     top: 55vh;
     width: 500px;

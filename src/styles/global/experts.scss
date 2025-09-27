@@ -83,11 +83,17 @@
   background-color: var(--bg-color-experts);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.3);
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
   gap: .5rem;
   position: relative;
+}
+
+@media screen and (min-width: 980px) {
+  .expert-card {
+    flex-flow: row nowrap;
+  }
 }
 
 .expert-card--info {
