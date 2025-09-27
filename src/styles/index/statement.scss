@@ -22,7 +22,13 @@
   color: var(--text-color-accent) !important;
   font-weight: 400;
   line-height: 1.1;
-  font-size: 1.6rem !important;
+  font-size: 1.2rem !important;
+}
+
+@media screen and (min-width: 640px) {
+  .statement--title {
+    font-size: 1.6rem !important;
+  }
 }
 
 @media screen and (min-width: 960px) {
