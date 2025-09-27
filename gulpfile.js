@@ -120,6 +120,26 @@ function rmDirSafe(dir) {
 function ensureDirSync(dir) {
   fs.mkdirSync(dir, { recursive: true });
 }
+
+/* ───────── GitHub Pages helper: .nojekyll ───────── */
+function pagesNoJekyll(done) {
+  try {
+    const srcNoJekyll = path.join(paths.src, '.nojekyll');
+    ensureDirSync(paths.build);
+    if (fs.existsSync(srcNoJekyll)) {
+      fs.copyFileSync(srcNoJekyll, path.join(paths.build, '.nojekyll'));
+      log(c.gray('pages: copied src/.nojekyll → build/.nojekyll'));
+    } else {
+      fs.writeFileSync(path.join(paths.build, '.nojekyll'), '');
+      log(c.gray('pages: created build/.nojekyll'));
+    }
+  } catch (e) {
+    log(c.yellow(`pages: .nojekyll warning — ${e.message}`));
+  }
+  done();
+}
+exports.pagesNoJekyll = pagesNoJekyll;
+
 /** stream с allowEmpty и логом при отсутствии файлов */
 function srcChecked(globPattern, opts = {}) {
   const files = fg.sync(globPattern, { dot: false });
@@ -780,19 +800,20 @@ const codeDist = gulp.parallel(htmlDist, stylesDist, scriptsDist, vendorDist);
 const codeBuild = gulp.parallel(htmlBuild, stylesBuild, scriptsBuild, vendorBuild);
 const mediaDist = gulp.parallel(imagesDist, iconsDist, faviconSvgToIcoDist, videoDist);
 
-// dev-пайплайн с флагами --skip-media / --only-media + опциональная очистка + orphans
+// dev-пайплайн с флагами --skip-media / --only-media + опциональная очистка + .nojekyll + orphans
 const buildBoth = gulp.series(
   NO_CLEAN ? noop : gulp.series(cleanDist, cleanBuild),
   gulp.parallel(ONLY_MEDIA ? noop : codeDist, SKIP_MEDIA ? noop : mediaDist),
   gulp.parallel(ONLY_MEDIA ? noop : codeBuild, SKIP_MEDIA ? noop : mediaBuildCopy),
-  orphans, // ← добавили «осиротевшие» файлы подчистить
+  pagesNoJekyll,
+  orphans,
   gulp.parallel(pruneDistEmpty, pruneBuildEmpty)
 );
 
 const start = gulp.series(buildBoth, watchFiles);
 
 const buildDist = gulp.series(cleanDist, codeDist, pruneDistEmpty);
-const build = gulp.series(cleanBuild, codeBuild, pruneBuildEmpty);
+const build = gulp.series(cleanBuild, codeBuild, pagesNoJekyll, pruneBuildEmpty);
 
 exports.dev = buildBoth;
 exports.start = start;
