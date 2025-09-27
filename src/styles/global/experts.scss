@@ -1,3 +1,9 @@
+.experts--header {
+  padding: 0 30px !important;
+  margin-bottom: 0 !important;
+  box-sizing: border-box;
+}
+
 .experts--title {
   max-width: 480px !important;
   margin: 0 auto !important;
@@ -32,14 +38,14 @@
 
 .experts--grid {
   display: grid !important;
-  grid-template: 230px / repeat(4, 400px);
-  grid-auto-columns: 400px;
-  grid-auto-rows: 230px;
+  grid-template: auto / repeat(4, 65vw);
+  grid-auto-columns: 65vw;
+  grid-auto-rows: auto;
   grid-auto-flow: column;
   overflow: scroll !important;
-  padding: 30px 50px !important;
+  padding: 10px 40px !important;
   margin: 0 !important;
-  gap: 40px;
+  gap: 30px;
   box-sizing: border-box;
   width: 100% !important;
 }
@@ -99,12 +105,19 @@
 
 .expert-card--photo {
   z-index: 5;
-  min-width: 165px;
-  height: 200px;
+  min-width: 150px;
+  height: 180px;
   margin-left: -7px;
   margin-top: 12px;
   transform: rotate(-1.5deg);
   align-self: flex-start;
+}
+
+@media screen and (min-width: 980px) {
+  .expert-card--photo {
+    min-width: 165px;
+    height: 200px;
+  }
 }
 
 .expert-card--name {
@@ -123,4 +136,60 @@
   color: var(--text-color-secondary) !important;
   font-size: .8rem !important;
   margin-top: 1.5rem !important;
+}
+
+.experts--tooltip-wrap {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 30px;
+}
+
+@media screen and (min-width: 980px) {
+  .experts--tooltip-wrap {
+    display: none;
+  }
+}
+
+.experts--tooltip {
+  animation: tooltip 2.9s infinite linear;
+}
+
+@keyframes tooltip {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+    width: 16px;
+    animation-timing-function: ease-in-out;
+  }
+
+  27% {
+    opacity: 1;
+    transform: translateX(-20px);
+    width: 21px;
+    animation-timing-function: ease-out;
+  }
+
+  37% {
+    opacity: 1;
+    transform: translateX(-22px);
+    width: 16px;
+    animation-timing-function: ease-in-out;
+  }
+
+  54% {
+    opacity: 0;
+    transform: translateX(-22px);
+    width: 16px;
+    animation-timing-function: ease-in-out;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-22px);
+    width: 16px;
+  }
 }
