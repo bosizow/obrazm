@@ -82,37 +82,44 @@
 
     <section id="program" class="program uk-section">
       <div class="program--container uk-container">
-
-        <h2 class="program--title uc-h2 uk-heading-medium uk-margin-remove-top">С&nbsp;2015 года</h2>
-        <h3 class="program--title uc-h3 uk-heading-medium uk-margin-remove-top">мы&nbsp;работаем по&nbsp;авторской запатентованной программе</h3>
+        <h2 class="program--title uc-h2 uk-heading-medium uk-margin-remove-top"><span class="program--kicker">С&nbsp;2015 года</span> мы&nbsp;работаем по&nbsp;авторской запатентованной программе</h2>
         <p class="program--lead uk-text-lead uk-margin-small">Восстанавливаем основные сферы жизни ребёнка:</p>
-
         <ul class="program--grid">
-          <li class="sphere-card--wrap sphere-card--wrap-a">@@include('./partials/template-page/sphere-card.html', {
-            "img": "./assets/images/program/bio.png",
+          <li class="sphere-card--wrap sphere-card--wrap-a">
+            @@include('./partials/template-page/sphere-card.html', {
+            "img": "./assets/images/index/problems/school.png",
             "title": "БИО",
             "desc": "Здоровье, сон, питание, уход за&nbsp;собой, спорт"
-            })</li>
-          <li class="sphere-card--wrap sphere-card--wrap-b">@@include('./partials/template-page/sphere-card.html', {
-            "img": "./assets/images/program/psycho.png",
+            })
+          </li>
+          <li class="sphere-card--wrap sphere-card--wrap-b">
+            @@include('./partials/template-page/sphere-card.html', {
+            "img": "./assets/images/index/problems/company.png",
             "title": "Психо-эмоциональная сфера",
             "desc": "работа с&nbsp;чувствами, когнитивно-поведенческая терапия, дисциплина, арт-терапия и&nbsp;другое"
-            })</li>
-          <li class="sphere-card--wrap sphere-card--wrap-c">@@include('./partials/template-page/sphere-card.html', {
-            "img": "./assets/images/program/study.png",
+            })
+          </li>
+          <li class="sphere-card--wrap sphere-card--wrap-c">
+            @@include('./partials/template-page/sphere-card.html', {
+            "img": "./assets/images/index/problems/runaway.png",
             "title": "Учебная сфера",
             "desc": "школа, репетиторы, выполнение домашнего задания, мотивация, стимул, планирование"
-            })</li>
-          <li class="sphere-card--wrap sphere-card--wrap-d">@@include('./partials/template-page/sphere-card.html', {
-            "img": "./assets/images/program/social.png",
+            })
+          </li>
+          <li class="sphere-card--wrap sphere-card--wrap-d">
+            @@include('./partials/template-page/sphere-card.html', {
+            "img": "./partials/index/problem-card.html",
             "title": "Социальная сфера",
             "desc": "развитие, дружба, родители, приоритеты и&nbsp;границы"
-            })</li>
-          <li class="sphere-card--wrap sphere-card--wrap-e">@@include('./partials/template-page/sphere-card.html', {
-            "img": "./assets/images/program/spiritual.jpg",
+            })
+          </li>
+          <li class="sphere-card--wrap sphere-card--wrap-e">
+            @@include('./partials/template-page/sphere-card.html', {
+            "img": "./assets/images/index/problems/aggression.png",
             "title": "Духовная сфера",
             "desc": "нравственные ценности, мораль, искусство, любовь к&nbsp;себе, помощь и&nbsp;поддержка ближнему, забота, честность, развитие человеческих качеств"
-            })</li>
+            })
+          </li>
         </ul>
       </div>
     </section>
@@ -123,7 +130,8 @@
         <p class="uk-text-lead method--lead">Возвращение ребёнка к&nbsp;нормальной жизни происходит в&nbsp;4&nbsp;этапа. Наша авторская методика:</p>
         <div class="method--rail" aria-hidden="true"></div>
         <ol class="method--steps" role="list">
-          <li class="method--step">@@include('./partials/template-page/method-step.html', {
+          <li class="method--step">
+            @@include('./partials/template-page/method-step.html', {
             "index": "1",
             "title": "Адаптационный этап «котлован»",
             "term" : "3&nbsp;месяца",
@@ -133,9 +141,10 @@
             "listItem3": "соблюдение личной гигиены",
             "listItem4": "стремление говорить правду",
             "listItem5": "интерес к&nbsp;программе пансионата",
-            })</li>
-
-          <li class="method--step">@@include('./partials/template-page/method-step.html', {
+            })
+          </li>
+          <li class="method--step">
+            @@include('./partials/template-page/method-step.html', {
             "index": "2",
             "title": "Установочный этап «фундамент»",
             "term" : "4&nbsp;месяца",
@@ -144,16 +153,18 @@
             "listItem2": "приобретены знания о&nbsp;негативном влиянии, сформировалась критика к&nbsp;прежней модели поведения",
             "listItem3": "сформировалась личная ответственность за&nbsp;результаты своего поведения",
             "listItem4": "минимизированы асоциальные тенденции в&nbsp;поведении"
-            })</li>
-
-          <li class="method--step">@@include('./partials/template-page/method-step.html', {
+            })
+          </li>
+          <li class="method--step">
+            @@include('./partials/template-page/method-step.html', {
             "index": "3",
             "title": "Стабилизационный этап «стены»",
             "term" : "3&nbsp;месяца",
             "desc": "Происходит формирование «реальности» и&nbsp;потребность к&nbsp;осознанному поведению. Понимание собственной жизненной перспективы на&nbsp;основе образования."
-            })</li>
-
-          <li class="method--step">@@include('./partials/template-page/method-step.html', {
+            })
+          </li>
+          <li class="method--step">
+            @@include('./partials/template-page/method-step.html', {
             "index": "4",
             "title": "Автономный (заключительный) этап «крыша»",
             "term" : "2&nbsp;месяца",
@@ -162,7 +173,8 @@
             "listItem2": "ведению здорового образа жизни",
             "listItem3": "удержанию личных границ",
             "result": "Произошла гармонизация детско-родительских отношений."
-            })</li>
+            })
+          </li>
 
         </ol>
       </div>
@@ -228,31 +240,41 @@
         </svg>
         <h2 class="uc-h2 result--title uk-text-center"><span class="result--kicker">После прохождения курса</span>Вы&nbsp;увидите значительные перемены в&nbsp;ребёнке</h2>
         <div class="result--items" uk-scrollspy="cls: is-in; target: .result--item; delay: 120">
-          <div class="result--item result--item-a">@@include('./partials/global/result-card.html', {
+          <div class="result--item result--item-a">
+            @@include('./partials/global/result-card.html', {
             "img": "./assets/images/global/result/a.png",
             "alt": "Подростки на занятии",
             "title": "Полное избавление от&nbsp;вредных привычек. Восстановление социального поведения."
-            })</div>
-          <div class="result--item result--item-b">@@include('./partials/global/result-card.html', {
+            })
+          </div>
+          <div class="result--item result--item-b">
+            @@include('./partials/global/result-card.html', {
             "img": "./assets/images/global/result/b.png",
             "alt": "Группа ребят",
             "title": "Получит устойчивые изменения в&nbsp;характере:<br>— уверенность в&nbsp;себе<br>— ответственность за поступки<br>— лидерские качества"
-            })</div>
-          <div class="result--item result--item-c">@@include('./partials/global/result-card.html', {
+            })
+          </div>
+          <div class="result--item result--item-c">
+            @@include('./partials/global/result-card.html', {
             "img": "./assets/images/global/result/c.png",
             "alt": "Учёба и книги",
             "title": "Продолжит/закончит обучение в&nbsp;школе.<br>Появится цель в&nbsp;выборе дальнейшей профессии."
-            })</div>
-          <div class="result--item result--item-d">@@include('./partials/global/result-card.html', {
+            })
+          </div>
+          <div class="result--item result--item-d">
+            @@include('./partials/global/result-card.html', {
             "img": "./assets/images/global/result/d.png",
             "alt": "Семья",
             "title": "Родители смогут спокойно жить и&nbsp;работать."
-            })</div>
-          <div class="result--item result--item-f">@@include('./partials/global/result-card.html', {
+            })
+          </div>
+          <div class="result--item result--item-e">
+            @@include('./partials/global/result-card.html', {
             "img": "./assets/images/global/result/d.png",
             "alt": "Семья",
             "title": "Родители смогут спокойно жить и&nbsp;работать."
-            })</div>
+            })
+          </div>
         </div>
       </div>
     </section>
