@@ -10,13 +10,13 @@
       </header>
 
       <p class="uk-text-bold uk-margin-small-bottom">@@desc</p>
-      @@if (typeof list-item1 !== 'undefined' && list-item1) {
+      @@if (typeof listItem1 !== 'undefined' && listItem1) {
       <ul class="uk-list uk-list-bullet method-step--list">
-        <li>@@list-item1</li>
-        <li>@@list-item2</li>
-        <li>@@list-item3</li>
-        @@if (typeof list-item4 !== 'undefined' && list-item4) {<li>@@list-item4</li>}
-        @@if (typeof list-item5 !== 'undefined' && list-item5) {<li>@@list-item5</li>}
+        <li>@@listItem1</li>
+        <li>@@listItem2</li>
+        <li>@@listItem3</li>
+        @@if (typeof listItem4 !== 'undefined' && listItem4) {<li>@@listItem4</li>}
+        @@if (typeof listItem5 !== 'undefined' && listItem5) {<li>@@listItem5</li>}
       </ul>
       }
       @@if (typeof result !== 'undefined' && result) {<h5 class="method-step--result">@@result</h5>}

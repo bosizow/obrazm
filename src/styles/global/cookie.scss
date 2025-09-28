@@ -48,9 +48,10 @@
     position: absolute;
     inset: 50%;
     transform: translate(-55%, -50%);
-    min-width: 124%;
-    height: 170%;
+    min-width: 125%;
+    height: 190%;
     z-index: 2;
+    pointer-events: none;
   }
 }
 

@@ -17,7 +17,7 @@
   <div class="story--col story--col-quote">
     <div class="story-card story-card--quote bubble">
       <img class="bubble--image bubble--image-right uk-visible@m" src="./assets/images/global/story/buuble-right.png" alt="bubble image" loading="lazy">
-      @@if (typeof process-title !== 'undefined' && process-title) {<p class="story-quote story-quote--intro">@@process-title</p>}
+      @@if (typeof processTitle !== 'undefined' && processTitle) {<p class="story-quote story-quote--intro">@@processTitle</p>}
       <p class="story-quote">@@process</p>
     </div>
   </div>
@@ -30,7 +30,7 @@
   <div class="story--col story--col-quote">
     <div class="story-card story-card--quote bubble">
       <img class="bubble--image bubble--image-left uk-visible@m" src="./assets/images/global/story/buuble.png" alt="bubble image" loading="lazy">
-      @@if (typeof result--title !== 'undefined' && result--title) {<p class="story-quote story-quote--intro">@@result--title</p>}
+      @@if (typeof resultTitle !== 'undefined' && resultTitle) {<p class="story-quote story-quote--intro">@@resultTitle</p>}
       <p class="story-quote">@@result</p>
     </div>
   </div>
@@ -40,5 +40,5 @@
 </div>
 
 <div class="uk-text-center uk-margin-large-top">
-  <a class="story--bttn uc--bttn uc--bttn-story uk-button uk-button-primary uk-border-pill" href="@@tg_link" target="_blank" rel="noopener">Узнать условия пребывания в&nbsp;пансионате</a>
+  <a class="story--bttn uc--bttn uc--bttn-story uk-button uk-button-primary uk-border-pill" href="#cta" target="_blank" rel="noopener">Узнать условия пребывания в&nbsp;пансионате</a>
 </div>
