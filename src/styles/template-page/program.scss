@@ -29,7 +29,7 @@
   }
 }
 
-.program--kicker{
+.program--kicker {
   font-size: 1.5em !important;
   display: block;
 }
@@ -70,7 +70,7 @@
 @media screen and (min-width: 960px) {
   .program--grid {
     grid-template: repeat(3, 240px) / repeat(2, 1fr);
-    gap: 60px 10px;
+    gap: 60px 20px;
   }
 }
 
@@ -80,6 +80,7 @@
     grid-template-areas:
       "slotA slotA slotB slotB slotC slotC"
       "slotD slotD slotD slotE slotE slotE";
+    gap: 20px;
 
   }
 }
@@ -153,4 +154,23 @@
   transform: translate(-50%, -50%);
   z-index: 2;
   pointer-events: none;
+}
+
+@media screen and (min-width: 1200px) {
+
+  .sphere-card--wrap-d .sphere-card--imgae,
+  .sphere-card--wrap-e .sphere-card--imgae {
+    top: 75px
+  }
+
+  .sphere-card--wrap-d .sphere-card--title,
+  .sphere-card--wrap-e .sphere-card--title {
+    max-width: 65%;
+  }
+
+  .sphere-card--wrap-d .sphere-card--text,
+  .sphere-card--wrap-e .sphere-card--text {
+    max-width: 65%;
+  }
+
 }
