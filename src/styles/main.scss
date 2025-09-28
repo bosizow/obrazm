@@ -15,8 +15,8 @@
 @use 'index/problems';
 @use 'index/statement';
 
-@use 'template/hero-template';
-// @use 'template/program';
+@use 'template-page/hero-template';
+@use 'template-page/program';
 // @use 'template/method'; 
 
 html,
