@@ -2,23 +2,26 @@
 <html lang="ru">
 
 <head>
-  <title>Template</title>
+  <title>Template page</title>
   @@include('./partials/head.html')
   <meta name="description" content="Описание страницы. Замените это на актуальное.">
   <meta name="keywords" content="ключевые слова, заменить, под SEO">
+
+  <!-- Open Graph (можно расширить при необходимости) -->
+  <!-- <meta property="og:type" content="website"> -->
+  <!-- <meta property="og:site_name" content=""> -->
+  <!-- Пример: <meta property="og:image" content="https://site.com/og-image.jpg"> -->
 </head>
 
 <body>
   @@include('./partials/header.html')
+  <main id="main" class="uk-section uk-section-default uk-padding-remove-vertical">
+    
 
-  <main class="uk-section">
-    <div class="uk-container">
-      <h1 class="uk-heading-medium">Шаблонная станица</h1>
-      <p class="uk-text-lead">Здесь можно разместить контент страницы.</p>
-    </div>
   </main>
-
+  @@include('./partials/cookie.html')
   @@include('./partials/footer.html')
+  @@include('./partials/srcipts.html')
 </body>
 
 </html>

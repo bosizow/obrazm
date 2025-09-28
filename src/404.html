@@ -1,16 +1,17 @@
-<!DOCTYPE html>
-<html lang="ru">
-
 <head>
   <title>Ошибка 404 — Страница не найдена</title>
   @@include('./partials/head.html')
-  <meta name="description" content="Страница не найдена. Возможно, вы ввели неправильный адрес.">
-  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Описание страницы. Замените это на актуальное.">
+  <meta name="keywords" content="ключевые слова, заменить, под SEO">
+
+  <!-- Open Graph (можно расширить при необходимости) -->
+  <!-- <meta property="og:type" content="website"> -->
+  <!-- <meta property="og:site_name" content=""> -->
+  <!-- Пример: <meta property="og:image" content="https://site.com/og-image.jpg"> -->
 </head>
 
 <body>
   @@include('./partials/header.html')
-
   <main class="uk-section uk-section-xlarge uk-text-center">
     <div class="uk-container">
       <h1 class="uk-heading-xlarge">404</h1>
@@ -18,8 +19,9 @@
       <a href="/" class="uk-button uk-button-primary">На главную</a>
     </div>
   </main>
-
+  @@include('./partials/cookie.html')
   @@include('./partials/footer.html')
+  @@include('./partials/srcipts.html')
 </body>
 
 </html>
