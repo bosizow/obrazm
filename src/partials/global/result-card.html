@@ -1,4 +1,5 @@
 <figure class="result-card result-card--zigzag">
   <img src="@@img" alt="@@alt" loading="lazy">
 </figure>
-<div class="result-note result-note--light">@@desc</div>
+@@if (typeof desc !== 'undefined' && desc) {<div class="result-note">@@desc</div>}
+@@if (typeof title !== 'undefined' && title) {><h4 class="uc-h4 result-note">@@title</h4>}

@@ -15,6 +15,10 @@
 @use 'index/problems';
 @use 'index/statement';
 
+@use 'template/hero-template';
+// @use 'template/program';
+// @use 'template/method'; 
+
 html,
 body {
   font-family: var(--font-base);

@@ -17,3 +17,42 @@
     font-size: 2.25rem !important;
   }
 }
+
+.uc-h3 {
+  font-family: var(--font-family-accent) !important;
+  font-weight: 500 !important;
+  font-size: 1rem !important;
+  line-height: 1.25 !important;
+  text-transform: uppercase !important;
+}
+
+@media screen and (min-width: 560px) {
+  .uc-h3 {
+    font-size: 1.25rem !important;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .uc-h3 {
+    font-size: 1.5rem !important;
+  }
+}
+
+.uc-h4 {
+  font-family: var(--font-family-accent) !important;
+  font-weight: 500 !important;
+  font-size: 1rem !important;
+  line-height: 1.25 !important;
+}
+
+@media screen and (min-width: 560px) {
+  .uc-h4 {
+    font-size: 1.25rem !important;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .uc-h4 {
+    font-size: 1.5rem !important;
+  }
+}
