@@ -73,27 +73,27 @@
   transform: translate(-50%, -50%);
 }
 
-.problems--item:nth-child(1) {
+.problems--item-a {
   top: 140px;
   left: 56%;
 }
 
-.problems--item:nth-child(2) {
+.problems--item-b {
   top: 320px;
   left: 35%;
 }
 
-.problems--item:nth-child(3) {
+.problems--item-c {
   top: 470px;
   left: 60%;
 }
 
-.problems--item:nth-child(4) {
+.problems--item-d {
   top: 620px;
   left: 59%;
 }
 
-.problems--item:nth-child(5) {
+.problems--item-e {
   top: 770px;
   left: 54%;
 }
@@ -108,27 +108,27 @@
     min-width: 220px;
   }
 
-  .problems--item:nth-child(1) {
+  .problems--item-a {
     top: 170px;
     left: 63%;
   }
 
-  .problems--item:nth-child(2) {
+  .problems--item-b {
     top: 420px;
     left: 45%;
   }
 
-  .problems--item:nth-child(3) {
+  .problems--item-c {
     top: 640px;
     left: 55%;
   }
 
-  .problems--item:nth-child(4) {
+  .problems--item-d {
     top: 840px;
     left: 39%;
   }
 
-  .problems--item:nth-child(5) {
+  .problems--item-e {
     top: 1050px;
     left: 60%;
   }
@@ -140,27 +140,27 @@
     width: 160px;
   }
 
-  .problems--item:nth-child(1) {
+  .problems--item-a {
     top: 280px;
     left: 16%;
   }
 
-  .problems--item:nth-child(2) {
+  .problems--item-b {
     top: 370px;
     left: 38%;
   }
 
-  .problems--item:nth-child(3) {
+  .problems--item-c {
     top: 150px;
     left: 56%;
   }
 
-  .problems--item:nth-child(4) {
+  .problems--item-d {
     top: 260px;
     left: 75%;
   }
 
-  .problems--item:nth-child(5) {
+  .problems--item-e {
     top: 250px;
     left: 93%;
   }
@@ -174,12 +174,12 @@
   gap: .4rem;
 }
 
-.problems--item:nth-child(3) .problem-card {
+.problems--item-c .problem-card {
   flex-flow: row-reverse nowrap;
 }
 
 @media screen and (min-width: 640px) {
-  .problems--item:nth-child(4) .problem-card {
+  .problems--item-d .problem-card {
     flex-flow: row-reverse nowrap;
   }
 }
@@ -190,8 +190,8 @@
     width: 160px;
   }
 
-  .problems--item:nth-child(2) .problem-card,
-  .problems--item:nth-child(5) .problem-card {
+  .problems--item-b .problem-card,
+  .problems--item-e .problem-card {
     flex-flow: column-reverse nowrap !important;
   }
 }
@@ -210,7 +210,7 @@
   max-width: 140px;
 }
 
-.problems--item:nth-child(3) .problem-card--caption {
+.problems--item-c .problem-card--caption {
   text-align: right !important;
 }
 
@@ -221,7 +221,7 @@
     max-width: 180px;
   }
 
-  .problems--item:nth-child(4) .problem-card--caption {
+  .problems--item-d .problem-card--caption {
     text-align: right !important;
   }
 }
@@ -235,7 +235,7 @@
   }
 
 
-  .problems--item:nth-child(3) .problem-card--caption {
+  .problems--item-c .problem-card--caption {
     text-align: center !important;
   }
 }
