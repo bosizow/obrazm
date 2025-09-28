@@ -16,8 +16,168 @@
 <body>
   @@include('./partials/header.html')
   <main id="main" class="uk-section uk-section-default uk-padding-remove-vertical">
-    
+    <section id="privacy" class="uk-section">
+      <div class="uk-container">
+        <div class="uk-grid-large" uk-grid>
+          <!-- Сайдбар: содержание -->
+          <aside class="uk-width-1-1 uk-width-1-4@m">
+            <div class="uk-card uk-card-default uk-card-body" uk-sticky="offset: 120; bottom: true">
+              <ul class="uk-nav uk-nav-default" uk-scrollspy-nav="closest: li; scroll: true; offset: 120">
+                <li class="uk-nav-header">Содержание</li>
+                <li><a href="#privacy-intro">Введение</a></li>
+                <li><a href="#privacy-defs">Термины и определения</a></li>
+                <li><a href="#privacy-collection">Какие данные мы собираем</a></li>
+                <li><a href="#privacy-purpose">Цели обработки</a></li>
+                <li><a href="#privacy-legal">Правовые основания</a></li>
+                <li><a href="#privacy-cookies">Файлы cookie</a></li>
+                <li><a href="#privacy-analytics">Сторонние сервисы / аналитика</a></li>
+                <li><a href="#privacy-sharing">Передача третьим лицам</a></li>
+                <li><a href="#privacy-transfer">Трансграничная передача</a></li>
+                <li><a href="#privacy-retention">Сроки хранения</a></li>
+                <li><a href="#privacy-security">Безопасность</a></li>
+                <li><a href="#privacy-rights">Права субъекта данных</a></li>
+                <li><a href="#privacy-minors">Несовершеннолетние</a></li>
+                <li><a href="#privacy-changes">Изменения политики</a></li>
+                <li><a href="#privacy-contacts">Контакты</a></li>
+              </ul>
+            </div>
+          </aside>
 
+          <!-- Контент -->
+          <article class="uk-width-1-1 uk-width-3-4@m">
+            <header class="uk-margin-large-bottom">
+              <h1 class="uk-heading-medium uk-margin-remove-bottom">Политика конфиденциальности</h1>
+              <p class="uk-text-meta uk-margin-small-top">
+                Версия: <span data-privacy-version><!-- vX.Y --></span> ·
+                Обновлено: <time datetime=""><!-- YYYY-MM-DD --></time>
+              </p>
+              <p class="uk-text-lead"><!-- Краткое вступление (1–2 предложения) --></p>
+            </header>
+
+            <section id="privacy-intro" class="privacy-section uk-margin-large">
+              <h2>Введение</h2>
+              <p><!-- Оператор, область применения, ссылки на сайт/приложения --></p>
+            </section>
+
+            <section id="privacy-defs" class="privacy-section uk-margin-large">
+              <h2>Термины и определения</h2>
+              <dl class="uk-description-list uk-description-list-divider">
+                <dt><!-- Персональные данные --></dt>
+                <dd><!-- Определение --></dd>
+                <dt><!-- Обработка --></dt>
+                <dd><!-- Определение --></dd>
+                <dt><!-- Оператор --></dt>
+                <dd><!-- Определение --></dd>
+                <!-- при необходимости дополни -->
+              </dl>
+            </section>
+
+            <section id="privacy-collection" class="privacy-section uk-margin-large">
+              <h2>Какие данные мы собираем</h2>
+              <ul class="uk-list uk-list-bullet">
+                <li><!-- Данные аккаунта / идентификация --></li>
+                <li><!-- Контактные данные --></li>
+                <li><!-- Технические данные (cookie, IP, device) --></li>
+                <li><!-- Данные из форм/заявок --></li>
+                <li><!-- Иное (по необходимости) --></li>
+              </ul>
+            </section>
+
+            <section id="privacy-purpose" class="privacy-section uk-margin-large">
+              <h2>Цели обработки</h2>
+              <ul class="uk-list uk-list-bullet">
+                <li><!-- Оказание услуг / выполнение договора --></li>
+                <li><!-- Коммуникация и поддержка --></li>
+                <li><!-- Аналитика и улучшение сервиса --></li>
+                <li><!-- Маркетинг (при согласии) --></li>
+                <li><!-- Соблюдение закона --></li>
+              </ul>
+            </section>
+
+            <section id="privacy-legal" class="privacy-section uk-margin-large">
+              <h2>Правовые основания</h2>
+              <ul class="uk-list uk-list-bullet">
+                <li><!-- Согласие --></li>
+                <li><!-- Договор / исполнение обязательств --></li>
+                <li><!-- Законный интерес / закон --></li>
+              </ul>
+            </section>
+
+            <section id="privacy-cookies" class="privacy-section uk-margin-large">
+              <h2>Файлы cookie</h2>
+              <p><!-- Краткое описание использования cookie, ссылка на баннер/настройки --></p>
+              <ul class="uk-list uk-list-striped">
+                <li><!-- Обязательные (назначение, срок) --></li>
+                <li><!-- Аналитические (назначение, срок) --></li>
+                <li><!-- Маркетинговые (назначение, срок) --></li>
+              </ul>
+            </section>
+
+            <section id="privacy-analytics" class="privacy-section uk-margin-large">
+              <h2>Сторонние сервисы и аналитика</h2>
+              <ul class="uk-list uk-list-bullet">
+                <li><!-- Сервис A: цель, данные, ссылки на политику --></li>
+                <li><!-- Сервис B: ... --></li>
+              </ul>
+            </section>
+
+            <section id="privacy-sharing" class="privacy-section uk-margin-large">
+              <h2>Передача третьим лицам</h2>
+              <p><!-- Категории получателей, основания передачи --></p>
+            </section>
+
+            <section id="privacy-transfer" class="privacy-section uk-margin-large">
+              <h2>Трансграничная передача данных</h2>
+              <p><!-- География, меры защиты, стандартные договорные положения и т.п. --></p>
+            </section>
+
+            <section id="privacy-retention" class="privacy-section uk-margin-large">
+              <h2>Сроки хранения</h2>
+              <p><!-- Принципы и конкретные сроки хранения, критерии определения --></p>
+            </section>
+
+            <section id="privacy-security" class="privacy-section uk-margin-large">
+              <h2>Безопасность</h2>
+              <p><!-- Организационные и технические меры --></p>
+            </section>
+
+            <section id="privacy-rights" class="privacy-section uk-margin-large">
+              <h2>Права субъекта персональных данных</h2>
+              <ul class="uk-list uk-list-bullet">
+                <li><!-- Доступ, исправление, удаление --></li>
+                <li><!-- Ограничение, возражение, переносимость --></li>
+                <li><!-- Отзыв согласия, жалоба в надзорный орган --></li>
+              </ul>
+              <p><!-- Порядок реализации прав (каналы связи, сроки ответа) --></p>
+            </section>
+
+            <section id="privacy-minors" class="privacy-section uk-margin-large">
+              <h2>Несовершеннолетние</h2>
+              <p><!-- Политика в отношении данных детей/родительское согласие --></p>
+            </section>
+
+            <section id="privacy-changes" class="privacy-section uk-margin-large">
+              <h2>Изменения настоящей политики</h2>
+              <p><!-- Как уведомляете, где публикуете новую версию, дата вступления в силу --></p>
+            </section>
+
+            <section id="privacy-contacts" class="privacy-section uk-margin-large">
+              <h2>Контакты</h2>
+              <address class="uk-margin-small">
+                <!-- Наименование оператора, адрес -->
+              </address>
+              <p class="uk-margin-remove">
+                <!-- Email / телефон для обращений по персональным данным -->
+              </p>
+            </section>
+
+            <footer class="uk-margin-large-top">
+              <a class="uk-button uk-button-default uk-border-pill" href="#privacy" uk-scroll>Наверх</a>
+            </footer>
+          </article>
+        </div>
+      </div>
+    </section>
   </main>
   @@include('./partials/cookie.html')
   @@include('./partials/footer.html')
