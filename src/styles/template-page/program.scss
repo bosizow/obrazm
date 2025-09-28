@@ -1,0 +1,153 @@
+.program {
+  margin-top: 60px;
+}
+
+@media screen and (max-width: 960px) {
+  .program--container {
+    max-width: 560px !important;
+    margin: auto;
+  }
+}
+
+.program--title {
+  text-align: center !important;
+  color: var(--text-color-accent) !important;
+  margin-bottom: 10px !important;
+}
+
+@media screen and (min-width: 480px) {
+  .program--title {
+    max-width: 70%;
+    margin: auto !important;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .program--title {
+    text-align: left !important;
+    margin: 0 0 10px 0 !important;
+    max-width: 80%;
+  }
+}
+
+.program--lead {
+  text-align: center !important;
+  color: var(--text-color-accent) !important;
+  font-size: 1rem !important;
+}
+
+@media screen and (min-width: 480px) {
+  .program--lead {
+    max-width: 50%;
+    margin: auto !important;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .program--lead {
+    text-align: left !important;
+    font-size: 1.25rem !important;
+    margin: 0 0 10px 0 !important;
+    max-width: 80%;
+  }
+}
+
+.program--grid {
+  list-style: none;
+  padding: 40px 0 0 0 !important;
+
+  display: grid !important;
+  grid-template: repeat(5, 240px) / 1fr;
+  align-items: stretch;
+  justify-content: stretch;
+  gap: 60px;
+}
+
+@media screen and (min-width: 960px) {
+  .program--grid {
+    grid-template: repeat(3, 240px) / repeat(2, 1fr);
+    gap: 60px 10px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .program--grid {
+    grid-template: repeat(2, 240px) / repeat(6, 1fr);
+    grid-template-areas:
+      "slotA slotA slotB slotB slotC slotC"
+      "slotD slotD slotD slotE slotE slotE";
+
+  }
+}
+
+
+@media screen and (min-width: 960px) and (max-width: 1200px) {
+  .sphere-card--wrap-e {
+    grid-column: 1 / 3;
+    grid-row: 3 / 4;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .sphere-card--wrap-a {
+    grid-area: slotA;
+  }
+
+  .sphere-card--wrap-b {
+    grid-area: slotB;
+  }
+
+  .sphere-card--wrap-c {
+    grid-area: slotC;
+  }
+
+  .sphere-card--wrap-d {
+    grid-area: slotD;
+  }
+
+  .sphere-card--wrap-e {
+    grid-area: slotE;
+  }
+}
+
+.sphere-card {
+  box-shadow: none !important;
+  border-radius: 20px;
+  border: 1px solid var(--bg-color-accent);
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: .5rem;
+}
+
+.sphere-card--title {
+  margin: 0 !important;
+  color: var(--text-color-accent);
+  max-width: 80%;
+  z-index: 10;
+}
+
+
+.sphere-card--text {
+  margin: 0 !important;
+  color: var(--text-color-primary);
+  max-width: 80%;
+  z-index: 10;
+}
+
+
+.sphere-card--imgae {
+  height: 210px;
+  width: 210px;
+  position: absolute;
+  top: 60px;
+  right: -80px;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  pointer-events: none;
+}

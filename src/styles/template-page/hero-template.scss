@@ -4,8 +4,10 @@
   box-sizing: border-box;
 }
 
-.hero-template--container {
-  max-width: 560px !important;
+@media screen and (max-width: 960px) {
+  .hero-template--container {
+    max-width: 560px !important;
+  }
 }
 
 .hero-template--grid {
@@ -30,12 +32,6 @@
     max-width: 1200px;
     margin: auto;
     gap: 20px;
-  }
-}
-
-@media screen and (min-width: 960px) {
-  .hero-template--container {
-    max-width: none !important;
   }
 }
 
@@ -123,12 +119,6 @@
   color: var(--text-color-primary) !important;
 }
 
-@media screen and (min-width: 1200px) {
-  .hero-template--card-caption {
-    text-align: left !important;
-  }
-}
-
 .hero-template--paper {
   position: relative;
   min-height: 250px;
@@ -197,12 +187,6 @@
     gap: 40px;
   }
 }
-
-// @media screen and (min-width: 1200px) {
-//   .hero-template--stars {
-//     flex-flow: row nowrap;
-//   }
-// }
 
 .hero-template--star {
   max-width: 70%;
