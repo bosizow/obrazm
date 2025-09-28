@@ -1,0 +1,25 @@
+<div class="method-step uk-grid-small uk-child-width-auto uk-grid" uk-grid>
+  <div class="method-step--index-wrap">
+    <span class="method-step--index" aria-label="Этап @@index">@@index</span>
+  </div>
+  <div class="uk-width-expand">
+    <article class="uk-card uk-card-default uk-card-body method-step--card">
+      <header class="method-step--header">
+        <h3 class="method-step--subtitle">@@title</h3>
+        <h4 class="method-step--term">@@term<h4>
+      </header>
+
+      <p class="uk-text-bold uk-margin-small-bottom">@@desc</p>
+      @@if (typeof list-item1 !== 'undefined' && list-item1) {
+      <ul class="uk-list uk-list-bullet method-step--list">
+        <li>@@list-item1</li>
+        <li>@@list-item2</li>
+        <li>@@list-item3</li>
+        @@if (typeof list-item4 !== 'undefined' && list-item4) {<li>@@list-item4</li>}
+        @@if (typeof list-item5 !== 'undefined' && list-item5) {<li>@@list-item5</li>}
+      </ul>
+      }
+      @@if (typeof result !== 'undefined' && result) {<h5 class="method-step--result">@@result</h5>}
+    </article>
+  </div>
+</div>

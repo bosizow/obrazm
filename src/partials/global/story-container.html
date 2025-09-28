@@ -3,8 +3,8 @@
   <div class="story--col story--col-quote">
     <div class="story-card story-card--quote bubble">
       <img class="bubble--image bubble--image-left uk-visible@m" src="./assets/images/global/story/buuble.png" alt="bubble image" loading="lazy">
-      <p class="story-quote story-quote--intro">@@hist-intro</p>
-      <p class="story-quote">@@history</p>
+      <p class="story-quote story-quote--intro">@@intro</p>
+      @@if (typeof history !== 'undefined' && history) {<p class="story-quote story-quote--intro">@@history</p>}
     </div>
   </div>
   <div class="story--col story--col-photo">
@@ -17,7 +17,7 @@
   <div class="story--col story--col-quote">
     <div class="story-card story-card--quote bubble">
       <img class="bubble--image bubble--image-right uk-visible@m" src="./assets/images/global/story/buuble-right.png" alt="bubble image" loading="lazy">
-      <p class="story-quote story-quote--intro">@@proc-intro</p>
+      @@if (typeof process-title !== 'undefined' && process-title) {<p class="story-quote story-quote--intro">@@process-title</p>}
       <p class="story-quote">@@process</p>
     </div>
   </div>
@@ -30,7 +30,7 @@
   <div class="story--col story--col-quote">
     <div class="story-card story-card--quote bubble">
       <img class="bubble--image bubble--image-left uk-visible@m" src="./assets/images/global/story/buuble.png" alt="bubble image" loading="lazy">
-      <p class="story-quote story-quote--intro">@@res-intro</p>
+      @@if (typeof result--title !== 'undefined' && result--title) {<p class="story-quote story-quote--intro">@@result--title</p>}
       <p class="story-quote">@@result</p>
     </div>
   </div>

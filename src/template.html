@@ -17,7 +17,51 @@
   @@include('./partials/global/header.html')
   <main id="main" class="uk-section uk-section-default uk-padding-remove-vertical">
 
-    <section id="hero" class="hero uk-section uk-padding-remove-top uk-padding-remove-bottom"></section>
+    <section id="secondary-hero" class="secondary-hero uk-section">
+      <div class="uk-container">
+        <div class="secondary-hero__head uk-grid-large uk-child-width-1-1 uk-child-width-expand@m" uk-grid>
+          <div>
+            <h1 class="secondary-hero--title uc-h2 uk-heading-medium uk-margin-remove">Ребенок<br>убегает из дома?</h1>
+            <h2 class="secondary-hero--subtitle uk-text-lead uk-margin-small-top">Как бороться с&nbsp;тягойк&nbsp;бродяжничеству?</h2>
+          </div>
+          <div class="secondary-hero__paper-wrap uk-text-right@m">
+            <figure class="secondary-hero__paper uk-display-inline-block">
+              <!-- <img src="assets/images/secondary-hero/paper.png" alt="" loading="lazy"> -->
+              <figcaption class="secondary-hero--paper-caption">Итоги 2024 года</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="secondary-hero--grid uk-grid-large uk-child-width-1-1 uk-grid-match" uk-grid>
+          <div class="secondary-hero--col-photo uk-width-1-1 uk-width-1-2@m uk-width-2-5@l">
+            <figure class="secondary-hero--photo uk-margin-remove">
+              <img src="assets/images/secondary-hero/photo.jpg" alt="Мальчик сидит у дороги" loading="lazy">
+            </figure>
+          </div>
+          <div class="secondary-hero--col-cards uk-width-1-1 uk-width-1-2@m uk-width-2-5@l">
+            <div class="secondary-hero--cards">
+              <article class="secondary-hero--card">
+                <p>В пансионате «Надежда+» мы формируем защищённое пространство, где раскрываем причины тяги к бродяжничеству и побегам из дома.</p>
+              </article>
+              <article class="secondary-hero--card">
+                <p>Частые “друзья” бродяжничества — депрессии, нестабильный эмоциональный фон, сложности в социуме.</p>
+              </article>
+              <article class="secondary-hero--card">
+                <p>В контакте с психологами и психотерапевтами у детей формируется устойчивая психика, способность брать на себя ответственность за свои действия, тяга к труду.</p>
+              </article>
+            </div>
+          </div>
+          <aside class="secondary-herocol-stats uk-width-1-1 uk-width-1-1@m uk-width-1-5@l">
+            <div class="secondary-herostats">
+              <div class="secondary-heronumber">135 детей</div>
+              <p class="secondary-hero__note">детей и подростков вернулись к нормальной социальной жизни</p>
+              <figure class="secondary-herofireworks">
+                <img src="./assets/images/secondary-hero/fireworks.svg" alt="" loading="lazy">
+              </figure>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
 
     <section id="story" class="story uk-section">
       <img class="story-bg story-bg-mobile uk-hidden@m" src="./assets/images/global/story/bg-mobile.png" alt="бумага">
@@ -26,23 +70,112 @@
         @@include('./partials/global/story-container.html', {
         "img1": "./assets/images/global/story/katya-1.png",
         "alt1": "Катя — портрет",
-        "hist-intro": "Привет! Я&nbsp;Катя, мне&nbsp;15&nbsp;лет.",
+        "intro": "Привет! Я&nbsp;Катя, мне&nbsp;15&nbsp;лет.",
         "history": "Не хотела учиться, пропускала школу и поздно возвращалась домой.",
         "img2": "./assets/images/global/story/katya-2.png",
         "alt2": "Катя — занятия",
-        "proc-intro": "",
         "process": "В пансионате работала с клиническим психологом, ходила на групповые занятия, восстановила режим и учебные навыки.",
         "img3": "./assets/images/global/story/katya-3.png",
         "alt3": "Катя — результат",
-        "res-intro": "",
         "result": "Сейчас стабильно учусь, вернулась в секцию рисования и готовлюсь к поступлению."
         })
       </div>
     </section>
 
-    <!-- АВТОРСКАЯ ПРОГРАММА -->
+    <section id="program" class="program uk-section">
+      <div class="uk-container">
 
-    <!-- ЭТАПЫ ПРОГРАММЫ -->
+        <h2 class="program--title uc-h2 uk-heading-medium uk-margin-remove-top">С&nbsp;2015 года мы&nbsp;работаем по&nbsp;авторской запатентованной программе</h2>
+        <p class="program--lead uk-text-lead uk-margin-small">Восстанавливаем основные сферы жизни ребёнка:</p>
+
+        <ul class="program--grid uk-grid-large uk-child-width-1-1 uk-child-width-1-3@m" uk-grid>
+
+          <li>@@include('./partials/template-page/sphere-card.html', {
+            "img": "./assets/images/program/bio.png",
+            "title": "БИО",
+            "desc": "Здоровье, сон, питание, уход за&nbsp;собой, спорт"
+            })</li>
+
+          <li>@@include('./partials/template-page/sphere-card.html', {
+            "img": "./assets/images/program/psycho.png",
+            "title": "Психо-эмоциональная сфера",
+            "desc": "работа с&nbsp;чувствами, когнитивно-поведенческая терапия, дисциплина, арт-терапия и&nbsp;другое"
+            })</li>
+
+          <li>@@include('./partials/template-page/sphere-card.html', {
+            "img": "./assets/images/program/study.png",
+            "title": "Учебная сфера",
+            "desc": "школа, репетиторы, выполнение домашнего задания, мотивация, стимул, планирование"
+            })</li>
+        </ul>
+
+        <ul class="program--grid uk-grid-large uk-child-width-1-1 uk-child-width-1-2@m" uk-grid>
+          <li>@@include('./partials/template-page/sphere-card.html', {
+            "img": "./assets/images/program/social.png",
+            "title": "Социальная сфера",
+            "desc": "развитие, дружба, родители, приоритеты и&nbsp;границы"
+            })</li>
+
+          <li>@@include('./partials/template-page/sphere-card.html', {
+            "img": "./assets/images/program/spiritual.jpg",
+            "title": "Духовная сфера",
+            "desc": "нравственные ценности, мораль, искусство, любовь к&nbsp;себе, помощь и&nbsp;поддержка ближнему, забота, честность, развитие человеческих качеств"
+            })</li>
+        </ul>
+
+      </div>
+    </section>
+
+    <section id="method" class="uk-section method">
+      <div class="uk-container">
+        <h2 class="uc-h2 uk-heading-medium method--title">Как&nbsp;мы&nbsp;это&nbsp;делаем?</h2>
+        <p class="uk-text-lead method--lead">Возвращение ребёнка к&nbsp;нормальной жизни происходит в&nbsp;4&nbsp;этапа. Наша авторская методика:</p>
+        <div class="method--rail" aria-hidden="true"></div>
+        <ol class="method--steps" role="list">
+          <li class="method--step">@@include('./partials/template-page/method-step.html', {
+            "index": "1",
+            "title": "Адаптационный этап «котлован»",
+            "term" : "3&nbsp;месяца",
+            "desc": "Формируются:",
+            "list-item1": "мотивация на&nbsp;сотрудничество со&nbsp;специалистами",
+            "list-item2": "навыки поведения",
+            "list-item3": "соблюдение личной гигиены",
+            "list-item4": "стремление говорить правду",
+            "list-item5": "интерес к&nbsp;программе пансионата",
+            })</li>
+
+          <li class="method--step">@@include('./partials/template-page/method-step.html', {
+            "index": "2",
+            "title": "Установочный этап «фундамент»",
+            "term" : "4&nbsp;месяца",
+            "desc": "Результаты:",
+            "list-item1": "формировалась потребность быть участником устойчивой группы «ВПЕРЕД ИДУЩИХ», способной оказывать положительное влияние друг на&nbsp;друга",
+            "list-item2": "приобретены знания о&nbsp;негативном влиянии, сформировалась критика к&nbsp;прежней модели поведения",
+            "list-item3": "сформировалась личная ответственность за&nbsp;результаты своего поведения",
+            "list-item4": "минимизированы асоциальные тенденции в&nbsp;поведении"
+            })</li>
+
+          <li class="method--step">@@include('./partials/template-page/method-step.html', {
+            "index": "3",
+            "title": "Стабилизационный этап «стены»",
+            "term" : "3&nbsp;месяца",
+            "desc": "Происходит формирование «реальности» и&nbsp;потребность к&nbsp;осознанному поведению. Понимание собственной жизненной перспективы на&nbsp;основе образования."
+            })</li>
+
+          <li class="method--step">@@include('./partials/template-page/method-step.html', {
+            "index": "4",
+            "title": "Автономный (заключительный) этап «крыша»",
+            "term" : "2&nbsp;месяца",
+            "desc": "Подросток социально адаптирован. Имеет способность и&nbsp;готовность&nbsp;к:",
+            "list-item1": "cамостоятельному принятию решений",
+            "list-item2": "ведению здорового образа жизни",
+            "list-item3": "удержанию личных границ",
+            "result": "Произошла гармонизация детско-родительских отношений."
+            })</li>
+
+        </ol>
+      </div>
+    </section>
 
     <section id="cta" class="uk-section">
       <div class="uk-container">
