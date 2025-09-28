@@ -17,7 +17,7 @@
 
 @use 'template-page/hero-template';
 @use 'template-page/program';
-// @use 'template/method'; 
+@use 'template-page/method'; 
 
 html,
 body {
