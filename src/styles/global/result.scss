@@ -124,8 +124,14 @@
     margin-left: -25px;
   }
 
-  .result--item-a {
+  .result--item-a,
+  .result--item-c,
+  .result-soft .result--item-d {
     margin-left: 0 !important;
+  }
+
+  .result-soft .result--item-c {
+    margin-left: -25px !important;
   }
 
   .result-soft .result--item-a {
@@ -138,7 +144,7 @@
 
   .result-soft .result--item-c {
     grid-area: slotC;
-    transform: rotate(-3deg);
+    transform: rotate(-1deg);
   }
 
   .result-soft .result--item-d {
