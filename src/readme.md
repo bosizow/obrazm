@@ -1,25 +1,22 @@
 # Obrazm — фронтенд‑сборка на Gulp
 
-> Этот README — краткий хэнд‑офф для разработчика. Покрывает структуру проекта, команды, пайплайны сборки (код, медиа, фавиконки, видео), инкрементальную обработку и публикацию на GitHub Pages.
+> Этот README — краткий и понятный хэнд‑офф для разработчика. Он покрывает структуру проекта, команды, пайплайны сборки (код, медиа, фавиконки, видео), инкрементальную обработку и публикацию на GitHub Pages.
 
 ---
 
 ## 1) Быстрый старт
 
 **Требования**
-
-- Node.js ≥ 18 (рекомендуется LTS).
+- Node.js ≥ 18 (рекомендуется LTS).  
 - macOS/Windows/Linux, терминал с `npm`.
 
 **Установка**
-
 ```bash
 npm ci     # или: npm install
 npm run check:env  # быстрая проверка версии Node, Gulp CLI и svgo
 ```
 
 **Основные команды**
-
 ```jsonc
 // package.json → scripts
 {
@@ -31,7 +28,6 @@ npm run check:env  # быстрая проверка версии Node, Gulp CLI
 ```
 
 **Запуск**
-
 ```bash
 npm run dev
 # Доп. флаги для ускорения (важно: флаги идут после двойного дефиса --):
@@ -50,16 +46,14 @@ obrazm/
 ├─ src/                    # исходники
 │  ├─ *.html               # страницы (используют @@include)
 │  ├─ partials/            # html‑модули (head, header, footer, блоки)
-│  │  └─ index/            # парциалы для страниц
 │  │  └─ global/           # общие парциалы
 │  ├─ css/                 # SCSS (общие и страничные файлы)
-│  │  └─ index/            # блоки для страниц
 │  ├─ js/                  # JavaScript
 │  └─ assets/
-│     ├─ images/           # изображения (вложенность по страницам и блокам, сохраняется при обработке)
+│     ├─ images/           # изображения (вложенность сохраняется)
 │     ├─ icons/            # svg/png иконки (не favicon‑набор)
 │     ├─ favicons/         # favicon.svg, png‑варианты, manifest.json
-│     └─ video/            # видео (mp4 only)
+│     └─ video/            # видео (mp4)
 │
 ├─ dist/                   # «читаемая» сборка (без минификации, с sourcemaps)
 ├─ build/                  # продакшн (минифицированный код, медиа из dist, .nojekyll)
@@ -73,13 +67,11 @@ obrazm/
 ## 3) Как работает сборка
 
 ### HTML
-
 - Сборка страниц через **gulp‑file‑include** (`@@include`).
 - В инклюды подмешивается объект `SITE` из `src/site.json`. Можно использовать плейсхолдеры вида `@@SITE.address`, `@@SITE.social.telegram` и т.д.
 - В `build/` HTML минифицируется.
 
 **Пример include из корневой страницы**
-
 ```html
 @@include('./partials/global/head.html', {
   page: {
@@ -90,34 +82,28 @@ obrazm/
   SITE: @@SITE
 })
 ```
-
 > Путь в `@@include` считается **от файла, где он вызван** (в gulpfile стоит `basepath: '@file'`).
 
 ### CSS (SCSS → CSS)
-
 - Компиляция `sass` → автопрефиксы → группировка media‑запросов → sourcemaps в `dist/`.
 - В `build/` — минификация через `cssnano`.
 - Поддерживаются **множественные входы**: любой `src/css/*.scss` даст одноимённый `dist/css/*.css` (и минифицированный в `build/css/`). Это удобно для страничных стилей: `index.scss` → `index.css` и т.д.
 
 ### JS
-
 - В `dist/` — копирование со сборкой карт sourcemaps.
 - В `build/` — минификация через `terser`.
 - Базовый путь выставлен так, чтобы **не** создавать лишний `js/js` во вложениях.
 
 ### Вендорные файлы
-
 - **normalize.css**, **UIkit** → кладутся в `vendor/` (и в `dist/`, и в `build/`).
 - Если добавляются ещё библиотеки (например, locomotive‑scroll), либо подключайте их из npm через свой таск vendor, либо импортируйте в свой SCSS/JS по месту.
 
 ### Изображения и иконки
-
 - Оптимизация через **gulp‑imagemин**: mozjpeg, pngquant, svgo.
 - Инкрементальная обработка: используется `gulp-newer` — уже сжатые файлы повторно не трогаются.
 - Вложенность каталогов сохраняется. Результат: `dist/assets/images/**`, затем они **копируются** в `build/assets/images/**`.
 
 ### Favicons
-
 - Если есть `src/assets/favicons/favicon.svg`, генерируются:
   - `favicon-32.png`, `favicon-16.png`, `favicon.ico`;
   - исходный `favicon.svg` копируется;
@@ -125,20 +111,17 @@ obrazm/
 - `manifest.json` **просто копируется** (без минификации содержимого).
 
 ### Видео
-
 - Вход: `src/assets/video/*.mp4`.
-- На выходе (по умолчанию **только** масштабированные версии \~75%):
+- На выходе (по умолчанию **только** масштабированные версии ~75%):
   - `*.mp4` (без звука, масштаб 75%),
   - `*.webm` (масштаб 75%),
   - постер `*.jpg` из первого кадра.
 - Реализация: `fluent-ffmpeg` + `ffmpeg-static`. Пропускает уже готовые артефакты по времени модификации.
 
 ### SEO‑файлы
-
 - Если в `src/` присутствуют `robots.txt` и/или `sitemap.xml`, они копируются в `dist/` и `build/`.
 
 ### GitHub Pages helper
-
 - В `build/` создаётся `.nojekyll`, чтобы GitHub Pages не применял Jekyll‑обработку.
 
 ---
@@ -157,12 +140,10 @@ obrazm/
 ## 5) GitHub Pages (публикация)
 
 **Вариант A — через GitHub Actions (рекомендуется)**
-
 1. Создайте workflow (например, `.github/workflows/deploy.yml`), который делает: `npm ci`, `npm run dev`, публикует содержимое `build/` в ветку `gh-pages`.
 2. В настройках репозитория включите Pages и укажите источник `gh-pages` → `/` (root).
 
 **Вариант B — вручную**
-
 1. Соберите проект: `npm run dev`.
 2. Поместите содержимое `build/` в ветку `gh-pages` (или в папку `docs/` и настройте публикацию из `docs/`).
 
@@ -173,29 +154,23 @@ obrazm/
 ## 6) Рецепты
 
 **Добавить новую страницу**
-
 1. Создайте `src/new-page.html`.
 2. Подключите модули:
-
 ```html
 @@include('./partials/global/head.html', {
   page: { title: 'Новая страница' },
   SITE: @@SITE
 })
 ```
-
 3. (опц.) Создайте стили `src/css/new-page.scss` — получите `dist/css/new-page.css` и минифицированный вариант в `build/`.
 
 **Добавить фавиконки**
-
 - Положите `src/assets/favicons/favicon.svg` и (опц.) `manifest.json`. На выходе будут `favicon-32.png`, `favicon-16.png`, `favicon.ico`, `favicon.svg`.
 
 **Подключить библиотеку (пример: locomotive-scroll)**
-
 ```bash
 npm i locomotive-scroll
 ```
-
 Дальше либо импортируйте её в свой JS, либо добавьте в таск vendor/скопируйте из `node_modules` в `vendor/` (по аналогии с UIkit).
 
 ---
@@ -204,7 +179,7 @@ npm i locomotive-scroll
 
 - **ENOENT при @@include** — путь в include считается от текущего файла. Для страниц из `src/*.html` корректный путь к общим парциалам: `./partials/global/...`.
 - **JSON5 ошибки в параметрах include** — не забывайте запятые. Разрешён синтаксис JSON5 (можно без кавычек у ключей).
-- \*\*Sass предупреждает про \*\*\`\` — это deprecate‑уведомление; переходите на `@use`/`@forward` в новых файлах.
+- **Sass предупреждает про `@import`** — это deprecate‑уведомление; переходите на `@use`/`@forward` в новых файлах.
 - **Сборка видео долгая** — используйте `--skip-video` при обычной разработке и прогоняйте полный конвейер только перед релизом.
 
 ---
@@ -213,75 +188,3 @@ npm i locomotive-scroll
 
 Если потребуется: добавлю YAML‑workflow для GitHub Pages, пример `.env` (если появится), а также шаблоны partials.
 
-
-
----
-
-## 9) Фреймворки и библиотеки
-
-**UIkit**\
-Компонентный CSS/JS‑фреймворк, который используется для сетки, базовых UI‑элементов и утилит. Файлы берутся из `node_modules/uikit` и складываются в `dist/vendor/` и `build/vendor/`. Подключается в HTML как обычный vendor‑ассет. Если нужно сократить размер — подключайте только нужные компоненты или импортируйте стили частично в свой SCSS.
-
-**normalize.css**\
-Нормализует стили браузера. Кладётся как отдельный файл в `vendor/` и подключается до UIkit и ваших стилей.
-
-**(опционально) Locomotive Scroll**\
-Плагин плавного/инерционного скролла. В проекте не зашит по умолчанию, но легко добавить:
-
-```bash
-npm i locomotive-scroll
-```
-
-Далее либо:
-
-- импортируйте в ваш бандл:
-  ```js
-  import LocomotiveScroll from 'locomotive-scroll';
-  const scroll = new LocomotiveScroll({ el: document.querySelector('[data-scroll-container]'), smooth: true });
-  ```
-- или добавьте копирование его файлов в vendor‑таск по аналогии с UIkit.
-
-**Тулзы пайплайна (важные):**
-
-- **Gulp 4** — сборщик задач.
-- **Sass (Dart Sass)** → компиляция SCSS.
-- **PostCSS + Autoprefixer** → вендорные префиксы.
-- **gulp-group-css-media-queries** → группировка медиа‑запросов.
-- **cssnano** → минификация CSS (только в `build/`).
-- **Terser** → минификация JS (только в `build/`).
-- **gulp-file-include** → модульная сборка HTML через `@@include`.
-- **gulp-htmlmin** (движок `html-minifier-terser`) → минификация HTML в `build/`.
-- **Imagemin (mozjpeg/pngquant/svgo)** → сжатие изображений и SVG.
-- **Sharp + to-ico** → генерация `favicon-16/32.png` и `favicon.ico` из `favicon.svg`.
-- **fluent-ffmpeg + @ffmpeg-installer/ffmpeg** → рендер видео (mp4/webm) и постеров JPEG.
-- **gulp-newer** → инкрементальная обработка медиа.
-- **ansi-colors / fancy-log / plumber** → удобные логи и мягкая обработка ошибок.
-
-> Все эти зависимости уже указаны в `package.json`. Ниже — сводный список по категориям, если проект поднимается с нуля.
-
-## 10) Зависимости (npm) и установка
-
-### Runtime‑зависимости (используются на сайте)
-
-Устанавливаются в `dependencies` и попадают в билд как файлы:
-
-```bash
-npm i uikit normalize.css
-```
-
-### Dev‑зависимости (только для сборки)
-
-Устанавливаются в `devDependencies`:
-
-```bash
-npm i -D \
-  gulp gulp-cli gulp-plumber fancy-log ansi-colors fast-glob merge-stream glob \
-  gulp-file-include gulp-replace gulp-sourcemaps gulp-group-css-media-queries \
-  sass gulp-sass postcss autoprefixer cssnano \
-  gulp-terser gulp-htmlmin html-minifier-terser \
-  imagemin imagemin-mozjpeg imagemin-pngquant imagemin-svgo svgo gulp-newer \
-  sharp to-ico \
-  fluent-ffmpeg @ffmpeg-installer/ffmpeg
-```
-
-> В репозитории уже есть `package-lock.json`, поэтому **рекомендуется** просто выполнить `npm ci` — оно поставит именно те версии, которые проверены.
