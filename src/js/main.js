@@ -166,3 +166,34 @@
     });
   }
 })();
+
+// mux-bg-video.js
+(function () {
+  const v = document.querySelector('.hero--video');
+  if (!v) return;
+
+  const pid = v.dataset.muxPlaybackId;
+  const hlsSrc = `https://stream.mux.com/${pid}.m3u8`;
+
+  // Для браузеров без нативного HLS (не Safari)
+  if (!v.canPlayType('application/vnd.apple.mpegurl') && window.Hls) {
+    const hls = new Hls({ maxBufferLength: 10 });
+    hls.loadSource(hlsSrc);
+    hls.attachMedia(v);
+  }
+
+  // Автовоспроизведение/пауза в зависимости от видимости блока
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !document.hidden) v.play().catch(() => {});
+      else v.pause();
+    }, { threshold: 0.25 });
+    io.observe(v);
+  }
+
+  // Пауза, если вкладка/окно неактивны
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) v.pause();
+    else v.play().catch(() => {});
+  });
+})();
