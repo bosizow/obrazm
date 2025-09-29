@@ -68,6 +68,13 @@
   justify-content: center;
   align-items: center;
   position: relative !important;
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 960px) {
+  .story--col {
+    min-height: 600px;
+  }
 }
 
 .story-quote {
@@ -89,6 +96,8 @@
 @media screen and (min-width: 960px) {
   .story--col-quote {
     align-items: flex-start !important;
+    justify-content: flex-start !important;
+    padding-top: 90px;
   }
 
   .story--row-process .story--col-quote {
@@ -136,6 +145,12 @@
   min-height: 280px;
   min-width: 215px;
   max-width: 45%;
+}
+
+@media screen and (min-width: 960px) {
+  .story--photo {
+    transform: scale(1.75);
+  }
 }
 
 .bubble--image {
