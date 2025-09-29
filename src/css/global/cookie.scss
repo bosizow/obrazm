@@ -7,12 +7,11 @@
   left: auto !important;
 }
 
-@media screen and (min-width: 640px) {
+@media screen and (min-width: 460px) {
   .cookie {
     max-width: 370px !important;
     bottom: 60px !important;
     right: 30px !important;
-    transform: rotate(-3deg);
   }
 }
 
@@ -37,7 +36,7 @@
   display: none;
 }
 
-@media screen and (min-width: 640px) {
+@media screen and (min-width: 460px) {
   .cookie--card {
     background: transparent !important;
     box-shadow: none !important;
@@ -47,9 +46,9 @@
     display: block;
     position: absolute;
     inset: 50%;
-    transform: translate(-55%, -50%);
-    min-width: 125%;
-    height: 190%;
+    transform: translate(-56%, -50%);
+    min-width: 130%;
+    height: 165%;
     z-index: 2;
     pointer-events: none;
   }
