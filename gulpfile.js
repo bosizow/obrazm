@@ -52,7 +52,7 @@ const USE_MIN_SUFFIX = false; // true → *.min.css / *.min.js в build
 
 // Видео: «scaled-only»
 const VIDEO_SCALE = 0.75;       // коэффициент масштаба (75%)
-const VIDEO_SCALED_ONLY = true; // генерим только уменьшенные версии (без -75.*)
+const VIDEO_SCALED_ONLY = true; // генерим только уменьшенные версии
 
 const paths = {
   src: 'src',
@@ -65,11 +65,8 @@ const paths = {
     build: 'build',
   },
   styles: {
-    // новая директория со SCSS
     dir: 'src/css',
-    // любые scss (для вотчера)
     src: 'src/css/**/*.scss',
-    // входы (компилируем всё, кроме _*.scss)
     entries: ['src/css/*.scss', '!src/css/_*.scss'],
     dist: 'dist/css',
     build: 'build/css',
@@ -91,19 +88,35 @@ const paths = {
   },
 };
 
-// Медиа отдельно (не внутри vendor)
+// Медиа
 const ASSETS = {
   images: {
     src: 'src/assets/images/**/*.{jpg,jpeg,png,gif,svg,webp,avif}',
     dist: 'dist/assets/images',
     build: 'build/assets/images',
   },
+  // «обычные» иконки проекта (не фавиконки)
   icons: {
     src: 'src/assets/icons/**/*.{svg,png,ico}',
     dist: 'dist/assets/icons',
     build: 'build/assets/icons',
-    faviconSvg: 'src/assets/icons/favicon.svg',
-    faviconIcoDist: 'dist/assets/icons/favicon.ico',
+  },
+  // НОВОЕ: каталог фавиконок и манифеста
+  favicons: {
+    images: {
+      src: 'src/assets/favicons/**/*.{svg,png,ico}',
+      dist: 'dist/assets/favicons',
+      build: 'build/assets/favicons',
+    },
+    manifest: {
+      // копируем как есть
+      src: [
+        'src/assets/favicons/*.webmanifest',
+        'src/assets/favicons/manifest*.json',
+      ],
+    },
+    // исходный svg для генерации набора иконок
+    faviconSvg: 'src/assets/favicons/favicon.svg',
   },
   video: {
     src: 'src/assets/video/**/*.mp4',
@@ -112,25 +125,16 @@ const ASSETS = {
     posterExt: '.jpg',
   },
   seo: {
-    // наши SEO-файлы в src
     src: ['src/robots.txt', 'src/sitemap.xml'],
-    // целевые места — корни dist и build
     dist: 'dist',
     build: 'build',
   },
 };
 
 /* ───────────────── helpers ───────────────── */
-function exists(p) {
-  try { fs.accessSync(p); return true; } catch { return false; }
-}
-function warnMissing(what, where) {
-  log(c.yellow(`⚠ ${what} не найдено в ${where}. Пропускаю задачу.`));
-}
-function rmDirSafe(dir) {
-  try { fs.rmSync(dir, { recursive: true, force: true }); log(c.gray(`clean: ${dir} removed`)); }
-  catch (e) { log(c.red(`clean error for ${dir}: ${e.message}`)); }
-}
+function exists(p) { try { fs.accessSync(p); return true; } catch { return false; } }
+function warnMissing(what, where) { log(c.yellow(`⚠ ${what} не найдено в ${where}. Пропускаю задачу.`)); }
+function rmDirSafe(dir) { try { fs.rmSync(dir, { recursive: true, force: true }); log(c.gray(`clean: ${dir} removed`)); } catch (e) { log(c.red(`clean error for ${dir}: ${e.message}`)); } }
 function ensureDirSync(dir) { fs.mkdirSync(dir, { recursive: true }); }
 
 function srcChecked(globPattern, opts = {}) {
@@ -161,12 +165,7 @@ function baseDirFromGlob(globStr) {
   const g = Array.isArray(globStr) ? globStr[0] : globStr;
   if (!g) return null;
   const i = g.indexOf('**');
-  if (i > -1) {
-    // кусок до '**', без завершающих слэшей
-    return g.slice(0, i).replace(/[\\/]+$/, '');
-  }
-  // если нет '**', берём всё до первой фигурной скобки (для {...}),
-  // затем убираем завершающие слэши
+  if (i > -1) return g.slice(0, i).replace(/[\\/]+$/, '');
   const j = g.indexOf('{');
   const head = j > -1 ? g.slice(0, j) : g;
   return head.replace(/[\\/]+$/, '');
@@ -206,7 +205,7 @@ function pagesNoJekyll(done) {
   done();
 }
 
-/* ─────────────── Images / Icons ─────────────── */
+/* ─────────────── Images ─────────────── */
 function imagesDist() {
   if (!exists('src/assets/images')) warnMissing('Папка src/assets/images', process.cwd());
   return Promise.all([
@@ -225,7 +224,7 @@ function imagesDist() {
           plugins: [
             { name: 'preset-default', params: { overrides: { removeViewBox: false, convertShapeToPath: false } } },
             { name: 'sortAttrs' },
-          ],
+          ]
         }),
       ], { verbose: true }))
       .pipe(gulp.dest(ASSETS.images.dist));
@@ -233,6 +232,7 @@ function imagesDist() {
   });
 }
 
+/* ─────────────── Icons (обычные, не фавиконы) ─────────────── */
 function iconsDist() {
   if (!exists('src/assets/icons')) warnMissing('Папка src/assets/icons', process.cwd());
   return Promise.all([
@@ -249,7 +249,7 @@ function iconsDist() {
           plugins: [
             { name: 'preset-default', params: { overrides: { removeViewBox: false, convertShapeToPath: false } } },
             { name: 'sortAttrs' },
-          ],
+          ]
         }),
       ], { verbose: true }))
       .pipe(gulp.dest(ASSETS.icons.dist));
@@ -257,27 +257,86 @@ function iconsDist() {
   });
 }
 
-async function faviconSvgToIcoDist(done) {
+/* ─────────────── Favicons (НОВОЕ) ─────────────── */
+/** Сжатие png/svg/ico в src/assets/favicons → dist/assets/favicons */
+function faviconsImagesDist() {
+  if (!exists('src/assets/favicons')) warnMissing('Папка src/assets/favicons', process.cwd());
+  return Promise.all([
+    import('gulp-imagemin'),
+    import('imagemin-pngquant'),
+    import('imagemin-svgo'),
+  ]).then(([{ default: imagemin }, { default: pngquant }, { default: svgo }]) => {
+    const stream = srcChecked(ASSETS.favicons.images.src, { base: 'src/assets/favicons' })
+      .pipe(plumber({ errorHandler: (err) => log(c.red(err.message)) }))
+      .pipe(newer(ASSETS.favicons.images.dist))
+      .pipe(imagemin([
+        pngquant({ quality: [0.7, 0.9], speed: 3 }),
+        svgo({
+          plugins: [
+            { name: 'preset-default', params: { overrides: { removeViewBox: false, convertShapeToPath: false } } },
+            { name: 'sortAttrs' },
+          ]
+        }),
+      ], { verbose: true }))
+      .pipe(gulp.dest(ASSETS.favicons.images.dist));
+    return new Promise((resolve, reject) => stream.on('end', resolve).on('error', reject));
+  });
+}
+
+/** Копирование манифеста(ов) как есть */
+function faviconsManifestDist() {
+  return srcChecked(ASSETS.favicons.manifest.src, { base: 'src/assets/favicons', allowEmpty: true })
+    .pipe(plumber({ errorHandler: (err) => log(c.red(err.message)) }))
+    .pipe(newer(ASSETS.favicons.images.dist))
+    .pipe(gulp.dest(ASSETS.favicons.images.dist));
+}
+
+/** Генерация favicon-16.png, favicon-32.png, favicon.ico из favicon.svg */
+async function faviconsGenerateFromSvgDist(done) {
   try {
-    if (!exists(ASSETS.icons.faviconSvg)) {
-      warnMissing('favicon.svg', 'src/assets/icons');
+    const svgPath = ASSETS.favicons.faviconSvg;
+    if (!exists(svgPath)) {
+      warnMissing('favicon.svg', 'src/assets/favicons');
       return done();
     }
-    const svgBuf = fs.readFileSync(ASSETS.icons.faviconSvg);
-    const sizes = [16, 32, 48, 64];
-    const pngBuffers = await Promise.all(
-      sizes.map((s) => sharp(svgBuf, { density: 256 }).resize(s, s).png().toBuffer())
-    );
-    const icoBuf = await toIco(pngBuffers);
-    ensureDirSync(path.dirname(ASSETS.icons.faviconIcoDist));
-    fs.writeFileSync(ASSETS.icons.faviconIcoDist, icoBuf);
-    log(c.gray('favicon: создан dist/assets/icons/favicon.ico'));
+    const distDir = ASSETS.favicons.images.dist;
+    ensureDirSync(distDir);
+
+    const svgBuf = fs.readFileSync(svgPath);
+    // генерим png 16 и 32
+    const targets = [
+      { name: 'favicon-16.png', size: 16 },
+      { name: 'favicon-32.png', size: 32 },
+    ];
+    for (const t of targets) {
+      const out = path.join(distDir, t.name);
+      const png = await sharp(svgBuf, { density: 256 }).resize(t.size, t.size).png().toBuffer();
+      fs.writeFileSync(out, png);
+      log(c.gray(`favicons: created ${path.relative(process.cwd(), out)}`));
+    }
+    // .ico (16,32)
+    const icoBuf = await toIco([
+      await sharp(svgBuf, { density: 256 }).resize(16, 16).png().toBuffer(),
+      await sharp(svgBuf, { density: 256 }).resize(32, 32).png().toBuffer(),
+    ]);
+    const icoOut = path.join(distDir, 'favicon.ico');
+    fs.writeFileSync(icoOut, icoBuf);
+    log(c.gray(`favicons: created ${path.relative(process.cwd(), icoOut)}`));
+
+    // скопируем исходный favicon.svg (если не попал через faviconsImagesDist)
+    const svgOut = path.join(distDir, 'favicon.svg');
+    if (!exists(svgOut)) {
+      fs.copyFileSync(svgPath, svgOut);
+      log(c.gray(`favicons: copied favicon.svg → ${path.relative(process.cwd(), svgOut)}`));
+    }
+
     done();
   } catch (e) {
-    log(c.red(`favicon: ошибка генерации .ico — ${e.message}`));
+    log(c.red(`favicons: ошибка генерации — ${e.message}`));
   }
 }
 
+/* ─────────────── Копирование media из dist → build ─────────────── */
 function mediaBuildCopy() {
   return gulp.src(['dist/assets/**/*'], { base: 'dist' })
     .pipe(plumber({ errorHandler: (err) => log(c.red(err.message)) }))
@@ -286,14 +345,12 @@ function mediaBuildCopy() {
 
 /* ─────────────── SEO files: robots.txt & sitemap.xml ─────────────── */
 function seoDist() {
-  // копируем из src/ → dist/ (корень)
   return srcChecked(ASSETS.seo.src, { base: 'src', allowEmpty: true })
     .pipe(plumber({ errorHandler: (err) => log(c.red(err.message)) }))
     .pipe(newer(paths.dist))
     .pipe(gulp.dest(paths.dist));
 }
 function seoBuild() {
-  // копируем из dist/ → build/ (корень), чтобы build = «мин. код + те же мета-файлы»
   return gulp.src(['dist/robots.txt', 'dist/sitemap.xml'], { base: 'dist', allowEmpty: true })
     .pipe(plumber({ errorHandler: (err) => log(c.red(err.message)) }))
     .pipe(newer(paths.build))
@@ -312,24 +369,15 @@ function htmlDist() {
   const SITE = loadSiteJson();
   return srcChecked(paths.html.src, { base: paths.src })
     .pipe(plumber({ errorHandler: (err) => log(c.red(err.message)) }))
-    .pipe(fileinclude({
-      prefix: '@@',
-      basepath: '@file',
-      context: { SITE },
-    }))
+    .pipe(fileinclude({ prefix: '@@', basepath: '@file', context: { SITE } }))
     .pipe(gulp.dest(paths.html.dist));
 }
-
 function htmlBuild() {
   if (!exists(paths.src)) warnMissing('Папка src', process.cwd());
   const SITE = loadSiteJson();
   let stream = srcChecked(paths.html.src, { base: paths.src })
     .pipe(plumber({ errorHandler: (err) => log(c.red(err.message)) }))
-    .pipe(fileinclude({
-      prefix: '@@',
-      basepath: '@file',
-      context: { SITE },
-    }));
+    .pipe(fileinclude({ prefix: '@@', basepath: '@file', context: { SITE } }));
 
   if (USE_MIN_SUFFIX) {
     stream = stream
@@ -339,21 +387,13 @@ function htmlBuild() {
   }
 
   return stream
-    .pipe(htmlmin({
-      collapseWhitespace: true,
-      removeComments: true,
-      minifyCSS: false,
-      minifyJS: false,
-    }))
+    .pipe(htmlmin({ collapseWhitespace: true, removeComments: true, minifyCSS: false, minifyJS: false }))
     .pipe(gulp.dest(paths.html.build));
 }
 
 /* ─────────────── Styles (SCSS→CSS) ─────────────── */
 function stylesDist() {
-  if (!exists(paths.styles.dir)) {
-    warnMissing('Папка src/css', process.cwd());
-  }
-  // компилируем все явные точки входа (main.scss, index.scss и т.д.)
+  if (!exists(paths.styles.dir)) warnMissing('Папка src/css', process.cwd());
   return srcChecked(paths.styles.entries, { base: paths.styles.dir })
     .pipe(plumber({ errorHandler: (err) => log(c.red(err.message)) }))
     .pipe(sourcemaps.init())
@@ -363,23 +403,18 @@ function stylesDist() {
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(paths.styles.dist));
 }
-
 function stylesBuild() {
-  if (!exists(paths.styles.dir)) {
-    warnMissing('Папка src/css', process.cwd());
-  }
+  if (!exists(paths.styles.dir)) warnMissing('Папка src/css', process.cwd());
   return import('cssnano').then(({ default: cssnano }) => {
     let stream = srcChecked(paths.styles.entries, { base: paths.styles.dir })
       .pipe(plumber({ errorHandler: (err) => log(c.red(err.message)) }))
       .pipe(sass({ outputStyle: 'expanded' }))
       .pipe(postcss([autoprefixer()]))
       .pipe(gcmq())
-      .pipe(postcss([cssnano()])); // минификация для build
+      .pipe(postcss([cssnano()]));
     if (USE_MIN_SUFFIX) stream = stream.pipe(rename({ suffix: '.min' }));
     stream = stream.pipe(gulp.dest(paths.styles.build));
-    return new Promise((resolve, reject) => {
-      stream.on('end', resolve).on('error', reject);
-    });
+    return new Promise((resolve, reject) => { stream.on('end', resolve).on('error', reject); });
   });
 }
 
@@ -392,7 +427,6 @@ function scriptsDist() {
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(paths.scripts.dist));
 }
-
 function scriptsBuild() {
   if (!exists('src/js')) warnMissing('Папка src/js', process.cwd());
   let stream = srcChecked(paths.scripts.src, { base: 'src/js' })
@@ -413,8 +447,7 @@ function vendorDist() {
 function vendorBuild() {
   return import('cssnano').then(({ default: cssnano }) => {
     const streams = [];
-    let normalize = srcChecked(paths.vendor.normalize, { allowEmpty: true })
-      .pipe(postcss([cssnano()]));
+    let normalize = srcChecked(paths.vendor.normalize, { allowEmpty: true }).pipe(postcss([cssnano()]));
     if (USE_MIN_SUFFIX) normalize = normalize.pipe(rename({ suffix: '.min' }));
     streams.push(normalize.pipe(gulp.dest(paths.vendor.build)));
     streams.push(srcChecked(paths.vendor.uikitCss, { allowEmpty: true }).pipe(gulp.dest(paths.vendor.build)));
@@ -457,9 +490,7 @@ function hasFfmpeg() {
   try { return spawnSync('ffmpeg', ['-version'], { stdio: 'ignore' }).status === 0; }
   catch { return false; }
 }
-function runFfmpeg(cmd) {
-  return new Promise((resolve, reject) => { cmd.on('end', resolve).on('error', reject).run(); });
-}
+function runFfmpeg(cmd) { return new Promise((resolve, reject) => { cmd.on('end', resolve).on('error', reject).run(); }); }
 
 async function processOneVideo(absIn, distRoot) {
   const rel = path.relative(baseDirFromGlob(ASSETS.video.src) || 'src/assets/video', absIn);
@@ -476,48 +507,26 @@ async function processOneVideo(absIn, distRoot) {
   // mp4 (scaled, mute)
   try {
     await runFfmpeg(
-      ffmpeg(absIn)
-        .noAudio()
-        .videoCodec('libx264')
-        .videoFilters(scaleFilter)
-        .outputOptions(['-crf 27', '-preset medium', '-movflags +faststart'])
-        .output(outMp4)
-        .outputOptions(['-y'])
+      ffmpeg(absIn).noAudio().videoCodec('libx264').videoFilters(scaleFilter)
+        .outputOptions(['-crf 27', '-preset medium', '-movflags +faststart']).output(outMp4).outputOptions(['-y'])
     );
     log(c.gray(`video: mp4 (scaled ${Math.round(VIDEO_SCALE * 100)}%) ${rel} → ${path.relative(process.cwd(), outMp4)}`));
-  } catch (e) {
-    log(c.yellow(`video: mp4 пропущен (${rel}) — ${e.message}`));
-  }
+  } catch (e) { log(c.yellow(`video: mp4 пропущен (${rel}) — ${e.message}`)); }
 
   // webm (scaled, mute)
   try {
     await runFfmpeg(
-      ffmpeg(absIn)
-        .noAudio()
-        .videoCodec('libvpx-vp9')
-        .videoFilters(scaleFilter)
-        .outputOptions(['-b:v 0', '-crf 32'])
-        .output(outWebm)
-        .outputOptions(['-y'])
+      ffmpeg(absIn).noAudio().videoCodec('libvpx-vp9').videoFilters(scaleFilter)
+        .outputOptions(['-b:v 0', '-crf 32']).output(outWebm).outputOptions(['-y'])
     );
     log(c.gray(`video: webm (scaled ${Math.round(VIDEO_SCALE * 100)}%) ${rel} → ${path.relative(process.cwd(), outWebm)}`));
-  } catch (e) {
-    log(c.yellow(`video: webm пропущен (${rel}) — ${e.message}`));
-  }
+  } catch (e) { log(c.yellow(`video: webm пропущен (${rel}) — ${e.message}`)); }
 
   // постер (первый кадр)
   try {
-    await runFfmpeg(
-      ffmpeg(absIn)
-        .frames(1)
-        .outputOptions(['-q:v 2'])
-        .output(outPoster)
-        .outputOptions(['-y'])
-    );
+    await runFfmpeg(ffmpeg(absIn).frames(1).outputOptions(['-q:v 2']).output(outPoster).outputOptions(['-y']));
     log(c.gray(`video: poster ${rel} → ${path.relative(process.cwd(), outPoster)}`));
-  } catch (e) {
-    log(c.yellow(`video: poster пропущен (${rel}) — ${e.message}`));
-  }
+  } catch (e) { log(c.yellow(`video: poster пропущен (${rel}) — ${e.message}`)); }
 }
 
 async function videoDist() {
@@ -561,7 +570,9 @@ const codeBuild = gulp.parallel(htmlBuild, stylesBuild, scriptsBuild, vendorBuil
 const mediaDist = gulp.parallel(
   imagesDist,
   iconsDist,
-  faviconSvgToIcoDist,
+  faviconsImagesDist,
+  faviconsManifestDist,
+  faviconsGenerateFromSvgDist,
   SKIP_VIDEO ? (d) => d() : videoDist
 );
 
@@ -574,12 +585,14 @@ function watchCode() {
   gulp.watch(paths.scripts.src, gulp.series(scriptsDist, scriptsBuild, pruneDistEmpty, pruneBuildEmpty));
   gulp.watch([paths.vendor.normalize, paths.vendor.uikitCss, ...paths.vendor.uikitJs],
     gulp.series(vendorDist, vendorBuild, pruneDistEmpty, pruneBuildEmpty));
-  // вотчер для robots/sitemap
   gulp.watch(ASSETS.seo.src, gulp.series(seoDist, seoBuild, pruneDistEmpty, pruneBuildEmpty));
 }
 function watchMedia() {
   gulp.watch(ASSETS.images.src, gulp.series(imagesDist, mediaBuildCopy, pruneDistEmpty, pruneBuildEmpty));
-  gulp.watch(ASSETS.icons.src, gulp.series(iconsDist, faviconSvgToIcoDist, mediaBuildCopy, pruneDistEmpty, pruneBuildEmpty));
+  gulp.watch(ASSETS.icons.src, gulp.series(iconsDist, mediaBuildCopy, pruneDistEmpty, pruneBuildEmpty));
+  gulp.watch([...ASSETS.favicons.manifest.src, ASSETS.favicons.images.src],
+    gulp.series(faviconsImagesDist, faviconsManifestDist, faviconsGenerateFromSvgDist, mediaBuildCopy, pruneDistEmpty, pruneBuildEmpty)
+  );
   if (!SKIP_VIDEO) {
     gulp.watch(ASSETS.video.src, gulp.series(videoDist, mediaBuildCopy, pruneDistEmpty, pruneBuildEmpty));
   }
@@ -612,10 +625,40 @@ function scanRemoveOrphansIcons() {
   const base = baseDirFromGlob(ASSETS.icons.src) || 'src/assets/icons';
   const files = fg.sync(path.join(distRoot, '**/*'), { onlyFiles: true });
   for (const f of files) {
-    if (path.basename(f) === 'favicon.ico' && ASSETS.icons.faviconSvg && exists(ASSETS.icons.faviconSvg)) continue;
     const rel = path.relative(distRoot, f);
     const srcPath = path.join(base, rel);
     if (!exists(srcPath)) {
+      rmFileSafe(f);
+      const inBuild = path.join('build', path.relative('dist', f));
+      rmIfExists(inBuild);
+    }
+  }
+  return Promise.resolve();
+}
+function scanRemoveOrphansFavicons() {
+  const distRoot = ASSETS.favicons.images.dist;
+  if (!exists(distRoot)) return Promise.resolve();
+
+  const baseImages = baseDirFromGlob(ASSETS.favicons.images.src) || 'src/assets/favicons';
+  const imgSrcSet = new Set(fg.sync(ASSETS.favicons.images.src, { onlyFiles: true }).map(p => path.resolve(p)));
+  const manSrcSet = new Set(fg.sync(ASSETS.favicons.manifest.src, { onlyFiles: true }).map(p => path.resolve(p)));
+
+  // Дополнительно — разрешённые сгенерированные файлы
+  const generatedKeeps = new Set();
+  if (exists(ASSETS.favicons.faviconSvg)) {
+    ['favicon-16.png', 'favicon-32.png', 'favicon.ico', 'favicon.svg'].forEach((n) => {
+      generatedKeeps.add(path.resolve(path.join(distRoot, n)));
+    });
+  }
+
+  const files = fg.sync(path.join(distRoot, '**/*'), { onlyFiles: true });
+  for (const f of files) {
+    if (generatedKeeps.has(path.resolve(f))) continue;
+    const rel = path.relative(distRoot, f);
+    const candidateImg = path.resolve(path.join(baseImages, rel));
+    const candidateMan = path.resolve(path.join(baseImages, rel));
+    if (!imgSrcSet.has(candidateImg) && !manSrcSet.has(candidateMan)) {
+      log(c.gray(`orphans(favicons): remove ${path.relative(process.cwd(), f)}`));
       rmFileSafe(f);
       const inBuild = path.join('build', path.relative('dist', f));
       rmIfExists(inBuild);
@@ -654,12 +697,12 @@ function scanRemoveOrphansVideo() {
 const orphans = gulp.series(
   scanRemoveOrphansImages,
   scanRemoveOrphansIcons,
+  scanRemoveOrphansFavicons,
   SKIP_VIDEO ? (d) => d() : scanRemoveOrphansVideo
 );
 exports.orphans = orphans;
 
 /* ─────────────── Public tasks ─────────────── */
-// dev-пайплайн с флагами --skip-media / --only-media + опциональная очистка + .nojekyll + orphans
 const buildBoth = gulp.series(
   NO_CLEAN ? noop : gulp.series(cleanDist, cleanBuild),
   gulp.parallel(ONLY_MEDIA ? noop : codeDist, SKIP_MEDIA ? noop : mediaDist),
@@ -674,8 +717,8 @@ const start = gulp.series(buildBoth, gulp.parallel(watchCode, watchMedia));
 const buildDist = gulp.series(NO_CLEAN ? noop : cleanDist, codeDist, pruneDistEmpty);
 const build = gulp.series(NO_CLEAN ? noop : cleanBuild, codeBuild, pagesNoJekyll, pruneBuildEmpty);
 
-exports.dev = buildBoth;        // npm run dev
-exports.start = start;          // npm run watch (если добавишь скрипт)
+exports.dev = buildBoth;
+exports.start = start;
 exports['build:dist'] = buildDist;
 exports.build = build;
 
@@ -696,7 +739,11 @@ exports.vendorBuild = vendorBuild;
 
 exports.imagesDist = imagesDist;
 exports.iconsDist = iconsDist;
-exports.faviconSvgToIcoDist = faviconSvgToIcoDist;
+
+exports.faviconsImagesDist = faviconsImagesDist;
+exports.faviconsManifestDist = faviconsManifestDist;
+exports.faviconsGenerateFromSvgDist = faviconsGenerateFromSvgDist;
+
 exports.videoDist = videoDist;
 exports.mediaBuildCopy = mediaBuildCopy;
 

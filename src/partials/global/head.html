@@ -2,26 +2,94 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<!-- Кастомные стили -->
-<link rel="stylesheet" href="./css/main.css">
+<title>
+  @@if (typeof page !== 'undefined' && page.title){@@page.title · }
+  @@SITE.name.short «@@SITE.brand»
+</title>
+
+<!-- SEO -->
+<meta name="description" content="@@if (typeof page !== 'undefined' && page.description){@@page.description}@@if (!(typeof page !== 'undefined' && page.description)){«@@SITE.brand» — @@SITE.name.short}">
+<meta name="keywords" content="@@if (typeof page !== 'undefined' && page.keywords){@@page.keywords}@@if (!(typeof page !== 'undefined' && page.keywords)){«@@SITE.brand» — @@SITE.name.full}">
+
+@@if (typeof page !== 'undefined' && page.url){
+<link rel="canonical" href="@@page.url">
+}
+
+<!-- CSS: vendor → main → page(optional) -->
 <link rel="stylesheet" href="./vendor/normalize.css">
 <link rel="stylesheet" href="./vendor/uikit.min.css">
+<link rel="stylesheet" href="./css/main.css">
+@@if (typeof page !== 'undefined' && page.css){
+<link rel="stylesheet" href="@@page.css">
+}
 
 <!-- Favicon -->
-<link rel="icon" type="image/png" href="./assets/icons/favicon.ico">
+<link rel="icon" href="./assets/favicons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="./assets/favicons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="./assets/favicons/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="shortcut icon" href="./assets/favicons/favicon.ico">
 
-<!-- Подключение шрифтов Inter и Unbounded с Google Fonts -->
+<!-- Apple -->
+<link rel="apple-touch-icon" sizes="180x180" href="./assets/favicons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="@@SITE.brand">
+
+<!-- Safari pinned tab -->
+<link rel="mask-icon" href="./assets/favicons/safari-pinned-tab.svg" color="#5bbad5">
+
+<!-- PWA -->
+<link rel="manifest" href="./assets/favicons/manifest.json">
+<meta name="theme-color" content="#E56F32">
+
+<!-- Windows tiles -->
+<meta name="msapplication-TileColor" content="#E56F32">
+<meta name="msapplication-config" content="./assets/favicons/browserconfig.xml">
+
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-  href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Unbounded:wght@200..900&display=swap"
-  rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
 
-<!-- Open Graph (можно расширить при необходимости) -->
-<!-- <meta property="og:type" content="website"> -->
-<!-- <meta property="og:site_name" content=""> -->
-<!-- Пример: <meta property="og:image" content="https://site.com/og-image.jpg"> -->
+<!-- Open Graph (with safe fallbacks) -->
+<meta property="og:type" content="@@if (typeof og !== 'undefined' && og.type){@@og.type}@@if (!(typeof og !== 'undefined' && og.type)){website}">
+<meta property="og:site_name" content="@@if (typeof og !== 'undefined' && og.siteName){@@og.siteName}@@if (!(typeof og !== 'undefined' && og.siteName)){@@SITE.brand}">
+<meta property="og:title" content="
+@@if (typeof og !== 'undefined' && og.title){@@og.title}
+@@if (!(typeof og !== 'undefined' && og.title)){
+  @@if (typeof page !== 'undefined' && page.title){@@page.title}
+  @@if (!(typeof page !== 'undefined' && page.title)){@@SITE.name.short}
+}
+">
+<meta property="og:description" content="
+@@if (typeof og !== 'undefined' && og.description){@@og.description}
+@@if (!(typeof og !== 'undefined' && og.description)){
+  @@if (typeof page !== 'undefined' && page.description){@@page.description}
+  @@if (!(typeof page !== 'undefined' && page.description)){@@SITE.name.full}
+}
+">
+<meta property="og:url" content="@@if (typeof og !== 'undefined' && og.url){@@og.url}@@if (!(typeof og !== 'undefined' && og.url)){
+@@if (typeof page !== 'undefined' && page.url){@@page.url}@@if (!(typeof page !== 'undefined' && page.url)){@@SITE.url}
+}">
+<meta property="og:image" content="@@if (typeof og !== 'undefined' && og.image){@@og.image}@@if (!(typeof og !== 'undefined' && og.image)){@@SITE.url/assets/og/default.jpg}">
+<meta property="og:image:alt" content="@@if (typeof og !== 'undefined' && og.imageAlt){@@og.imageAlt}@@if (!(typeof og !== 'undefined' && og.imageAlt)){«@@SITE.brand» — @@SITE.name.full}">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 
-<!-- Для iOS и PWA -->
-<!-- <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
-<!-- <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> -->
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="
+@@if (typeof og !== 'undefined' && og.title){@@og.title}
+@@if (!(typeof og !== 'undefined' && og.title)){
+  @@if (typeof page !== 'undefined' && page.title){@@page.title}
+  @@if (!(typeof page !== 'undefined' && page.title)){@@SITE.name.short}
+}
+">
+<meta name="twitter:description" content="
+@@if (typeof og !== 'undefined' && og.description){@@og.description}
+@@if (!(typeof og !== 'undefined' && og.description)){
+  @@if (typeof page !== 'undefined' && page.description){@@page.description}
+  @@if (!(typeof page !== 'undefined' && page.description)){@@SITE.name.full}
+}
+">
+<meta name="twitter:image" content="@@if (typeof og !== 'undefined' && og.image){@@og.image}@@if (!(typeof og !== 'undefined' && og.image)){@@SITE.url/assets/og/default.jpg}">
