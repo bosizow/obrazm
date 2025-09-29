@@ -88,20 +88,17 @@ const paths = {
   },
 };
 
-// Медиа
 const ASSETS = {
   images: {
     src: 'src/assets/images/**/*.{jpg,jpeg,png,gif,svg,webp,avif}',
     dist: 'dist/assets/images',
     build: 'build/assets/images',
   },
-  // «обычные» иконки проекта (не фавиконки)
   icons: {
     src: 'src/assets/icons/**/*.{svg,png,ico}',
     dist: 'dist/assets/icons',
     build: 'build/assets/icons',
   },
-  // НОВОЕ: каталог фавиконок и манифеста
   favicons: {
     images: {
       src: 'src/assets/favicons/**/*.{svg,png,ico}',
@@ -109,13 +106,11 @@ const ASSETS = {
       build: 'build/assets/favicons',
     },
     manifest: {
-      // копируем как есть
       src: [
         'src/assets/favicons/*.webmanifest',
         'src/assets/favicons/manifest*.json',
       ],
     },
-    // исходный svg для генерации набора иконок
     faviconSvg: 'src/assets/favicons/favicon.svg',
   },
   video: {
@@ -257,7 +252,6 @@ function iconsDist() {
   });
 }
 
-/* ─────────────── Favicons (НОВОЕ) ─────────────── */
 /** Сжатие png/svg/ico в src/assets/favicons → dist/assets/favicons */
 function faviconsImagesDist() {
   if (!exists('src/assets/favicons')) warnMissing('Папка src/assets/favicons', process.cwd());
