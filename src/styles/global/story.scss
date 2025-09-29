@@ -73,9 +73,11 @@
 .story-quote {
   color: var(--text-color-inverse);
   font-size: 1.25rem !important;
+  line-height: 1.2;
   max-width: 320px;
   text-align: center;
   z-index: 10;
+  position: relative;
 }
 
 @media screen and (min-width: 640px) {
@@ -92,12 +94,6 @@
   .story--row-process .story--col-quote {
     align-items: flex-end !important;
   }
-}
-
-.story-quote--intro {
-  font-size: 1.6rem !important;
-  font-weight: 400 !important;
-  z-index: 10;
 }
 
 @media screen and (min-width: 960px) {
@@ -156,10 +152,10 @@
   .bubble--image {
     display: block;
     position: absolute;
-    top: 0;
-    left: 0;
+    top: -25px;
     min-width: 125% !important;
-    height: 100% !important;
+    height: 130% !important;
+    pointer-events: none;
   }
 
   .bubble--image-left {
@@ -167,7 +163,6 @@
   }
 
   .bubble--image-right {
-    left: auto;
     right: -25%;
   }
 }

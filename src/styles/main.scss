@@ -1,5 +1,6 @@
 @use 'variables';
 
+@use 'global/main';
 @use 'global/headlines';
 @use 'global/buttons';
 @use 'global/header';
@@ -17,7 +18,7 @@
 
 @use 'template-page/hero-template';
 @use 'template-page/program';
-@use 'template-page/method'; 
+@use 'template-page/method';
 
 html,
 body {

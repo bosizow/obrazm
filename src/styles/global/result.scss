@@ -118,6 +118,10 @@
   color: var(--text-color-inverse);
 }
 
+.result--item-e .result-note {
+  background-color: var(--bg-color-result3);
+}
+
 @media screen and (min-width: 640px) and (max-width: 1280px) {
 
   .result--item {
