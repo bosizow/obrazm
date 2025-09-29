@@ -1,0 +1,13 @@
+@use 'global/variables';
+@use 'global/main';
+@use 'global/headlines';
+@use 'global/buttons';
+@use 'global/header';
+@use 'global/footer';
+@use 'global/cookie';
+
+html,
+body {
+  font-family: var(--font-base);
+  font-size: var(--rem);
+}

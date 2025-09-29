@@ -88,9 +88,9 @@
         </div>
       </div>
       <div class="mobile-address uk-text-muted uk-text-small uk-margin-top uk-text-muted">
-        <div class="uk-margin-small-top"> Номер телефона: <a href="tel:@@SITE.phone">@@SITE.phonePrint</a>
+        <div class="uk-margin-small-top"> Номер телефона: <a href="tel:@@SITE.phone.link">@@SITE.phone.print</a>
         </div>
-        <div class="uk-margin-small-top">Адрес @@SITE.address</div>
+        <div class="uk-margin-small-top">Адрес @@if (typeof SITE.address.link !== 'undefined' && SITE.address.link) {<a href="@@SITE.address.link" target="_blank" rel="noopener" aria-label="Maps">} @@SITE.address.print @@if (typeof SITE.address.link !== 'undefined' && SITE.address.link) {</a>}</div>
         <div class="uk-margin-small-top">Работаем круглосуточно</div>
       </div>
     </div>

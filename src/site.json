@@ -1,0 +1,19 @@
+{
+  "brand": "Образ&nbsp;Мысли",
+  "name": {
+    "full": "Образовательно-реабилитационный центр для&nbsp;трудных подростков",
+    "short": "Центр-пансионат для&nbsp;подростков"
+  },
+  "phone": {
+    "link": "+79261112233",
+    "print": "+7&nbsp;926&nbsp;111-22-33"
+  },
+  "address": {
+    "link": "address link test",
+    "print": "address test"
+  },
+  "social": {
+    "tg": "https://t.me/",
+    "vk": "https://vk.com/"
+  }
+}

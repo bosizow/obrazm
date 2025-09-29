@@ -67,7 +67,14 @@
   gap: 60px;
 }
 
-@media screen and (min-width: 960px) {
+@media screen and (max-width: 640px) {
+  .program--grid {
+    max-width: 420px;
+    margin: auto;
+  }
+}
+
+@media screen and (min-width: 640px) {
   .program--grid {
     grid-template: repeat(3, 240px) / repeat(2, 1fr);
     gap: 60px 20px;
