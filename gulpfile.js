@@ -85,6 +85,8 @@ const paths = {
       'node_modules/uikit/dist/js/uikit.min.js',
       'node_modules/uikit/dist/js/uikit-icons.min.js',
     ],
+    locoCss: 'node_modules/locomotive-scroll/dist/locomotive-scroll.css',
+    locoJs: 'node_modules/locomotive-scroll/dist/locomotive-scroll.min.js',
   },
 };
 
@@ -436,6 +438,10 @@ function vendorDist() {
   streams.push(srcChecked(paths.vendor.normalize, { allowEmpty: true }).pipe(gulp.dest(paths.vendor.dist)));
   streams.push(srcChecked(paths.vendor.uikitCss, { allowEmpty: true }).pipe(gulp.dest(paths.vendor.dist)));
   streams.push(srcChecked(paths.vendor.uikitJs, { allowEmpty: true }).pipe(gulp.dest(paths.vendor.dist)));
+  streams.push(
+    srcChecked([paths.vendor.locoCss, paths.vendor.locoJs], { allowEmpty: true })
+      .pipe(gulp.dest(paths.vendor.dist))
+  );
   return mergeStream(...streams);
 }
 function vendorBuild() {
@@ -446,6 +452,9 @@ function vendorBuild() {
     streams.push(normalize.pipe(gulp.dest(paths.vendor.build)));
     streams.push(srcChecked(paths.vendor.uikitCss, { allowEmpty: true }).pipe(gulp.dest(paths.vendor.build)));
     streams.push(srcChecked(paths.vendor.uikitJs, { allowEmpty: true }).pipe(gulp.dest(paths.vendor.build)));
+    let locoCss = srcChecked(paths.vendor.locoCss, { allowEmpty: true }).pipe(postcss([cssnano()]));
+    streams.push(locoCss.pipe(gulp.dest(paths.vendor.build)));
+    streams.push(srcChecked(paths.vendor.locoJs, { allowEmpty: true }).pipe(gulp.dest(paths.vendor.build)));
     return mergeStream(...streams);
   });
 }

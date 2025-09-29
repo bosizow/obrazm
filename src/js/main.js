@@ -79,3 +79,90 @@
   // Первичная проверка при загрузке
   applyPlayback();
 })();
+
+// locomotive-scroll
+(function () {
+  // Не инициализируем при «предпочитаю уменьшенное движение»
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Элемент контейнера
+  const container = document.querySelector('[data-scroll-container]');
+  if (!container || typeof LocomotiveScroll === 'undefined' || reduceMotion) {
+    // Фолбэк: нативный скролл, но починим якоря с учётом фикс-хедера
+    fixAnchorLinksFallback();
+    return;
+  }
+
+  // Оценка высоты фикс-хедера для якорей
+  const header = document.querySelector('header, .uk-navbar-container, .site-header');
+  const headerOffset = () => (header ? header.getBoundingClientRect().height : 0);
+
+  // Инициализируем Locomotive
+  const scroll = new LocomotiveScroll({
+    el: container,
+    smooth: true,
+    lerp: 0.08,          // инерция (0..1)
+    multiplier: 1,       // скорость
+    smartphone: { smooth: false }, // на телефонах обычно лучше без smooth
+    tablet:     { smooth: true, breakpoint: 1024 }
+  });
+
+  // Обновлять размеры после загрузки медиа/шрифтов/изображений
+  window.addEventListener('load', () => scroll.update());
+  // Если у вас где-то динамически появляется контент — вызывайте scroll.update()
+
+  // Якорные ссылки: прокручиваем через API библиотеки, с учётом высоты шапки
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href');
+      if (!id || id === '#') return;
+      const target = document.querySelector(id);
+      if (!target) return;
+
+      e.preventDefault();
+      scroll.scrollTo(target, { offset: -headerOffset(), duration: 800 });
+      history.pushState(null, '', id); // обновим URL
+    });
+  });
+
+  // Если страница загружена уже с хэшем — доскроллим корректно
+  if (location.hash) {
+    const target = document.querySelector(location.hash);
+    if (target) {
+      setTimeout(() => scroll.scrollTo(target, { offset: -headerOffset(), duration: 0 }), 0);
+    }
+  }
+
+  // Хелпер на случай интеграции с UIKit Scrollspy/HeightMatch/Sticky:
+  // периодически «пингуем» UIkit на пересчёт (если нужно)
+  if (window.UIkit && typeof UIkit.update === 'function') {
+    scroll.on('scroll', () => UIkit.update(null, 'resize'));
+  }
+
+  // Пауза анимации/видео, когда вкладка неактивна (чтобы не жрало батарейку)
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      scroll.stop();
+      // При желании — ставьте на паузу ваши <video> в hero
+      document.querySelectorAll('.hero--video').forEach(v => v.pause && v.pause());
+    } else {
+      scroll.start();
+      document.querySelectorAll('.hero--video').forEach(v => v.play && v.play().catch(()=>{}));
+    }
+  });
+
+  // Фолбэк для якорей (если Locomotive не стартанёт)
+  function fixAnchorLinksFallback() {
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        const target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        const y = target.getBoundingClientRect().top + window.scrollY - headerOffset();
+        window.scrollTo({ top: y, behavior: 'smooth' });
+        history.pushState(null, '', id);
+      });
+    });
+  }
+})();

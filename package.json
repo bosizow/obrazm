@@ -57,6 +57,7 @@
     "to-ico": "^1.1.5"
   },
   "dependencies": {
+    "locomotive-scroll": "^4.1.4",
     "normalize.css": "^8.0.1",
     "uikit": "^3.23.13"
   },
