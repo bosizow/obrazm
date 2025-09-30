@@ -1,199 +1,236 @@
-// Плавный скролл к якорям с учётом фиксированного хедера
+// Главный фронтовой скрипт проекта.
+// Архитектура: независимые IIFE-модули + общие хелперы.
+// Некритичные фичи — с graceful fallback (reduced motion, отсутствие библиотек и т.д.).
+
 (function () {
-  const header = document.querySelector('.site-header');
-  const headerH = () => header ? header.offsetHeight : 0;
+  'use strict';
 
-  document.querySelectorAll('a.js-anchor[href^="#"]').forEach(a => {
-    a.addEventListener('click', function (e) {
-      const id = this.getAttribute('href');
-      if (!id || id === '#') return;
-      const target = document.querySelector(id);
-      if (!target) return;
+  // ---------- Helpers ----------
+  const $    = (s, r = document) => r.querySelector(s);
+  const $$   = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const on   = (el, ev, fn, opts) => el && el.addEventListener(ev, fn, opts);
+  const raf  = (fn) => (window.requestAnimationFrame || setTimeout)(fn, 0);
+  const bool = (v) => v === true;
 
-      e.preventDefault();
-      const top = target.getBoundingClientRect().top + window.pageYOffset - (headerH() + 8);
-      window.scrollTo({ top, behavior: 'smooth' });
-    });
-  });
-})();
+  const prefersReducedMotion = () =>
+    window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Переключение родителя в offcanvas, чтобы "С чем помогаем" открывался по клику
-(function () {
-  const nav = document.querySelector('#mobile-offcanvas .uk-nav');
-  if (!nav) return;
-  // UIKit уже обрабатывает uk-nav-parent-icon, но делаем небольшой UX-твик:
-  nav.querySelectorAll('.uk-parent > a').forEach(link => {
-    link.addEventListener('click', e => {
-      // если клик по родителю без href на отдельную страницу — просто раскрыть
-      if (link.getAttribute('href') === '#') e.preventDefault();
-    });
-  });
-})();
+  const headerOffset = () => {
+    const header = $('.site-header') || $('header') || $('.uk-navbar-container');
+    return header ? header.getBoundingClientRect().height : 0;
+  };
 
-// Пауза воспроизведения видео при его скрытии из виду или при потере фокуса вкладки
-(function () {
-  const v = document.querySelector('.hero--video');
-  if (!v) return;
+  // Плавный скролл до элемента (нативный API)
+  const smoothScrollTo = (el, offset = 0, duration = 600) => {
+    if (!el) return;
+    const y = el.getBoundingClientRect().top + window.pageYOffset - offset;
+    // На сильно слабых девайсах можно убрать smooth
+    window.scrollTo({ top: y, behavior: (prefersReducedMotion() ? 'auto' : 'smooth') });
+  };
 
-  let inView = true;                         // видео в зоне видимости
-  let pageVisible = document.visibilityState === 'visible'; // вкладка активна
-  let windowFocused = document.hasFocus();   // окно в фокусе
-
-  // Проверяем, можно ли воспроизводить видео
-  function shouldPlay() {
-    return inView && pageVisible && windowFocused;
-  }
-
-  // Запускаем или останавливаем видео
-  function applyPlayback() {
-    if (shouldPlay()) {
-      v.play().catch(() => {}); // игнорируем ошибки автоплея
-    } else {
-      v.pause();
-    }
-  }
-
-  // Следим за видимостью видео на экране
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(([e]) => {
-      inView = e.isIntersecting && e.intersectionRatio >= 0.25;
-      applyPlayback();
-    }, { threshold: [0, 0.25, 1] });
-    io.observe(v);
-  }
-
-  // Реакция на смену вкладки
-  document.addEventListener('visibilitychange', () => {
-    pageVisible = document.visibilityState === 'visible';
-    applyPlayback();
-  });
-
-  // Фокус окна браузера
-  window.addEventListener('focus', () => { windowFocused = true; applyPlayback(); });
-  window.addEventListener('blur',  () => { windowFocused = false; applyPlayback(); });
-
-  // iOS/Safari: уход или возвращение на страницу
-  window.addEventListener('pagehide', () => { pageVisible = false; v.pause(); });
-  window.addEventListener('pageshow', () => { pageVisible = true; applyPlayback(); });
-
-  // Первичная проверка при загрузке
-  applyPlayback();
-})();
-
-// locomotive-scroll
-(function () {
-  // Не инициализируем при «предпочитаю уменьшенное движение»
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  // Элемент контейнера
-  const container = document.querySelector('[data-scroll-container]');
-  if (!container || typeof LocomotiveScroll === 'undefined' || reduceMotion) {
-    // Фолбэк: нативный скролл, но починим якоря с учётом фикс-хедера
-    fixAnchorLinksFallback();
-    return;
-  }
-
-  // Оценка высоты фикс-хедера для якорей
-  const header = document.querySelector('header, .uk-navbar-container, .site-header');
-  const headerOffset = () => (header ? header.getBoundingClientRect().height : 0);
-
-  // Инициализируем Locomotive
-  const scroll = new LocomotiveScroll({
-    el: container,
-    smooth: true,
-    lerp: 0.08,          // инерция (0..1)
-    multiplier: 1,       // скорость
-    smartphone: { smooth: false }, // на телефонах обычно лучше без smooth
-    tablet:     { smooth: true, breakpoint: 1024 }
-  });
-
-  // Обновлять размеры после загрузки медиа/шрифтов/изображений
-  window.addEventListener('load', () => scroll.update());
-  // Если у вас где-то динамически появляется контент — вызывайте scroll.update()
-
-  // Якорные ссылки: прокручиваем через API библиотеки, с учётом высоты шапки
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', (e) => {
-      const id = a.getAttribute('href');
-      if (!id || id === '#') return;
-      const target = document.querySelector(id);
-      if (!target) return;
-
-      e.preventDefault();
-      scroll.scrollTo(target, { offset: -headerOffset(), duration: 800 });
-      history.pushState(null, '', id); // обновим URL
-    });
-  });
-
-  // Если страница загружена уже с хэшем — доскроллим корректно
-  if (location.hash) {
-    const target = document.querySelector(location.hash);
-    if (target) {
-      setTimeout(() => scroll.scrollTo(target, { offset: -headerOffset(), duration: 0 }), 0);
-    }
-  }
-
-  // Хелпер на случай интеграции с UIKit Scrollspy/HeightMatch/Sticky:
-  // периодически «пингуем» UIkit на пересчёт (если нужно)
-  if (window.UIkit && typeof UIkit.update === 'function') {
-    scroll.on('scroll', () => UIkit.update(null, 'resize'));
-  }
-
-  // Пауза анимации/видео, когда вкладка неактивна (чтобы не жрало батарейку)
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-      scroll.stop();
-      // При желании — ставьте на паузу ваши <video> в hero
-      document.querySelectorAll('.hero--video').forEach(v => v.pause && v.pause());
-    } else {
-      scroll.start();
-      document.querySelectorAll('.hero--video').forEach(v => v.play && v.play().catch(()=>{}));
-    }
-  });
-
-  // Фолбэк для якорей (если Locomotive не стартанёт)
-  function fixAnchorLinksFallback() {
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', (e) => {
+  // ---------- 1) Якоря (нативно) ----------
+  (function anchorsNative() {
+    // Линковать только явно: <a class="js-anchor" href="#id">
+    $$('.js-anchor[href^="#"]').forEach((a) => {
+      on(a, 'click', (e) => {
         const id = a.getAttribute('href');
+        if (!id || id === '#') return; // позволяем лестнице фокуса
         const target = document.querySelector(id);
         if (!target) return;
         e.preventDefault();
-        const y = target.getBoundingClientRect().top + window.scrollY - headerOffset();
-        window.scrollTo({ top: y, behavior: 'smooth' });
+        smoothScrollTo(target, headerOffset(), 600);
         history.pushState(null, '', id);
-      });
+      }, { passive: false });
     });
-  }
-})();
+  })();
 
-// mux-bg-video.js
-(function () {
-  const v = document.querySelector('.hero--video');
-  if (!v) return;
+  // ---------- 2) Мобильный offcanvas (UIKit) ----------
+  (function offcanvasAutoClose() {
+    const off = document.getElementById('mobile-offcanvas');
+    if (!off || typeof UIkit === 'undefined' || typeof UIkit.offcanvas !== 'function') return;
 
-  const pid = v.dataset.muxPlaybackId;
-  const hlsSrc = `https://stream.mux.com/${pid}.m3u8`;
+    const api = UIkit.offcanvas(off);
+    // Делегирование: закрываем по клику на "обычные" ссылки
+    on(off, 'click', (e) => {
+      const a = e.target.closest('a');
+      if (!a) return;
 
-  // Для браузеров без нативного HLS (не Safari)
-  if (!v.canPlayType('application/vnd.apple.mpegurl') && window.Hls) {
-    const hls = new Hls({ maxBufferLength: 10 });
-    hls.loadSource(hlsSrc);
-    hls.attachMedia(v);
-  }
+      // Не закрываем родительские пункты меню/раскрывашки и явно помеченные ссылки
+      if (a.closest('.uk-parent') || a.hasAttribute('data-no-close')) return;
 
-  // Автовоспроизведение/пауза в зависимости от видимости блока
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting && !document.hidden) v.play().catch(() => {});
+      api.hide();
+    }, { passive: true });
+
+    // Якорные ссылки дополнительно
+    $$('#mobile-offcanvas a.js-anchor').forEach((a) => on(a, 'click', () => api.hide(), { passive: true }));
+
+    // При переходе на десктоп — закрыть
+    const mq = window.matchMedia('(min-width: 768px)');
+    mq.addEventListener?.('change', (ev) => { if (ev.matches) api.hide(); });
+
+    // На случай если Esc не перехвачен UIKit (обычно не нужен)
+    on(document, 'keydown', (e) => { if (e.key === 'Escape') api.hide(); });
+  })();
+
+  // ---------- 3) Навигация в offcanvas: клики по родителям ----------
+  (function navParentUX() {
+    const nav = $('#mobile-offcanvas .uk-nav');
+    if (!nav) return;
+    nav.querySelectorAll('.uk-parent > a').forEach((link) => {
+      on(link, 'click', (e) => {
+        // Если у родителя href="#", блокируем переход и даём UIkit раскрыть подпункты
+        if (link.getAttribute('href') === '#') e.preventDefault();
+      }, { passive: false });
+    });
+  })();
+
+  // ---------- 4) Видеогерой: play/pause по видимости / фокусу ----------
+  (function heroVideoAutoPause() {
+    const v = $('.hero--video');
+    if (!v) return;
+
+    let inView = true;
+    let pageVisible   = document.visibilityState === 'visible';
+    let windowFocused = document.hasFocus();
+
+    const shouldPlay = () => inView && pageVisible && windowFocused && !prefersReducedMotion();
+
+    const applyPlayback = () => {
+      if (shouldPlay()) v.play().catch(() => { /* ignore autoplay errors */ });
       else v.pause();
-    }, { threshold: 0.25 });
-    io.observe(v);
-  }
+    };
 
-  // Пауза, если вкладка/окно неактивны
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) v.pause();
-    else v.play().catch(() => {});
-  });
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(([e]) => {
+        inView = e.isIntersecting && e.intersectionRatio >= 0.25;
+        applyPlayback();
+      }, { threshold: [0, 0.25, 1] });
+      io.observe(v);
+    }
+
+    on(document, 'visibilitychange', () => {
+      pageVisible = document.visibilityState === 'visible';
+      applyPlayback();
+    });
+
+    on(window, 'focus', () => { windowFocused = true;  applyPlayback(); });
+    on(window, 'blur',  () => { windowFocused = false; applyPlayback(); });
+
+    on(window, 'pagehide', () => { pageVisible = false; v.pause(); });
+    on(window, 'pageshow', () => { pageVisible = true;  applyPlayback(); });
+
+    applyPlayback();
+  })();
+
+  // ---------- 5) Locomotive Scroll (если доступен) ----------
+  (function locomotiveInit() {
+    const container = document.querySelector('[data-scroll-container]');
+    const reduce    = prefersReducedMotion();
+    const hasLib    = (typeof LocomotiveScroll !== 'undefined');
+
+    // Фолбэк: нативный скролл + корректные якоря
+    const fallbackAnchors = () => {
+      $$('a[href^="#"]').forEach((a) => {
+        on(a, 'click', (e) => {
+          const id = a.getAttribute('href');
+          const target = id && document.querySelector(id);
+          if (!target) return;
+          e.preventDefault();
+          smoothScrollTo(target, headerOffset(), 600);
+          history.pushState(null, '', id);
+        }, { passive: false });
+      });
+      if (location.hash) raf(() => {
+        const t = document.querySelector(location.hash);
+        if (t) smoothScrollTo(t, headerOffset(), 0);
+      });
+    };
+
+    // Если нет контейнера/библиотеки или включено reduced motion — делаем фолбэк
+    if (!container || !hasLib || reduce) {
+      fallbackAnchors();
+      return;
+    }
+
+    const scroll = new LocomotiveScroll({
+      el: container,
+      smooth: true,
+      lerp: 0.08,
+      multiplier: 1,
+      smartphone: { smooth: false },
+      tablet:     { smooth: true, breakpoint: 1024 }
+    });
+
+    // Обновление размеров после загрузки ассетов
+    on(window, 'load', () => scroll.update());
+
+    // Якоря через API Locomotive
+    $$('a[href^="#"]').forEach((a) => {
+      on(a, 'click', (e) => {
+        const id = a.getAttribute('href');
+        if (!id || id === '#') return;
+        const target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        scroll.scrollTo(target, { offset: -headerOffset(), duration: 800 });
+        history.pushState(null, '', id);
+      }, { passive: false });
+    });
+
+    // Если пришли с хэшем — доскроллим
+    if (location.hash) {
+      const t = document.querySelector(location.hash);
+      if (t) raf(() => scroll.scrollTo(t, { offset: -headerOffset(), duration: 0 }));
+    }
+
+    // Помогаем UIkit обновляться при прокрутке
+    if (window.UIkit && typeof UIkit.update === 'function') {
+      scroll.on('scroll', () => UIkit.update(null, 'resize'));
+    }
+
+    // При скрытии вкладки — останавливаем, при возвращении — стартуем
+    on(document, 'visibilitychange', () => {
+      if (document.hidden) {
+        scroll.stop();
+        $$('.hero--video').forEach((v) => v.pause?.());
+      } else {
+        scroll.start();
+        $$('.hero--video').forEach((v) => v.play?.().catch(() => {}));
+      }
+    });
+  })();
+
+  // ---------- 6) Mux HLS для .hero--video (если используется data-mux-playback-id) ----------
+  (function muxHls() {
+    const v = $('.hero--video');
+    if (!v) return;
+
+    const pid = v.dataset.muxPlaybackId;
+    if (!pid) return;
+
+    const hlsSrc = `https://stream.mux.com/${pid}.m3u8`;
+
+    // Safari умеет 'application/vnd.apple.mpegurl' нативно; остальные — через Hls.js
+    const natively = !!v.canPlayType && v.canPlayType('application/vnd.apple.mpegurl');
+    if (!natively && window.Hls && typeof Hls === 'function') {
+      const hls = new Hls({ maxBufferLength: 10 });
+      hls.loadSource(hlsSrc);
+      hls.attachMedia(v);
+    } else {
+      // Для Safari достаточно <source> в HTML, но можно подстраховаться:
+      if (!v.querySelector('source')) {
+        const src = document.createElement('source');
+        src.src = hlsSrc;
+        src.type = 'application/vnd.apple.mpegurl';
+        v.appendChild(src);
+      }
+    }
+
+    // Лёгкая безопасность на видимости вкладки
+    on(document, 'visibilitychange', () => {
+      if (document.hidden) v.pause();
+      else v.play().catch(() => {});
+    });
+  })();
+
 })();
