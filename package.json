@@ -48,6 +48,7 @@
     "imagemin-mozjpeg": "^9.0.0",
     "imagemin-pngquant": "^9.0.2",
     "imagemin-svgo": "^10.0.1",
+    "imagemin-webp": "^8.0.0",
     "merge-stream": "^2.0.0",
     "minimist": "^1.2.8",
     "postcss": "^8.5.6",

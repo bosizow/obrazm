@@ -6,10 +6,10 @@
   'use strict';
 
   // ---------- Helpers ----------
-  const $    = (s, r = document) => r.querySelector(s);
-  const $$   = (s, r = document) => Array.from(r.querySelectorAll(s));
-  const on   = (el, ev, fn, opts) => el && el.addEventListener(ev, fn, opts);
-  const raf  = (fn) => (window.requestAnimationFrame || setTimeout)(fn, 0);
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const on = (el, ev, fn, opts) => el && el.addEventListener(ev, fn, opts);
+  const raf = (fn) => (window.requestAnimationFrame || setTimeout)(fn, 0);
   const bool = (v) => v === true;
 
   const prefersReducedMotion = () =>
@@ -29,20 +29,18 @@
   };
 
   // ---------- 1) Якоря (нативно) ----------
-  (function anchorsNative() {
-    // Линковать только явно: <a class="js-anchor" href="#id">
-    $$('.js-anchor[href^="#"]').forEach((a) => {
-      on(a, 'click', (e) => {
-        const id = a.getAttribute('href');
-        if (!id || id === '#') return; // позволяем лестнице фокуса
-        const target = document.querySelector(id);
-        if (!target) return;
-        e.preventDefault();
-        smoothScrollTo(target, headerOffset(), 600);
-        history.pushState(null, '', id);
-      }, { passive: false });
+  // main.js (после DOM)
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      const href = a.getAttribute('href');
+      if (!href || href === '#') return;           // пропускаем пустой якорь
+      const idRaw = href.slice(1);                 // "id"
+      const target = document.getElementById(decodeURIComponent(idRaw))
+        || document.querySelector(href); // про запас
+
+      if (!target) a.setAttribute('href', `/#${idRaw}`); // переписываем на /#id
     });
-  })();
+  });
 
   // ---------- 2) Мобильный offcanvas (UIKit) ----------
   (function offcanvasAutoClose() {
@@ -90,7 +88,7 @@
     if (!v) return;
 
     let inView = true;
-    let pageVisible   = document.visibilityState === 'visible';
+    let pageVisible = document.visibilityState === 'visible';
     let windowFocused = document.hasFocus();
 
     const shouldPlay = () => inView && pageVisible && windowFocused && !prefersReducedMotion();
@@ -113,11 +111,11 @@
       applyPlayback();
     });
 
-    on(window, 'focus', () => { windowFocused = true;  applyPlayback(); });
-    on(window, 'blur',  () => { windowFocused = false; applyPlayback(); });
+    on(window, 'focus', () => { windowFocused = true; applyPlayback(); });
+    on(window, 'blur', () => { windowFocused = false; applyPlayback(); });
 
     on(window, 'pagehide', () => { pageVisible = false; v.pause(); });
-    on(window, 'pageshow', () => { pageVisible = true;  applyPlayback(); });
+    on(window, 'pageshow', () => { pageVisible = true; applyPlayback(); });
 
     applyPlayback();
   })();
@@ -125,8 +123,8 @@
   // ---------- 5) Locomotive Scroll (если доступен) ----------
   (function locomotiveInit() {
     const container = document.querySelector('[data-scroll-container]');
-    const reduce    = prefersReducedMotion();
-    const hasLib    = (typeof LocomotiveScroll !== 'undefined');
+    const reduce = prefersReducedMotion();
+    const hasLib = (typeof LocomotiveScroll !== 'undefined');
 
     // Фолбэк: нативный скролл + корректные якоря
     const fallbackAnchors = () => {
@@ -158,7 +156,7 @@
       lerp: 0.08,
       multiplier: 1,
       smartphone: { smooth: false },
-      tablet:     { smooth: true, breakpoint: 1024 }
+      tablet: { smooth: true, breakpoint: 1024 }
     });
 
     // Обновление размеров после загрузки ассетов
@@ -195,7 +193,7 @@
         $$('.hero--video').forEach((v) => v.pause?.());
       } else {
         scroll.start();
-        $$('.hero--video').forEach((v) => v.play?.().catch(() => {}));
+        $$('.hero--video').forEach((v) => v.play?.().catch(() => { }));
       }
     });
   })();
@@ -229,7 +227,7 @@
     // Лёгкая безопасность на видимости вкладки
     on(document, 'visibilitychange', () => {
       if (document.hidden) v.pause();
-      else v.play().catch(() => {});
+      else v.play().catch(() => { });
     });
   })();
 

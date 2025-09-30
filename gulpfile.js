@@ -202,29 +202,52 @@ function pagesNoJekyll(done) {
   done();
 }
 
-/* ─────────────── Images ─────────────── */
+/* ─────────────── Images (JPEG/PNG/SVG/WEBP) ─────────────── */
 function imagesDist() {
-  if (!exists('src/assets/images')) warnMissing('Папка src/assets/images', process.cwd());
+  if (!ASSETS || !ASSETS.images) {
+    warnMissing('paths.assets.images (config gulpfile)', 'paths');
+    return Promise.resolve();
+  }
+
+  const imagesBase = baseDirFromGlob(ASSETS.images.src) || 'src/assets/images';
+  if (!exists(imagesBase)) warnMissing(`Папка ${imagesBase}`, process.cwd());
+
   return Promise.all([
     import('gulp-imagemin'),
     import('imagemin-mozjpeg'),
     import('imagemin-pngquant'),
     import('imagemin-svgo'),
-  ]).then(([{ default: imagemin }, { default: mozjpeg }, { default: pngquant }, { default: svgo }]) => {
-    const stream = srcChecked(ASSETS.images.src, { base: 'src/assets/images' })
+    import('imagemin-webp'),
+    import('gulp-if'),
+  ]).then(([{ default: imagemin }, { default: mozjpeg }, { default: pngquant }, { default: svgo }, { default: webp }, { default: gulpIf }]) => {
+    const commonPlugins = [
+      mozjpeg({ quality: 78, progressive: true }),
+      pngquant({ quality: [0.7, 0.85], speed: 3 }),
+      svgo({
+        plugins: [
+          { name: 'preset-default', params: { overrides: { removeViewBox: false, convertShapeToPath: false } } },
+          { name: 'sortAttrs' },
+        ],
+      }),
+    ];
+
+    const webpPlugin = webp({ quality: 80, effort: 4 }); // настрой по вкусу
+
+    const isWebp = (file) => {
+      const ext = (file.extname || path.extname(file.path) || '').toLowerCase();
+      return ext === '.webp';
+    };
+
+    const stream = srcChecked(ASSETS.images.src, { base: imagesBase })
       .pipe(plumber({ errorHandler: (err) => log(c.red(err.message)) }))
-      .pipe(newer(ASSETS.images.dist))
-      .pipe(imagemin([
-        mozjpeg({ quality: 78, progressive: true }),
-        pngquant({ quality: [0.7, 0.85], speed: 3 }),
-        svgo({
-          plugins: [
-            { name: 'preset-default', params: { overrides: { removeViewBox: false, convertShapeToPath: false } } },
-            { name: 'sortAttrs' },
-          ]
-        }),
-      ], { verbose: true }))
+      .pipe(newer(ASSETS.images.dist)) // инкрементальная обработка
+      // Для .webp — отдельный плагин, для остальных — стандартный набор
+      .pipe(gulpIf(isWebp,
+        imagemin([webpPlugin], { verbose: true }),
+        imagemin(commonPlugins, { verbose: true })
+      ))
       .pipe(gulp.dest(ASSETS.images.dist));
+
     return new Promise((resolve, reject) => stream.on('end', resolve).on('error', reject));
   });
 }
