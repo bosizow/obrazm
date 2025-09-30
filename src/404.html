@@ -3,16 +3,24 @@
 
 <head>
   @@include('./partials/global/head.html', {
-    "page": {
-      "title": "Ошибка 404 — Страница не найдена",
-      "css": "./css/no-found.css"
-    }
+  "page": {
+  "title": "Ошибка 404 — Страница не найдена",
+  "css": "./css/no-found.css"
+  }
   })
 </head>
 
 <body>
   @@include('./partials/global/header.html')
-  <main class="no-found">
+  <main class="main no-found">
+    <div class="main--bg" aria-hidden="true">
+      <picture>
+        <source media="(max-width:767px)" srcset="./assets/images/no-found/bg-mobile.webp" type="image/webp">
+        <source media="(max-width:767px)" srcset="./assets/images/no-found/bg-mobile.png">
+        <source srcset="./assets/images/no-found/bg.webp" type="image/webp">
+        <img src="./assets/images/no-found/bg.png" alt="paper" aria-hidden="true" class="main--bg-img">
+      </picture>
+    </div>
     <section class="no-found--container uk-container" data-scroll-section>
       <img class="no-found--paper no-found--paper-top" src="./assets/images/no-found/paper.png" alt="бумага">
       <img class="no-found--paper no-found--paper-bottom" src="./assets/images/no-found/paper.png" alt="бумага">

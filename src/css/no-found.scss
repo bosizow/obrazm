@@ -4,6 +4,7 @@
   max-height: 960px;
   background-color: var(--bg-color-accent-muted) !important;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .no-found--container {
@@ -33,15 +34,14 @@
   width: 100vw;
 
   position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%, 0);
+  top: 25%;
+  left: 0;
   z-index: 2;
 }
 
 @media screen and (min-width: 960px) {
   .no-found--title {
-    top: 5%;
+    top: 15%;
   }
 }
 
