@@ -83,21 +83,34 @@
   })();
 
   // ---------- 4) Видеогерой: play/pause по видимости / фокусу ----------
-  (function heroVideoAutoPause() {
-    const v = $('.hero--video');
+  (function heroVideoAutoCtrl() {
+    const v = document.querySelector('.hero--video');
     if (!v) return;
+
+    // Критично для iOS: проставить до play()
+    v.muted = true;
+    v.defaultMuted = true;
+    v.playsInline = true;
+    v.setAttribute('muted', '');
+    v.setAttribute('playsinline', '');
+    v.setAttribute('webkit-playsinline', '');
 
     let inView = true;
     let pageVisible = document.visibilityState === 'visible';
-    let windowFocused = document.hasFocus();
+    let windowFocused = typeof document.hasFocus === 'function' ? document.hasFocus() : true;
+
+    const prefersReducedMotion = () =>
+      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const shouldPlay = () => inView && pageVisible && windowFocused && !prefersReducedMotion();
 
-    const applyPlayback = () => {
-      if (shouldPlay()) v.play().catch(() => { /* ignore autoplay errors */ });
-      else v.pause();
-    };
+    const tryPlay = () => v.play().catch(() => {/* игнорируем автоплей-ошибки */ });
+    const applyPlayback = () => { shouldPlay() ? tryPlay() : v.pause(); };
 
+    // Автовоспроизведение после готовности метаданных
+    v.addEventListener('loadedmetadata', applyPlayback, { once: true });
+
+    // Наблюдаем видимость
     if ('IntersectionObserver' in window) {
       const io = new IntersectionObserver(([e]) => {
         inView = e.isIntersecting && e.intersectionRatio >= 0.25;
@@ -106,16 +119,19 @@
       io.observe(v);
     }
 
-    on(document, 'visibilitychange', () => {
-      pageVisible = document.visibilityState === 'visible';
-      applyPlayback();
-    });
+    // Страница/фокус
+    document.addEventListener('visibilitychange', () => { pageVisible = document.visibilityState === 'visible'; applyPlayback(); });
+    window.addEventListener('focus', () => { windowFocused = true; applyPlayback(); });
+    window.addEventListener('blur', () => { windowFocused = false; applyPlayback(); });
 
-    on(window, 'focus', () => { windowFocused = true; applyPlayback(); });
-    on(window, 'blur', () => { windowFocused = false; applyPlayback(); });
+    // iOS Safari «разблокировка» по первому взаимодействию с документом (не по видео)
+    const unlock = () => { tryPlay(); document.removeEventListener('touchstart', unlock, true); document.removeEventListener('pointerdown', unlock, true); };
+    document.addEventListener('touchstart', unlock, true);
+    document.addEventListener('pointerdown', unlock, true);
 
-    on(window, 'pagehide', () => { pageVisible = false; v.pause(); });
-    on(window, 'pageshow', () => { pageVisible = true; applyPlayback(); });
+    // Навигация
+    window.addEventListener('pagehide', () => v.pause());
+    window.addEventListener('pageshow', () => applyPlayback());
 
     applyPlayback();
   })();
