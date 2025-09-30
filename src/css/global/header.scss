@@ -1,3 +1,7 @@
+.header {
+  z-index: 999 !important;
+}
+
 .header .uk-navbar-item {
   min-height: 50px !important;
 }
@@ -8,7 +12,7 @@
   text-transform: none !important;
 }
 
-.header .uk-navbar-right{
+.header .uk-navbar-right {
   gap: .6rem !important;
 }
 
