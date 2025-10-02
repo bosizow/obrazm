@@ -19,16 +19,17 @@
       <div class="hero--bg" aria-hidden="true">
         <div class="hero--bg-left">
 
-          <video class="hero--video" autoplay muted playsinline webkit-playsinline loop preload="metadata" poster="./assets/video/hero.jpg">
-            <source src="./assets/video/hero.webm" type="video/webm">
-            <source src="./assets/video/hero.mp4" type="video/mp4">
-            Ваш браузер не поддерживает видео.
-          </video>
+          <!-- 1) Узкий контейнер под видео -->
+          <div id="heroVideoMount"></div>
 
-          <!-- Подключение видео-стриминга — пока не работает ⚠️ -->
-          <!-- <video class="hero--video" autoplay muted loop playsinline preload="metadata" poster="https://image.mux.com/7ImFFL6f02Kpn9CFJuFMYsgGaIZmXosP8SPGmNAxynD4/thumbnail.jpg">
-            <source src="https://stream.mux.com/7ImFFL6f02Kpn9CFJuFMYsgGaIZmXosP8SPGmNAxynD4.m3u8" type="application/vnd.apple.mpegurl">
-          </video> -->
+          <!-- 2) Фолбэк для пользователей без JS -->
+          <noscript>
+            <video class="hero--video" autoplay muted playsinline webkit-playsinline loop preload="metadata" poster="./assets/video/hero.jpg" style="width:100%;height:100%;object-fit:cover">
+              <source src="./assets/video/hero.webm" type="video/webm">
+              <source src="./assets/video/hero.mp4" type="video/mp4">
+              Ваш браузер не поддерживает видео.
+            </video>
+          </noscript>
 
         </div>
         <div class="hero--bg-right"></div>
@@ -329,7 +330,7 @@
   </main>
   @@include('./partials/global/cookie.html')
   @@include('./partials/global/footer.html')
-  @@include('./partials/global/srcipts.html')
+  @@include('./partials/global/scripts.html')
 </body>
 
 </html>

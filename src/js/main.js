@@ -82,7 +82,98 @@
     });
   })();
 
-  // ---------- 4) Видеогерой: play/pause по видимости / фокусу ----------
+  // ---------- 4) Инициализация видео с надёжным фолбэком Mux HLS для .hero--video ----------
+  (function () {
+    const PLAYBACK_ID = 'YOUR_PLAYBACK_ID_HERE'; // ← подставь свой Playback ID из Mux
+    const mount = document.getElementById('heroVideoMount');
+
+    const muxSrc = `https://stream.mux.com/${PLAYBACK_ID}.m3u8?max_resolution=1080p&redundant_streams=true`;
+    const fallbackTimeoutMs = 5000; // через сколько секунд переключаться на локальное видео, если не заиграло
+
+    const localMarkup = `
+    <video class="hero--video" autoplay muted playsinline webkit-playsinline loop preload="metadata" poster="./assets/video/hero.jpg" style="width:100%;height:100%;object-fit:cover">
+      <source src="./assets/video/hero.webm" type="video/webm">
+      <source src="./assets/video/hero.mp4" type="video/mp4">
+      Ваш браузер не поддерживает видео.
+    </video>
+  `;
+
+    function tryAutoplay(video) {
+      video.muted = true; // гарантирует автоплей на мобилках
+      const p = video.play();
+      if (p && typeof p.catch === 'function') p.catch(() => { });
+    }
+
+    function showLocal() {
+      mount.innerHTML = localMarkup;
+      const v = mount.querySelector('video');
+      if (v) tryAutoplay(v);
+    }
+
+    function setupMux() {
+      const v = document.createElement('video');
+      v.className = 'hero--video';
+      v.setAttribute('playsinline', '');
+      v.setAttribute('webkit-playsinline', '');
+      v.setAttribute('muted', '');
+      v.muted = true;
+      v.setAttribute('loop', '');
+      v.setAttribute('preload', 'metadata');
+      v.setAttribute('poster', './assets/video/hero.jpg');
+      v.style.width = '100%';
+      v.style.height = '100%';
+      v.style.objectFit = 'cover';
+
+      mount.innerHTML = '';
+      mount.appendChild(v);
+
+      let hls = null;
+      let fallbackTimer = setTimeout(() => {
+        cleanup();
+        showLocal();
+      }, fallbackTimeoutMs);
+
+      function cleanup() {
+        clearTimeout(fallbackTimer);
+        v.removeEventListener('playing', onPlaying);
+        v.removeEventListener('error', onError);
+        if (hls) { try { hls.destroy(); } catch (e) { } hls = null; }
+      }
+
+      function onPlaying() { cleanup(); }
+      function onError() { cleanup(); showLocal(); }
+
+      v.addEventListener('playing', onPlaying, { once: true });
+      v.addEventListener('error', onError, { once: true });
+
+      // iOS/Safari — нативный HLS
+      if (v.canPlayType('application/vnd.apple.mpegurl')) {
+        v.src = muxSrc;
+        tryAutoplay(v);
+        return;
+      }
+
+      // Другие браузеры — через hls.js
+      if (window.Hls && Hls.isSupported()) {
+        hls = new Hls({ lowLatencyMode: true });
+        hls.on(Hls.Events.ERROR, function (_e, data) {
+          if (data && data.fatal) { cleanup(); showLocal(); }
+        });
+        hls.loadSource(muxSrc);
+        hls.attachMedia(v);
+        hls.on(Hls.Events.MANIFEST_PARSED, function () { tryAutoplay(v); });
+        return;
+      }
+
+      // Совсем старый браузер — сразу локально
+      cleanup();
+      showLocal();
+    }
+
+    setupMux();
+  })();
+
+  // ---------- 5) Видео: play/pause по видимости / фокусу ----------
   (function heroVideoAutoCtrl() {
     const v = document.querySelector('.hero--video');
     if (!v) return;
@@ -136,7 +227,7 @@
     applyPlayback();
   })();
 
-  // ---------- 5) Locomotive Scroll (если доступен) ----------
+  // ---------- 6) Locomotive Scroll (если доступен) ----------
   (function locomotiveInit() {
     const container = document.querySelector('[data-scroll-container]');
     const reduce = prefersReducedMotion();
@@ -211,39 +302,6 @@
         scroll.start();
         $$('.hero--video').forEach((v) => v.play?.().catch(() => { }));
       }
-    });
-  })();
-
-  // ---------- 6) Mux HLS для .hero--video (если используется data-mux-playback-id) ----------
-  (function muxHls() {
-    const v = $('.hero--video');
-    if (!v) return;
-
-    const pid = v.dataset.muxPlaybackId;
-    if (!pid) return;
-
-    const hlsSrc = `https://stream.mux.com/${pid}.m3u8`;
-
-    // Safari умеет 'application/vnd.apple.mpegurl' нативно; остальные — через Hls.js
-    const natively = !!v.canPlayType && v.canPlayType('application/vnd.apple.mpegurl');
-    if (!natively && window.Hls && typeof Hls === 'function') {
-      const hls = new Hls({ maxBufferLength: 10 });
-      hls.loadSource(hlsSrc);
-      hls.attachMedia(v);
-    } else {
-      // Для Safari достаточно <source> в HTML, но можно подстраховаться:
-      if (!v.querySelector('source')) {
-        const src = document.createElement('source');
-        src.src = hlsSrc;
-        src.type = 'application/vnd.apple.mpegurl';
-        v.appendChild(src);
-      }
-    }
-
-    // Лёгкая безопасность на видимости вкладки
-    on(document, 'visibilitychange', () => {
-      if (document.hidden) v.pause();
-      else v.play().catch(() => { });
     });
   })();
 
