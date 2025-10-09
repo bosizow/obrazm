@@ -1,21 +1,20 @@
 {
   "brand": "Образ&nbsp;Мысли",
   "url": "https://obrazm-rehab.ru",
-  "email": "test@test.ru",
   "name": {
     "full": "Образовательно-реабилитационный центр для&nbsp;трудных подростков",
     "short": "Центр-пансионат для&nbsp;подростков"
   },
   "phone": {
-    "link": "+79261112233",
-    "print": "+7&nbsp;926&nbsp;111-22-33"
+    "link": "tel:+78005118522",
+    "print": "8&nbsp;(800)&nbsp;511-85-22"
   },
   "address": {
-    "link": "address link test",
-    "print": "address test"
+    "link": "https://yandex.com/maps/-/CLFoULIH",
+    "print": "Москва, ул. Нижняя, 14"
   },
   "social": {
-    "tg": "https://t.me/",
-    "vk": "https://vk.com/"
+    "tg": "https://t.me/your_center",
+    "wa": "https://wa.me/79952227474?text=Номер+вашей+заявки+1760009186.+Просьба+не+удалять+данную+строку%2C+она+нужна+для+быстрого+поиска+вашего+обращения.+"
   }
 }

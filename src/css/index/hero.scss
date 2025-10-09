@@ -50,7 +50,11 @@
 }
 
 .hero--bg-left {
-  background-color: var(--text-color-accent-second);
+  background-image: url(./assets/video/hero.jpg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: var(--bg-color-base);
 }
 
 .hero--bg-right {

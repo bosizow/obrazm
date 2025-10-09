@@ -3,7 +3,7 @@
   <img class="expert-card--photo" src="@@img" alt="@@name">
   <div class="expert-card--info">
     <h3 class="expert-card--name">@@name</h3>
-    <div class="expert-card--role">@@role</div>
-    <p class="expert-card--descr">@@desc</p>
+    <p class="expert-card--role">@@role</p>
+    @@if (typeof desc !== 'undefined' && desc) {<p class="expert-card--descr">@@desc</p>}
   </div>
 </article>
